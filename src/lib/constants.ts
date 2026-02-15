@@ -25,6 +25,7 @@ export const navLinks = [
     { href: '/assistance', label: 'Assistance' },
     { href: '/about', label: 'About Us' },
     { href: '/contact', label: 'Contact' },
+    { href: '/feedback', label: 'Feedback' },
 ];
 
 // Loan types
@@ -65,12 +66,12 @@ export const loanTypes = [
 
 // Bank partners placeholder
 export const bankPartners = [
-    { id: 'hdfc', name: 'HDFC Bank', logo: '/banks/hdfc.svg', minRate: 10.5, maxTenure: 60 },
-    { id: 'icici', name: 'ICICI Bank', logo: '/banks/icici.svg', minRate: 10.75, maxTenure: 60 },
-    { id: 'sbi', name: 'State Bank of India', logo: '/banks/sbi.svg', minRate: 10.25, maxTenure: 84 },
-    { id: 'axis', name: 'Axis Bank', logo: '/banks/axis.svg', minRate: 10.49, maxTenure: 60 },
-    { id: 'kotak', name: 'Kotak Mahindra', logo: '/banks/kotak.svg', minRate: 10.99, maxTenure: 60 },
-    { id: 'bajaj', name: 'Bajaj Finserv', logo: '/banks/bajaj.svg', minRate: 11.0, maxTenure: 60 },
+    { id: 'hdfc', name: 'HDFC Bank', logo: '/banks/hdfc.svg', minRate: 10.5, maxTenure: 60, tags: ['personal', 'home', 'can_loan'] },
+    { id: 'icici', name: 'ICICI Bank', logo: '/banks/icici.svg', minRate: 10.75, maxTenure: 60, tags: ['personal', 'vehicle'] },
+    { id: 'sbi', name: 'State Bank of India', logo: '/banks/sbi.svg', minRate: 10.25, maxTenure: 84, tags: ['home', 'education'] },
+    { id: 'axis', name: 'Axis Bank', logo: '/banks/axis.svg', minRate: 10.49, maxTenure: 60, tags: ['personal', 'business'] },
+    { id: 'kotak', name: 'Kotak Mahindra', logo: '/banks/kotak.svg', minRate: 10.99, maxTenure: 60, tags: ['personal', 'business'] },
+    { id: 'bajaj', name: 'Bajaj Finserv', logo: '/banks/bajaj.svg', minRate: 11.0, maxTenure: 60, tags: ['personal', 'consumer_durable'] },
 ];
 
 // Testimonials placeholder

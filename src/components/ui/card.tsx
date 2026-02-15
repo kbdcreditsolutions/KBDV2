@@ -1,40 +1,42 @@
+"use client";
+
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-    variant?: 'default' | 'elevated' | 'bordered' | 'surface';
+    variant?: 'default' | 'surface' | 'primary';
     hover?: boolean;
-    padding?: 'none' | 'sm' | 'md' | 'lg';
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-    ({ className, variant = 'default', hover = false, padding = 'md', children, ...props }, ref) => {
+    ({ className, variant = 'default', hover = false, children, ...props }, ref) => {
+        const CardComponent = hover ? motion.div : 'div';
+        const motionProps = hover ? {
+            whileHover: { y: -5 },
+            transition: { type: 'spring', stiffness: 300 }
+        } : {};
+
         return (
-            <div
+            // @ts-ignore
+            <CardComponent
                 ref={ref}
                 className={cn(
-                    'rounded-lg',
+                    'rounded-2xl border transition-all duration-300',
                     {
                         // Variants
-                        'bg-white shadow-card': variant === 'default',
-                        'bg-white shadow-elevated': variant === 'elevated',
-                        'bg-white border border-gray-200': variant === 'bordered',
-                        'bg-surface-200': variant === 'surface',
-                        // Hover effect
-                        'transition-all duration-200 hover:shadow-elevated hover:-translate-y-0.5 cursor-pointer':
-                            hover,
-                        // Padding
-                        'p-0': padding === 'none',
-                        'p-4': padding === 'sm',
-                        'p-6': padding === 'md',
-                        'p-8': padding === 'lg',
+                        'bg-white border-gray-100 shadow-sm': variant === 'default',
+                        'bg-surface-100 border-transparent': variant === 'surface',
+                        'bg-primary text-white border-transparent': variant === 'primary',
+                        // Hover
+                        'hover:shadow-lg hover:border-primary/20': hover,
                     },
                     className
                 )}
                 {...props}
             >
                 {children}
-            </div>
+            </CardComponent>
         );
     }
 );

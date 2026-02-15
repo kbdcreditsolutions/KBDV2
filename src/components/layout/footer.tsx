@@ -10,6 +10,7 @@ import {
     Linkedin,
     Instagram,
 } from 'lucide-react';
+import { KBDLogo } from '@/components/ui/kbd-logo';
 
 const footerLinks = {
     services: [
@@ -44,10 +45,7 @@ export const Footer: React.FC = () => {
                     {/* Brand Column */}
                     <div className="lg:col-span-1">
                         <Link href="/" className="inline-block">
-                            <span className="text-2xl font-bold">
-                                <span className="text-white">KBD</span>
-                                <span className="text-accent"> Credit</span>
-                            </span>
+                            <KBDLogo variant="full" theme="light" size="md" />
                         </Link>
                         <p className="mt-4 text-sm text-white/70 leading-relaxed">
                             {siteConfig.description}

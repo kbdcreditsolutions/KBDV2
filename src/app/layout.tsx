@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Manrope } from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { WebVitals } from '@/components/analytics/web-vitals';
+import { CookieConsent } from '@/components/ui/cookie-consent';
+import { ChatWidget } from '@/components/chat/chat-widget';
 import '@/styles/globals.css';
 
 const inter = Inter({
@@ -79,7 +83,36 @@ export default function RootLayout({
     return (
         <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
             <body className="min-h-screen bg-white antialiased">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'FinancialService',
+                            name: 'KBD Credit Solutions',
+                            url: 'https://kbdcredit.com',
+                            logo: 'https://kbdcredit.com/logo.png',
+                            sameAs: [
+                                'https://facebook.com/kbdcredit',
+                                'https://twitter.com/kbdcredit',
+                                'https://linkedin.com/company/kbdcredit',
+                            ],
+                            address: {
+                                '@type': 'PostalAddress',
+                                streetAddress: '123 Finance Street',
+                                addressLocality: 'Mumbai',
+                                addressRegion: 'MH',
+                                postalCode: '400001',
+                                addressCountry: 'IN',
+                            },
+                        }),
+                    }}
+                />
                 {children}
+                <GoogleAnalytics gaId="G-XYZ" />
+                <WebVitals />
+                <CookieConsent />
+                <ChatWidget />
             </body>
         </html>
     );

@@ -39,7 +39,7 @@ Thumbs.db
 Desktop.ini
 
 # Agent folder (AI assistant configs)
-.agent/
+#.agent/
 
 # Debug
 .pnpm-debug.log*

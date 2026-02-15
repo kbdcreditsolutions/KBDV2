@@ -104,6 +104,103 @@ export default function AboutPage() {
                     </div>
                 </Section>
 
+                {/* Testimonials */}
+                <Section background="surface" size="md">
+                    <SectionHeader
+                        title="What Our Customers Say"
+                        subtitle="Join thousands of satisfied customers who found their perfect loan"
+                    />
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {[
+                            {
+                                name: 'Priya Sharma',
+                                location: 'Mumbai',
+                                role: 'Software Engineer',
+                                content: 'KBD Credit Solutions made my home loan process incredibly smooth. The comparison tool helped me save 0.5% on interest rate!',
+                                image: '/testimonials/1.jpg'
+                            },
+                            {
+                                name: 'Rajesh Kumar',
+                                location: 'Delhi',
+                                role: 'Business Owner',
+                                content: 'As a business owner, getting a loan can be tough. The team guided me through the documentation and I got funded in 4 days.',
+                                image: '/testimonials/2.jpg'
+                            },
+                            {
+                                name: 'Anita Desai',
+                                location: 'Bangalore',
+                                role: 'Doctor',
+                                content: 'Transparency was my biggest concern. KBD listed all charges upfront, and there were no surprises during disbursement.',
+                                image: '/testimonials/3.jpg'
+                            },
+                        ].map((testimonial, i) => (
+                            <Card key={i} className="h-full">
+                                <CardContent className="p-8">
+                                    <div className="flex gap-1 mb-4">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <span key={star} className="text-yellow-400">★</span>
+                                        ))}
+                                    </div>
+                                    <p className="text-gray-600 mb-6 italic">"{testimonial.content}"</p>
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                                            {testimonial.name[0]}
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                                            <p className="text-sm text-gray-500">{testimonial.role}, {testimonial.location}</p>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                </Section>
+
+                {/* Leadership */}
+                <Section background="surface" size="md">
+                    <SectionHeader
+                        title="Meet Our Leadership"
+                        subtitle="The visionaries behind KBD Credit Solutions"
+                    />
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {[
+                            { name: 'Kishore BD', role: 'Founder & CEO', image: '/team/founder.jpg' },
+                            { name: 'Aishwarya P', role: 'Chief Operating Officer', image: '/team/coo.jpg' },
+                            { name: 'Rahul Sharma', role: 'Head of Technology', image: '/team/cto.jpg' },
+                        ].map((leader) => (
+                            <Card key={leader.name} className="text-center overflow-hidden group">
+                                <div className="h-64 bg-gray-200 w-full relative">
+                                    <div className="absolute inset-0 flex items-center justify-center text-gray-400 bg-gray-100">
+                                        <Users className="w-16 h-16 opacity-50" />
+                                    </div>
+                                    {/* <Image src={leader.image} alt={leader.name} fill className="object-cover" /> */}
+                                </div>
+                                <CardContent className="p-6">
+                                    <h3 className="text-xl font-bold text-gray-900">{leader.name}</h3>
+                                    <p className="text-accent font-medium">{leader.role}</p>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                </Section>
+
+                {/* Presence */}
+                <Section background="white" size="md">
+                    <div className="text-center mb-12">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Presence</h2>
+                        <p className="text-gray-600">Serving customers across major Indian cities</p>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        {['Mumbai', 'Delhi NCR', 'Bangalore', 'Hyderabad', 'Chennai', 'Pune', 'Kolkata', 'Ahmedabad', 'Jaipur', 'Lucknow', 'Indore', 'Chandigarh'].map((city) => (
+                            <div key={city} className="p-4 rounded-lg bg-gray-50 text-center hover:bg-primary/5 hover:text-primary transition-colors cursor-pointer border border-transparent hover:border-primary/20">
+                                <span className="font-semibold">{city}</span>
+                            </div>
+                        ))}
+                    </div>
+                </Section>
+
+
                 {/* Values */}
                 <Section background="surface" size="md">
                     <SectionHeader

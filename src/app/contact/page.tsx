@@ -6,6 +6,12 @@ import { Section } from '@/components/layout';
 import { Card, CardContent, Button, Input, Select } from '@/components/ui';
 import { siteConfig } from '@/lib/constants';
 import { Phone, Mail, MapPin, MessageCircle, Clock, Send, CheckCircle } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+const LazyMap = dynamic(() => import('@/components/ui/lazy-map'), {
+    loading: () => <div className="w-full h-full bg-gray-100 animate-pulse" />,
+    ssr: false
+});
 
 export default function ContactPage() {
     const [isSubmitted, setIsSubmitted] = React.useState(false);
@@ -13,6 +19,14 @@ export default function ContactPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Spam check
+        const honeypot = (e.currentTarget as HTMLFormElement)['website-url'].value;
+        if (honeypot) {
+            // Silently fail for bots
+            return;
+        }
+
         setIsLoading(true);
         // Simulate form submission
         await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -213,6 +227,16 @@ export default function ContactPage() {
                         </div>
                     </div>
                 </Section>
+
+                {/* Map */}
+                <section className="h-[400px] w-full bg-gray-100 relative grayscale hover:grayscale-0 transition-all duration-500">
+                    <LazyMap
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823277!2d72.74109995701775!3d19.08219783958221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1709664555000!5m2!1sen!2sin"
+                        title="KBD Credit Solutions Office"
+                        className="w-full h-full"
+                    />
+                </section>
+
             </main>
             <Footer />
         </>

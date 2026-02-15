@@ -42,7 +42,7 @@ export const LoanCategories: React.FC = () => {
                                     hover
                                     className="h-full group cursor-pointer"
                                 >
-                                    <CardContent>
+                                    <CardContent className="h-full flex flex-col">
                                         {/* Icon */}
                                         <div className="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-accent/10 transition-colors">
                                             <Icon className="w-7 h-7 text-primary group-hover:text-accent transition-colors" />
@@ -52,12 +52,12 @@ export const LoanCategories: React.FC = () => {
                                         <h3 className="text-lg font-semibold text-gray-900 mb-1">
                                             {loan.name}
                                         </h3>
-                                        <p className="text-sm text-gray-500 mb-4">
+                                        <p className="text-sm text-gray-500 mb-4 flex-1">
                                             {loan.description}
                                         </p>
 
                                         {/* Amount Range */}
-                                        <div className="text-sm">
+                                        <div className="text-sm mt-auto pt-4 border-t border-dashed border-gray-100">
                                             <span className="text-gray-400">Up to </span>
                                             <span className="font-semibold text-primary">
                                                 {formatCurrency(loan.maxAmount)}

@@ -13,3 +13,10 @@ export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 export { Progress, StepProgress } from './progress';
 
 export { Badge } from './badge';
+export * from './switch';
+export * from './modal';
+export * from './accordion';
+export * from './timeline';
+
+
+

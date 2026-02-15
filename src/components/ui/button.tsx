@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
@@ -44,6 +46,8 @@ export interface ButtonProps
     rightIcon?: React.ReactNode;
 }
 
+import { motion } from 'framer-motion';
+
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     (
         {
@@ -59,11 +63,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         },
         ref
     ) => {
+        const MotionButton = motion.button as any;
+
         return (
-            <button
+            <MotionButton
                 className={cn(buttonVariants({ variant, size, className }))}
-                ref={ref}
+                ref={ref as any}
                 disabled={disabled || isLoading}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 {...props}
             >
                 {isLoading ? (
@@ -73,7 +82,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 )}
                 {children}
                 {!isLoading && rightIcon}
-            </button>
+            </MotionButton>
         );
     }
 );

@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
@@ -7,6 +9,8 @@ interface SectionProps extends React.HTMLAttributes<HTMLElement> {
     container?: 'narrow' | 'default' | 'wide' | 'none';
     background?: 'white' | 'surface' | 'primary' | 'gradient';
 }
+
+import { motion } from 'framer-motion';
 
 export const Section = React.forwardRef<HTMLElement, SectionProps>(
     (
@@ -23,7 +27,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
     ) => {
         return (
             <Component
-                ref={ref as React.Ref<HTMLElement>}
+                ref={ref as any}
                 className={cn(
                     // Vertical Padding
                     {
@@ -49,7 +53,14 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
                         'container-wide': container === 'wide',
                     })}
                 >
-                    {children}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        {children}
+                    </motion.div>
                 </div>
             </Component>
         );

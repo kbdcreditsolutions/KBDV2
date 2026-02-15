@@ -4,7 +4,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { navLinks, siteConfig } from '@/lib/constants';
-import { Menu, X, ChevronRight, Wallet } from 'lucide-react';
+import { Menu, X, ChevronRight } from 'lucide-react';
+import { KBDLogo } from '@/components/ui/kbd-logo';
 
 export const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -43,13 +44,8 @@ export const Navbar: React.FC = () => {
                 <nav className="max-w-[1400px] mx-auto px-6 lg:px-8">
                     <div className="flex h-20 lg:h-24 items-center justify-between">
                         {/* Logo */}
-                        <Link href="/" className="flex items-center space-x-2">
-                            <div className="w-10 h-10 bg-[#FFC857] rounded-lg flex items-center justify-center">
-                                <Wallet className="w-5 h-5 text-[#050A18]" />
-                            </div>
-                            <span className="text-2xl font-extrabold tracking-tighter text-white">
-                                KBD<span className="text-[#FFC857]">CREDIT</span>
-                            </span>
+                        <Link href="/" className="flex items-center">
+                            <KBDLogo variant="full" theme="light" size="md" />
                         </Link>
 
                         {/* Desktop Navigation */}
