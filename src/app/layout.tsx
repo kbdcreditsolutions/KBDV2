@@ -19,6 +19,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL('https://kbdcredit.com'),
     title: {
         default: 'KBD Credit Solutions - Empowering Your Finances',
         template: '%s | KBD Credit Solutions',
