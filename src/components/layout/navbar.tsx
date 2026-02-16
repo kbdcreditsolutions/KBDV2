@@ -50,7 +50,7 @@ export const Navbar: React.FC = () => {
 
                         {/* Desktop Navigation */}
                         <div className="hidden lg:flex items-center space-x-10 text-[13px] font-bold uppercase tracking-[0.2em] text-slate-400">
-                            {navLinks.slice(0, 5).map((link) => (
+                            {navLinks.slice(0, 6).map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}

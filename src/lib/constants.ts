@@ -24,6 +24,7 @@ export const navLinks = [
     { href: '/partners', label: 'Bank Partners' },
     { href: '/assistance', label: 'Assistance' },
     { href: '/about', label: 'About Us' },
+    { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Contact' },
     { href: '/feedback', label: 'Feedback' },
 ];
