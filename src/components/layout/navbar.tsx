@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { navLinks, siteConfig } from '@/lib/constants';
 import { Menu, X, ChevronRight } from 'lucide-react';
@@ -10,6 +11,8 @@ import { KBDLogo } from '@/components/ui/kbd-logo';
 export const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [isScrolled, setIsScrolled] = React.useState(false);
+    const pathname = usePathname();
+    const isHomepage = pathname === '/';
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -31,12 +34,16 @@ export const Navbar: React.FC = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    // On homepage: transparent at top, dark when scrolled
+    // On all other pages: always dark background so white logo/text stays visible
+    const showDarkBg = isScrolled || !isHomepage;
+
     return (
         <>
             <header
                 className={cn(
                     'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-                    isScrolled
+                    showDarkBg
                         ? 'bg-[#050A18]/95 backdrop-blur-md border-b border-white/5'
                         : 'bg-transparent'
                 )}
