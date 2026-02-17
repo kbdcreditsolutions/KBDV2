@@ -5,24 +5,33 @@ import { Button } from '@/components/ui';
 import { MessageSquare, X, Send, Bot, User, Loader2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-
-interface ChatMessage {
-    id: string;
-    role: 'user' | 'assistant';
-    content: string;
-}
+import { useChat } from '@ai-sdk/react';
 
 export function ChatWidget() {
     const [isOpen, setIsOpen] = React.useState(false);
-    const [input, setInput] = React.useState('');
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [messages, setMessages] = React.useState<ChatMessage[]>([
-        {
-            id: 'welcome',
-            role: 'assistant',
-            content: "Hi there! 👋 I'm KBD's virtual assistant. I can help you with loan information, interest rates, eligibility, and more. What would you like to know?",
+    const { messages, append, isLoading } = useChat({
+        api: '/api/chat',
+        initialMessages: [
+            {
+                id: 'welcome',
+                role: 'assistant',
+                content: "Hi there! 👋 I'm KBD's AI Assistant. I can help you with loan information, interest rates, eligibility, and more. What would you like to know?",
+            },
+        ],
+        onResponse: (response: any) => {
+            console.log('API Response:', response);
         },
-    ]);
+        onFinish: (message: any) => {
+            console.log('Stream Finished:', message);
+        },
+        onError: (error: any) => {
+            console.error('Chat Error:', error);
+        }
+    } as any) as any;
+
+    console.log('Current Messages:', messages);
+    console.log('Is Loading:', isLoading);
+    const [input, setInput] = React.useState(''); // Manual input state
     const messagesEndRef = React.useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
@@ -33,53 +42,25 @@ export function ChatWidget() {
         scrollToBottom();
     }, [messages, isOpen]);
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInput(e.target.value);
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!input.trim() || isLoading) return;
-
-        const userMessage: ChatMessage = {
-            id: `user-${Date.now()}`,
-            role: 'user',
-            content: input.trim(),
-        };
-
-        // Add user message and clear input
-        setMessages(prev => [...prev, userMessage]);
-        setInput('');
-        setIsLoading(true);
+        console.log('Submitting:', input);
+        if (!input.trim() || isLoading) {
+            console.log('Submit blocked: empty or loading');
+            return;
+        }
 
         try {
-            const response = await fetch('/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    messages: [...messages, userMessage],
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to get response');
-            }
-
-            const data = await response.json();
-
-            const assistantMessage: ChatMessage = {
-                id: `assistant-${Date.now()}`,
-                role: 'assistant',
-                content: data.content || "I'm sorry, I couldn't process that. Please try asking about our loan products, interest rates, or eligibility.",
-            };
-
-            setMessages(prev => [...prev, assistantMessage]);
-        } catch (error) {
-            console.error('Chat error:', error);
-            const errorMessage: ChatMessage = {
-                id: `error-${Date.now()}`,
-                role: 'assistant',
-                content: "I apologize, I'm having trouble right now. You can reach us directly at **contact@kbdcredit.com** or call **+91 1234567890** for immediate assistance.",
-            };
-            setMessages(prev => [...prev, errorMessage]);
-        } finally {
-            setIsLoading(false);
+            console.log('Calling append...');
+            await append({ role: 'user', content: input });
+            console.log('Append called successfully');
+            setInput('');
+        } catch (err) {
+            console.error('Append failed:', err);
         }
     };
 
@@ -100,7 +81,7 @@ export function ChatWidget() {
                                     <Bot className="h-5 w-5" />
                                 </div>
                                 <div>
-                                    <h3 className="text-sm font-semibold">KBD Assistant</h3>
+                                    <h3 className="text-sm font-semibold">KBD AI Assistant</h3>
                                     <p className="text-xs text-white/70">Online</p>
                                 </div>
                             </div>
@@ -114,7 +95,7 @@ export function ChatWidget() {
 
                         {/* Messages Area */}
                         <div className="flex-1 overflow-y-auto bg-gray-50 p-4 space-y-4">
-                            {messages.map((msg) => (
+                            {messages.map((msg: any) => (
                                 <div
                                     key={msg.id}
                                     className={cn(
@@ -140,7 +121,7 @@ export function ChatWidget() {
                                     </div>
                                 </div>
                             ))}
-                            {isLoading && (
+                            {isLoading && messages[messages.length - 1]?.role === 'user' && (
                                 <div className="flex gap-2 max-w-[85%]">
                                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white">
                                         <Bot className="h-5 w-5" />
@@ -162,7 +143,7 @@ export function ChatWidget() {
                                 <input
                                     type="text"
                                     value={input}
-                                    onChange={(e) => setInput(e.target.value)}
+                                    onChange={handleInputChange}
                                     placeholder="Type a message..."
                                     className="flex-1 rounded-full border border-gray-200 bg-gray-50 px-4 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                                     disabled={isLoading}
@@ -171,7 +152,7 @@ export function ChatWidget() {
                                     type="submit"
                                     size="icon"
                                     variant="primary"
-                                    disabled={!input.trim() || isLoading}
+                                    disabled={!input?.trim() || isLoading}
                                     className="h-9 w-9 rounded-full shrink-0"
                                 >
                                     <Send className="h-4 w-4" />
