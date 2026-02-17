@@ -1,358 +1,308 @@
 "use client";
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Navbar, Footer, Section } from '@/components/layout'; // Assumes Section is exported
-import { Card, CardContent, Button, Input, Select, Progress, Badge } from '@/components/ui'; // Assumes generic components
-import { ArrowLeft, ArrowRight, CheckCircle, Wallet, Building, MapPin, CreditCard, Target, ChevronRight } from 'lucide-react';
-import { formatCurrency } from '@/lib/utils';
-import Link from 'next/link';
+import { useState } from "react";
+import { Navbar, Footer } from '@/components/layout';
+import { Slider } from "@/components/ui/slider";
+import { Modal } from "@/components/ui/modal";
+import { Shield, TrendingUp, ArrowUpRight, Activity, LineChart, CalendarClock } from "lucide-react";
+import { motion } from "framer-motion";
 
-// Animation variants
-const slideVariants = {
-    enter: (direction: number) => ({
-        x: direction > 0 ? 50 : -50,
-        opacity: 0,
-    }),
-    center: {
-        x: 0,
-        opacity: 1,
-    },
-    exit: (direction: number) => ({
-        x: direction < 0 ? 50 : -50,
-        opacity: 0,
-    }),
-};
+export default function LoanDashboard() {
+    // State
+    const [amount, setAmount] = useState(1500000); // 15 Lakhs default
+    const [rate, setRate] = useState(10.5); // 10.5% default
+    const [tenure, setTenure] = useState(60); // 60 Months default
+    const [isScheduleOpen, setIsScheduleOpen] = useState(false);
 
-export default function EstimatorPage() {
-    const [step, setStep] = useState(1);
-    const [direction, setDirection] = useState(0);
-    const [isComplete, setIsComplete] = useState(false);
-    const totalSteps = 5;
+    // EMI Calculation
+    const calculateEMI = () => {
+        const monthlyRate = rate / 12 / 100;
+        const emi =
+            (amount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
+            (Math.pow(1 + monthlyRate, tenure) - 1);
+        return Math.round(emi);
+    };
 
-    const [formData, setFormData] = useState({
-        income: '',
-        employment: '',
-        city: '',
-        creditScore: '',
-        purpose: '',
-    });
+    const emi = calculateEMI();
 
-    const handleNext = () => {
-        if (step < totalSteps) {
-            setDirection(1);
-            setStep(step + 1);
-        } else {
-            setIsComplete(true);
+    // Amortization Schedule Calculation
+    const generateSchedule = () => {
+        const schedule = [];
+        let balance = amount;
+        const monthlyRate = rate / 12 / 100;
+        const monthlyEMI = emi;
+
+        for (let i = 1; i <= tenure; i++) {
+            const interest = balance * monthlyRate;
+            const principal = monthlyEMI - interest;
+            const closingBalance = balance - principal;
+
+            schedule.push({
+                month: i,
+                opening: balance,
+                emi: monthlyEMI,
+                interest: interest,
+                principal: principal,
+                closing: closingBalance > 0 ? closingBalance : 0
+            });
+            balance = closingBalance;
         }
+        return schedule;
     };
 
-    const handleBack = () => {
-        if (step > 1) {
-            setDirection(-1);
-            setStep(step - 1);
-        }
-    };
-
-    const updateForm = (key: string, value: string) => {
-        setFormData(prev => ({ ...prev, [key]: value }));
-    };
-
-    // Step components
-    const renderStep = () => {
-        switch (step) {
-            case 1:
-                return (
-                    <div className="space-y-6">
-                        <div className="text-center mb-8">
-                            <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Wallet className="w-8 h-8 text-blue-600" />
-                            </div>
-                            <h2 className="text-2xl font-bold text-gray-900">What's your monthly income?</h2>
-                            <p className="text-gray-500 mt-2">This helps us calculate your eligibility.</p>
-                        </div>
-                        <div className="max-w-md mx-auto">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Monthly Income (₹)</label>
-                            <Input
-                                type="number"
-                                placeholder="e.g. 50000"
-                                value={formData.income}
-                                onChange={(e) => updateForm('income', e.target.value)}
-                                className="text-lg py-6"
-                            />
-                        </div>
-                    </div>
-                );
-            case 2:
-                return (
-                    <div className="space-y-6">
-                        <div className="text-center mb-8">
-                            <div className="w-16 h-16 bg-purple-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Building className="w-8 h-8 text-purple-600" />
-                            </div>
-                            <h2 className="text-2xl font-bold text-gray-900">Employment Type</h2>
-                            <p className="text-gray-500 mt-2">Banks offer different rates based on profession.</p>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-                            {['Salaried', 'Self-Employed', 'Business Owner', 'Student', 'Retired'].map((type) => (
-                                <button
-                                    key={type}
-                                    onClick={() => updateForm('employment', type)}
-                                    className={`p-6 border rounded-xl text-left transition-all ${formData.employment === type
-                                            ? 'border-blue-600 bg-blue-50 ring-2 ring-blue-600 ring-offset-2'
-                                            : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
-                                        }`}
-                                >
-                                    <span className="font-semibold block">{type}</span>
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                );
-            case 3:
-                return (
-                    <div className="space-y-6">
-                        <div className="text-center mb-8">
-                            <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <MapPin className="w-8 h-8 text-green-600" />
-                            </div>
-                            <h2 className="text-2xl font-bold text-gray-900">Where do you live?</h2>
-                            <p className="text-gray-500 mt-2">Location affects loan offers.</p>
-                        </div>
-                        <div className="max-w-md mx-auto">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
-                            <select
-                                className="w-full p-4 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                value={formData.city}
-                                onChange={(e) => updateForm('city', e.target.value)}
-                            >
-                                <option value="">Select City</option>
-                                <option value="mumbai">Mumbai</option>
-                                <option value="delhi">Delhi</option>
-                                <option value="bangalore">Bangalore</option>
-                                <option value="hyderabad">Hyderabad</option>
-                                <option value="chennai">Chennai</option>
-                                <option value="pune">Pune</option>
-                            </select>
-                        </div>
-                    </div>
-                );
-            case 4:
-                return (
-                    <div className="space-y-6">
-                        <div className="text-center mb-8">
-                            <div className="w-16 h-16 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <CreditCard className="w-8 h-8 text-yellow-600" />
-                            </div>
-                            <h2 className="text-2xl font-bold text-gray-900">Estimated Credit Score</h2>
-                            <p className="text-gray-500 mt-2">It's okay if you don't know the exact number.</p>
-                        </div>
-                        <div className="space-y-3 max-w-md mx-auto">
-                            {[
-                                { label: 'Excellent (750+)', value: 'excellent' },
-                                { label: 'Good (700-749)', value: 'good' },
-                                { label: 'Average (650-699)', value: 'average' },
-                                { label: 'Low (< 650)', value: 'low' },
-                                { label: "Don't Know", value: 'unknown' }
-                            ].map((option) => (
-                                <button
-                                    key={option.value}
-                                    onClick={() => updateForm('creditScore', option.value)}
-                                    className={`w-full p-4 border rounded-lg flex items-center justify-between transition-all ${formData.creditScore === option.value
-                                            ? 'border-blue-600 bg-blue-50'
-                                            : 'border-gray-200 hover:bg-gray-50'
-                                        }`}
-                                >
-                                    <span className="font-medium">{option.label}</span>
-                                    {formData.creditScore === option.value && <CheckCircle className="w-5 h-5 text-blue-600" />}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                );
-            case 5:
-                return (
-                    <div className="space-y-6">
-                        <div className="text-center mb-8">
-                            <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Target className="w-8 h-8 text-red-600" />
-                            </div>
-                            <h2 className="text-2xl font-bold text-gray-900">Purpose of Loan</h2>
-                            <p className="text-gray-500 mt-2">Help us find the right product for you.</p>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
-                            {[
-                                'Medical Emergency', 'Wedding', 'Home Renovation',
-                                'Debt Consolidation', 'Travel', 'Education', 'Business', 'Other'
-                            ].map((p) => (
-                                <button
-                                    key={p}
-                                    onClick={() => updateForm('purpose', p)}
-                                    className={`p-4 border rounded-xl text-center transition-all ${formData.purpose === p
-                                            ? 'border-blue-600 bg-blue-50 font-semibold'
-                                            : 'border-gray-200 hover:border-blue-300'
-                                        }`}
-                                >
-                                    {p}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                );
-            default:
-                return null;
-        }
-    };
-
-    if (isComplete) {
-        return (
-            <>
-                <Navbar />
-                <main className="pt-20 min-h-screen bg-gray-50 pb-20">
-                    <div className="container-md pt-10">
-                        <div className="text-center mb-10">
-                            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <CheckCircle className="w-10 h-10 text-green-600" />
-                            </div>
-                            <h1 className="text-3xl font-bold text-gray-900 mb-2">Great matches found!</h1>
-                            <p className="text-lg text-gray-600">Based on your profile, here are the best offers for you.</p>
-                        </div>
-
-                        <div className="space-y-6 max-w-3xl mx-auto">
-                            {/* Mock Result Card 1 */}
-                            <Card className="overflow-hidden border-2 border-primary/20 bg-white">
-                                <div className="bg-primary/5 p-4 border-b flex justify-between items-center">
-                                    <span className="font-semibold text-primary flex items-center gap-2">
-                                        <Badge variant="default" className="bg-primary">Best Match</Badge>
-                                        HDFC Bank Personal Loan
-                                    </span>
-                                    <span className="text-sm text-gray-500">Fastest Approval</span>
-                                </div>
-                                <CardContent className="p-6">
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
-                                        <div>
-                                            <p className="text-sm text-gray-500 mb-1">Interest Rate</p>
-                                            <p className="text-2xl font-bold text-accent">10.50%</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-sm text-gray-500 mb-1">Max Amount</p>
-                                            <p className="text-xl font-semibold">₹40 Lakhs</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-sm text-gray-500 mb-1">Tenure</p>
-                                            <p className="text-lg font-medium">Up to 5 Yrs</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-sm text-gray-500 mb-1">EMI Starting</p>
-                                            <p className="text-lg font-medium">₹2,149/L</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-col sm:flex-row gap-4">
-                                        <Button className="flex-1" size="lg">Apply Now</Button>
-                                        <Button variant="outline" className="flex-1" size="lg">View Details</Button>
-                                    </div>
-                                </CardContent>
-                            </Card>
-
-                            {/* Mock Result Card 2 */}
-                            <Card className="overflow-hidden bg-white">
-                                <div className="p-6">
-                                    <div className="flex justify-between items-start mb-6">
-                                        <div>
-                                            <h3 className="text-xl font-bold text-gray-900">ICICI Bank Personal Loan</h3>
-                                            <p className="text-sm text-gray-500">Pre-approved offers available</p>
-                                        </div>
-                                        <Badge variant="outline">Low Processing Fee</Badge>
-                                    </div>
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
-                                        <div>
-                                            <p className="text-sm text-gray-500 mb-1">Interest Rate</p>
-                                            <p className="text-2xl font-bold text-gray-900">10.75%</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-sm text-gray-500 mb-1">Max Amount</p>
-                                            <p className="text-xl font-semibold">₹35 Lakhs</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-sm text-gray-500 mb-1">Tenure</p>
-                                            <p className="text-lg font-medium">Up to 6 Yrs</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-sm text-gray-500 mb-1">EMI Starting</p>
-                                            <p className="text-lg font-medium">₹2,189/L</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-4">
-                                        <Button variant="primary" className="flex-1">Apply Now</Button>
-                                    </div>
-                                </div>
-                            </Card>
-                        </div>
-
-                        <div className="mt-12 text-center">
-                            <Link href="/loans" className="text-primary hover:underline font-medium flex items-center justify-center gap-2">
-                                <ArrowLeft className="w-4 h-4" />
-                                View all loan offers
-                            </Link>
-                        </div>
-                    </div>
-                </main>
-                <Footer />
-            </>
-        );
-    }
+    // Formatters
+    const formatCurrency = (val: number) =>
+        new Intl.NumberFormat("en-IN", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 0,
+        }).format(val);
 
     return (
         <>
             <Navbar />
-            <main className="pt-20 min-h-screen bg-gray-50">
-                <div className="container-md py-12">
-                    {/* Progress Bar */}
-                    <div className="mb-12 max-w-2xl mx-auto">
-                        <div className="flex justify-between text-sm font-medium text-gray-500 mb-2">
-                            <span>Step {step} of {totalSteps}</span>
-                            <span>{Math.round((step / totalSteps) * 100)}% Completed</span>
+            <main className="min-h-screen bg-[#050A18] pt-24 pb-20 px-4 flex items-center justify-center font-sans overflow-hidden relative">
+
+                {/* --- Background Effects from Home --- */}
+                {/* Grid Pattern Background */}
+                <div
+                    className="fixed inset-0 pointer-events-none"
+                    style={{
+                        backgroundImage: `
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)
+            `,
+                        backgroundSize: '60px 60px',
+                    }}
+                />
+
+                {/* Sub Grid */}
+                <div
+                    className="fixed inset-0 pointer-events-none"
+                    style={{
+                        backgroundImage: `
+                linear-gradient(to right, rgba(255,200,87,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,200,87,0.02) 1px, transparent 1px)
+            `,
+                        backgroundSize: '15px 15px',
+                    }}
+                />
+
+                {/* Glow Effects */}
+                <div className="fixed top-[-10%] left-[-10%] w-[60%] h-[60%] bg-[#FFC857] rounded-full opacity-[0.15] blur-[140px] mix-blend-screen pointer-events-none" />
+                <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600 rounded-full opacity-[0.15] blur-[140px] mix-blend-screen pointer-events-none" />
+
+
+                {/* --- 3D Dashboard Card Container --- */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6 }}
+                    className="relative w-full max-w-[540px]"
+                >
+                    {/* Stacked Card Background (Depth Effect) */}
+                    <div
+                        className="absolute inset-0 rounded-[40px] z-0 bg-[rgba(11,17,33,0.4)] backdrop-blur-[10px] border border-white/[0.08] transform-none lg:[transform:perspective(1000px)_translateZ(-40px)_translateX(20px)_translateY(10px)_rotateY(-5deg)]"
+                    />
+
+                    {/* Main Dashboard Card (Glassmorphism & Tilt) */}
+                    <div
+                        className="relative z-10 rounded-[40px] p-8 lg:p-10 overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] bg-[rgba(11,17,33,0.7)] backdrop-blur-[20px] border border-white/[0.08] transform-none lg:[transform:perspective(1000px)_rotateY(-5deg)_rotateX(2deg)]"
+                    >
+                        {/* Glow Accent on Card */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFC857]/5 blur-3xl" />
+
+                        {/* Notch */}
+                        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/10 rounded-full" />
+
+                        {/* Header */}
+                        <div className="flex justify-between items-start mb-10">
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <Shield className="w-4 h-4 text-[#FFC857]" />
+                                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFC857]">
+                                        RBI REGULATED TERMINAL
+                                    </span>
+                                </div>
+                                <h1 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
+                                    Loan Dashboard
+                                </h1>
+                            </div>
+                            <div className="bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-md">
+                                <span className="text-[10px] font-mono font-bold text-emerald-400">
+                                    ACTIVE_TX
+                                </span>
+                            </div>
                         </div>
-                        <Progress value={(step / totalSteps) * 100} className="h-2" />
+
+                        {/* Main Limit Section */}
+                        <div className="mb-10">
+                            <div className="flex justify-between items-center mb-4">
+                                <span className="text-[11px] font-mono uppercase tracking-widest text-slate-400">
+                                    Eligibility Limit
+                                </span>
+                                <span className="text-2xl lg:text-3xl font-bold text-white font-mono tracking-tighter">
+                                    {formatCurrency(amount)}
+                                </span>
+                            </div>
+
+                            {/* Eligibility Slider (Using custom Slider) */}
+                            <Slider
+                                min={100000}
+                                max={5000000}
+                                step={10000}
+                                value={amount}
+                                onChange={(e) => setAmount(Number(e.target.value))}
+                                className="h-10"
+                            />
+
+                            <div className="flex justify-between mt-2">
+                                <span className="text-[9px] font-mono text-slate-600">0.00</span>
+                                <span className="text-[9px] font-mono text-slate-600">MAX_CAP</span>
+                            </div>
+                        </div>
+
+                        {/* Metrics Grid */}
+                        <div className="grid grid-cols-2 gap-5">
+                            {/* Interest Rate */}
+                            <div className="space-y-2 group">
+                                <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500">
+                                    Interest Rate
+                                </div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className="text-2xl font-bold text-white font-mono">{rate}</span>
+                                    <span className="text-[#FFC857] font-bold">%</span>
+                                </div>
+                                <Slider
+                                    min={8}
+                                    max={24}
+                                    step={0.1}
+                                    value={rate}
+                                    onChange={(e) => setRate(Number(e.target.value))}
+                                    className="py-2"
+                                />
+                                <div className="h-0.5 w-0 group-hover:w-full transition-all duration-500 opacity-50 bg-gradient-to-r from-[#FFC857] to-transparent" />
+                            </div>
+
+                            {/* Tenure */}
+                            <div className="space-y-2 group">
+                                <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500">
+                                    Term Tenure
+                                </div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className="text-2xl font-bold text-white font-mono">{tenure}</span>
+                                    <span className="text-[#FFC857] font-bold">MO</span>
+                                </div>
+                                <Slider
+                                    min={12}
+                                    max={84}
+                                    step={6}
+                                    value={tenure}
+                                    onChange={(e) => setTenure(Number(e.target.value))}
+                                    className="py-2"
+                                />
+                                <div className="h-0.5 w-0 group-hover:w-full transition-all duration-500 opacity-50 bg-gradient-to-r from-[#FFC857] to-transparent" />
+                            </div>
+
+                            {/* EMI Card */}
+                            <div className="col-span-2 space-y-2 bg-white/5 p-4 rounded-2xl border border-white/5 shadow-inner">
+                                <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500">
+                                    Monthly EMI Projection
+                                </div>
+                                <div className="flex items-baseline justify-between">
+                                    <span className="text-3xl font-extrabold text-[#FFC857] font-mono tracking-tighter">
+                                        {formatCurrency(emi)}
+                                    </span>
+                                    <LineChart className="w-6 h-6 text-slate-600" />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* View Schedule Button */}
+                        <button
+                            onClick={() => setIsScheduleOpen(true)}
+                            className="w-full mt-6 py-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 flex items-center justify-center gap-2 text-sm font-bold text-white transition-all group"
+                        >
+                            <CalendarClock className="w-4 h-4 text-[#FFC857] group-hover:scale-110 transition-transform" />
+                            View Amortization Schedule
+                        </button>
+
+                        {/* Footer */}
+                        <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
+                                    <TrendingUp className="w-4 h-4 text-blue-400" />
+                                </div>
+                                <span className="text-[10px] font-mono text-slate-500 uppercase leading-tight">
+                                    Data integrity verified via<br />secure node 812-X
+                                </span>
+                            </div>
+                            <div className="flex gap-1">
+                                <div className="w-1.5 h-1.5 bg-slate-700 rounded-full" />
+                                <div className="w-1.5 h-1.5 bg-slate-700 rounded-full" />
+                                <div className="w-1.5 h-1.5 bg-[#FFC857] rounded-full" />
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Step Content */}
-                    <Card className="max-w-3xl mx-auto shadow-lg border-none">
-                        <CardContent className="p-8 md:p-12 min-h-[400px] flex flex-col justify-between">
-                            <AnimatePresence mode="wait" custom={direction}>
-                                <motion.div
-                                    key={step}
-                                    custom={direction}
-                                    variants={slideVariants}
-                                    initial="enter"
-                                    animate="center"
-                                    exit="exit"
-                                    transition={{ type: "tween", duration: 0.3 }}
-                                    className="flex-1"
-                                >
-                                    {renderStep()}
-                                </motion.div>
-                            </AnimatePresence>
-
-                            <div className="flex justify-between items-center mt-12 pt-6 border-t">
-                                <Button
-                                    variant="ghost"
-                                    onClick={handleBack}
-                                    disabled={step === 1}
-                                    className={step === 1 ? 'invisible' : ''}
-                                >
-                                    <ArrowLeft className="w-4 h-4 mr-2" />
-                                    Back
-                                </Button>
-
-                                <Button onClick={handleNext} variant="primary" size="lg" className="px-8">
-                                    {step === totalSteps ? 'View Results' : 'Next'}
-                                    {step !== totalSteps && <ChevronRight className="w-4 h-4 ml-2" />}
-                                </Button>
+                    {/* Floating Live Offers Badge */}
+                    <motion.div
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="absolute -bottom-4 -left-4 z-20 px-5 py-3 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)] hidden lg:block"
+                    >
+                        <div className="text-[9px] font-mono text-slate-400 mb-1 leading-none">LIVE_OFFERS</div>
+                        <div className="flex items-center gap-1">
+                            <div className="text-2xl font-bold text-white">
+                                06<span className="text-xs text-emerald-400 ml-1">↑</span>
                             </div>
-                        </CardContent>
-                    </Card>
-                </div>
+                        </div>
+                    </motion.div>
+
+                </motion.div>
+
+                {/* Schedule Modal */}
+                <Modal isOpen={isScheduleOpen} onClose={() => setIsScheduleOpen(false)} title="Amortization Schedule">
+                    <div className="space-y-4">
+                        <div className="flex justify-between items-center bg-gray-50 p-4 rounded-xl">
+                            <div>
+                                <p className="text-sm text-gray-500">Loan Amount</p>
+                                <p className="font-bold text-lg text-gray-900">{formatCurrency(amount)}</p>
+                            </div>
+                            <div className="text-right">
+                                <p className="text-sm text-gray-500">Total Interest</p>
+                                <p className="font-bold text-lg text-[#FFC857]">
+                                    {formatCurrency((emi * tenure) - amount)}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="border rounded-xl overflow-hidden">
+                            <table className="w-full text-sm text-left">
+                                <thead className="bg-[#050A18] text-white">
+                                    <tr>
+                                        <th className="px-4 py-3 font-medium">Month</th>
+                                        <th className="px-4 py-3 font-medium">Principal</th>
+                                        <th className="px-4 py-3 font-medium">Interest</th>
+                                        <th className="px-4 py-3 font-medium">Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100">
+                                    {generateSchedule().map((row) => (
+                                        <tr key={row.month} className="hover:bg-gray-50">
+                                            <td className="px-4 py-3 font-medium text-gray-900">{row.month}</td>
+                                            <td className="px-4 py-3 text-emerald-600">₹{Math.round(row.principal).toLocaleString()}</td>
+                                            <td className="px-4 py-3 text-orange-600">₹{Math.round(row.interest).toLocaleString()}</td>
+                                            <td className="px-4 py-3 text-gray-500">₹{Math.round(row.closing).toLocaleString()}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </Modal>
+
             </main>
             <Footer />
         </>
