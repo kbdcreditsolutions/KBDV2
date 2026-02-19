@@ -23,7 +23,7 @@ export function ChatWidget() {
                         "phone": {},
                         "termsOfService": {},
                         "privacyPolicy": {},
-                        "color": "#14213D",
+                        "color": "#FCA311",
                         "themeMode": "dark",
                         "radius": 2
                     },
