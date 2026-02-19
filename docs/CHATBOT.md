@@ -2,24 +2,24 @@
 
 > **System:** KBD AI Assistant  
 > **Type:** RAG (Retrieval-Augmented Generation) Chatbot  
-> **Engine:** OpenAI GPT-4o-mini via Vercel AI SDK  
-> **Last Updated:** 17 February 2026
+> **Engine:** Google Gemini 1.5 Flash via Vercel AI SDK  
+> **Last Updated:** 18 February 2026
 
 ---
 
 ## 1. Quick Start
 
-The chatbot uses OpenAI to provide intelligent responses based on the company's knowledge base.
+The chatbot uses Google Gemini (High Intelligence, Free Tier) to provide intelligent responses based on the company's knowledge base.
 
 ### Prerequisites
 
-1.  **Environment Variables:** Ensure `.env` contains your OpenAI API key:
+1.  **Environment Variables:** Ensure `.env` contains your Google API key:
     ```bash
-    OPENAI_API_KEY=sk-proj-...
+    GOOGLE_GENERATIVE_AI_API_KEY=AIzaSy...
     ```
 2.  **Dependencies:**
     ```bash
-    npm install ai @ai-sdk/openai
+    npm install ai @ai-sdk/google
     ```
 
 ### Running Locally
@@ -33,7 +33,7 @@ npm run dev
 
 ## 2. Architecture
 
-The system uses [Vercel AI SDK](https://sdk.vercel.ai/docs) to stream responses from OpenAI.
+The system uses [Vercel AI SDK](https://sdk.vercel.ai/docs) to stream responses from Google Gemini.
 
 ```
 ┌──────────────────────────────┐      ┌──────────────────────────────┐
@@ -43,13 +43,13 @@ The system uses [Vercel AI SDK](https://sdk.vercel.ai/docs) to stream responses 
 │   │    ChatWidget        │   │ POST │   │    API Route         │   │
 │   │ (useChat hook)       │ ──┼──────┼─► │ (api/chat/route.ts)  │   │
 │   │  • Manages state     │   │ Stream│   │  • Inject Context    │   │
-│   │  • Renders stream    │ ◄─┼──────┼── │  • Call OpenAI       │   │
+│   │  • Renders stream    │ ◄─┼──────┼── │  • Call Google       │   │
 │   └──────────────────────┘   │      │   └──────────┬───────────┘   │
 └──────────────────────────────┘      └──────────────│───────────────┘
                                                      ▼
                                           ┌──────────────────────┐
-                                          │      OpenAI API      │
-                                          │    (GPT-4o-mini)     │
+                                          │      Google API      │
+                                          │  (Gemini 1.5 Flash)  │
                                           └──────────────────────┘
 ```
 
@@ -146,5 +146,6 @@ Handles the chat completion request.
 
 | Date | Change |
 |------|--------|
-| **2026-02-17** | **Major Upgrade:** Migrated from Rule-Based to AI (OpenAI + Vercel SDK). |
+| **2026-02-18** | **Migration:** Switched to Google Gemini 1.5 Flash (Free Tier) due to OpenAI quota limits. |
+| 2026-02-17 | Major Upgrade: Migrated from Rule-Based to AI (OpenAI + Vercel SDK). |
 | 2026-02-15 | Initial Rule-Based implementation. |

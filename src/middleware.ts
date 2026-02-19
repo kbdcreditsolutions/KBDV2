@@ -13,12 +13,12 @@ export function middleware(request: NextRequest) {
     // Content Security Policy
     const cspHeader = `
         default-src 'self';
-        script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com;
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        img-src 'self' blob: data: https://maps.googleapis.com https://maps.gstatic.com;
-        font-src 'self' https://fonts.gstatic.com;
-        frame-src 'self' https://www.google.com;
-        connect-src 'self' https://maps.googleapis.com;
+        script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://www.googletagmanager.com https://cdn.botpress.cloud https://files.bpcontent.cloud https://*.botpress.cloud;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.botpress.cloud;
+        img-src 'self' blob: data: https://maps.googleapis.com https://maps.gstatic.com https://files.bpcontent.cloud https://*.botpress.cloud;
+        font-src 'self' https://fonts.gstatic.com https://cdn.botpress.cloud;
+        frame-src 'self' https://www.google.com https://*.botpress.cloud;
+        connect-src 'self' https://maps.googleapis.com https://*.botpress.cloud wss://*.botpress.cloud https://www.google-analytics.com;
         object-src 'none';
         base-uri 'self';
         form-action 'self';
