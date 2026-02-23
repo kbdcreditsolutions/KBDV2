@@ -1,4 +1,3 @@
-
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -13,29 +12,18 @@ async function main() {
 
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY);
 
-
-    // ... (imports)
-
-    async function main() {
-        // ... (key check)
-        const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY);
-
-        // Not all SDK versions have listModels on the main class, usually it's on a manager or via REST.
-        // Let's stick to testing generation but catching the specific "location" error.
-        try {
-            console.log("Testing 'gemini-1.5-flash'...");
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-            await model.generateContent("Hello");
-            console.log("✅ Success!");
-        } catch (error: any) {
-            console.error("❌ Failed!");
-            console.error("Message:", error.message);
-            if (error.message.includes("location is not supported")) {
-                console.error("🚨 CRITICAL: Google Gemini is not available in your country/region.");
-            }
+    try {
+        console.log("Testing 'gemini-1.5-flash'...");
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        await model.generateContent("Hello");
+        console.log("✅ Success!");
+    } catch (error: any) {
+        console.error("❌ Failed!");
+        console.error("Message:", error.message);
+        if (error.message.includes("location is not supported")) {
+            console.error("🚨 CRITICAL: Google Gemini is not available in your country/region.");
         }
     }
-
 }
 
 main();
