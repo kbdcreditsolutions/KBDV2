@@ -3,7 +3,6 @@ import {
     Hero,
     HowItWorks,
     LoanCategories,
-    LoanEstimator,
     WhyKBD,
     Testimonials,
     CTASection,
@@ -17,7 +16,6 @@ export default function HomePage() {
                 <Hero />
                 <HowItWorks />
                 <LoanCategories />
-                <LoanEstimator />
                 <WhyKBD />
                 <Testimonials />
                 <CTASection />

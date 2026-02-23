@@ -1,11 +1,64 @@
 'use client';
 
 import * as React from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { Zap, Shield, TrendingUp, LineChart } from 'lucide-react';
+import { Zap, Shield, TrendingUp, LineChart, CalendarClock } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Slider } from '@/components/ui/slider';
+import { Modal } from '@/components/ui/modal';
 
 export const Hero: React.FC = () => {
+    // Loan Estimator State
+    const [amount, setAmount] = useState(1500000);
+    const [rate, setRate] = useState(10.5);
+    const [tenure, setTenure] = useState(60);
+    const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+
+    // EMI Calculation
+    const calculateEMI = () => {
+        const monthlyRate = rate / 12 / 100;
+        const emi =
+            (amount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
+            (Math.pow(1 + monthlyRate, tenure) - 1);
+        return Math.round(emi);
+    };
+
+    const emi = calculateEMI();
+
+    // Amortization Schedule
+    const generateSchedule = () => {
+        const schedule = [];
+        let balance = amount;
+        const monthlyRate = rate / 12 / 100;
+        const monthlyEMI = emi;
+
+        for (let i = 1; i <= tenure; i++) {
+            const interest = balance * monthlyRate;
+            const principal = monthlyEMI - interest;
+            const closingBalance = balance - principal;
+
+            schedule.push({
+                month: i,
+                opening: balance,
+                emi: monthlyEMI,
+                interest: interest,
+                principal: principal,
+                closing: closingBalance > 0 ? closingBalance : 0
+            });
+            balance = closingBalance;
+        }
+        return schedule;
+    };
+
+    // Formatters
+    const formatCurrency = (val: number) =>
+        new Intl.NumberFormat("en-IN", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 0,
+        }).format(val);
+
     return (
         <section className="relative min-h-screen bg-[#050A18] overflow-hidden">
             {/* Grid Pattern Background */}
@@ -44,7 +97,7 @@ export const Hero: React.FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="lg:col-span-6 space-y-8"
+                        className="lg:col-span-5 space-y-8"
                     >
                         {/* Status Badge */}
                         <div className="inline-flex items-center space-x-3 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
@@ -115,17 +168,17 @@ export const Hero: React.FC = () => {
                         </div>
                     </motion.div>
 
-                    {/* Right - Dashboard Card */}
+                    {/* Right - Interactive Loan Estimator Widget */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="lg:col-span-6 relative hidden lg:block"
+                        className="lg:col-span-7 relative"
                     >
-                        <div className="relative w-full max-w-[540px] mx-auto">
+                        <div className="relative w-full max-w-[580px] mx-auto lg:ml-auto">
                             {/* Stacked Card Background */}
                             <div
-                                className="absolute inset-0 rounded-[40px] z-0 bg-[rgba(11,17,33,0.4)] backdrop-blur-[10px] border border-white/[0.08]"
+                                className="absolute inset-0 rounded-[30px] lg:rounded-[40px] z-0 bg-[rgba(11,17,33,0.4)] backdrop-blur-[10px] border border-white/[0.08] hidden lg:block"
                                 style={{
                                     transform: 'perspective(1000px) translateZ(-40px) translateX(20px) translateY(10px) rotateY(-5deg)',
                                 }}
@@ -133,7 +186,7 @@ export const Hero: React.FC = () => {
 
                             {/* Main Dashboard Card */}
                             <div
-                                className="relative z-10 rounded-[40px] p-8 lg:p-10 overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] bg-[rgba(11,17,33,0.7)] backdrop-blur-[20px] border border-white/[0.08]"
+                                className="relative z-10 rounded-[30px] lg:rounded-[40px] p-6 sm:p-8 lg:p-10 overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] bg-[rgba(11,17,33,0.7)] backdrop-blur-[20px] border border-white/[0.08]"
                                 style={{
                                     transform: 'perspective(1000px) rotateY(-5deg) rotateX(2deg)',
                                 }}
@@ -145,7 +198,7 @@ export const Hero: React.FC = () => {
                                 <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/10 rounded-full" />
 
                                 {/* Header */}
-                                <div className="flex justify-between items-start mb-10">
+                                <div className="flex justify-between items-start mb-10 mt-2">
                                     <div>
                                         <div className="flex items-center gap-2 mb-1">
                                             <Shield className="w-4 h-4 text-[#FFC857]" />
@@ -153,84 +206,117 @@ export const Hero: React.FC = () => {
                                                 RBI REGULATED TERMINAL
                                             </span>
                                         </div>
-                                        <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
-                                            Loan Dashboard
+                                        <h2 className="text-xl lg:text-2xl font-bold text-white tracking-tight">
+                                            Live Estimator
                                         </h2>
                                     </div>
-                                    <div className="bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-md">
+                                    <div className="bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-md hidden sm:block">
                                         <span className="text-[10px] font-mono font-bold text-emerald-400">
                                             ACTIVE_TX
                                         </span>
                                     </div>
                                 </div>
 
-                                {/* Eligibility Meter */}
-                                <div className="mb-10">
-                                    <div className="flex justify-between items-center mb-4">
+                                {/* Main Limit Section */}
+                                <div className="mb-8">
+                                    <div className="flex justify-between items-end mb-4">
                                         <span className="text-[11px] font-mono uppercase tracking-widest text-slate-400">
                                             Eligibility Limit
                                         </span>
-                                        <span className="text-2xl lg:text-3xl font-bold text-white font-mono tracking-tighter">
-                                            ₹15,00,000
+                                        <span className="text-2xl lg:text-3xl font-bold text-white font-mono tracking-tighter tabular-nums">
+                                            {formatCurrency(amount)}
                                         </span>
                                     </div>
-                                    <div className="relative h-4 bg-white/5 rounded-full overflow-hidden border border-white/5 p-[2px]">
-                                        <div className="absolute inset-y-[2px] left-[2px] bg-gradient-to-r from-[#FFC857] to-orange-400 rounded-full w-[72%] shadow-[0_0_15px_rgba(255,200,87,0.4)]">
-                                            <div className="absolute top-0 right-0 bottom-0 w-8 bg-white/30 skew-x-[-20deg]" />
-                                        </div>
-                                    </div>
+
+                                    {/* Eligibility Slider */}
+                                    <Slider
+                                        min={100000}
+                                        max={5000000}
+                                        step={10000}
+                                        value={amount}
+                                        onChange={(e) => setAmount(Number(e.target.value))}
+                                        className="h-10"
+                                    />
+
                                     <div className="flex justify-between mt-2">
                                         <span className="text-[9px] font-mono text-slate-600">0.00</span>
                                         <span className="text-[9px] font-mono text-slate-600">MAX_CAP</span>
                                     </div>
                                 </div>
 
-                                {/* Stats Grid */}
-                                <div className="grid grid-cols-2 gap-5">
+                                {/* Metrics Grid */}
+                                <div className="grid grid-cols-2 gap-4 lg:gap-5">
+                                    {/* Interest Rate */}
                                     <div className="space-y-2 group">
                                         <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500">
                                             Interest Rate
                                         </div>
                                         <div className="flex items-baseline gap-1">
-                                            <span className="text-2xl font-bold text-white font-mono">10.5</span>
+                                            <span className="text-xl lg:text-2xl font-bold text-white font-mono tabular-nums">{rate.toFixed(1)}</span>
                                             <span className="text-[#FFC857] font-bold">%</span>
                                         </div>
+                                        <Slider
+                                            min={8}
+                                            max={24}
+                                            step={0.1}
+                                            value={rate}
+                                            onChange={(e) => setRate(Number(e.target.value))}
+                                            className="py-2"
+                                        />
                                         <div className="h-0.5 w-0 group-hover:w-full transition-all duration-500 opacity-50 bg-gradient-to-r from-[#FFC857] to-transparent" />
                                     </div>
 
+                                    {/* Tenure */}
                                     <div className="space-y-2 group">
                                         <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500">
                                             Term Tenure
                                         </div>
                                         <div className="flex items-baseline gap-1">
-                                            <span className="text-2xl font-bold text-white font-mono">60</span>
-                                            <span className="text-[#FFC857] font-bold">MO</span>
+                                            <span className="text-xl lg:text-2xl font-bold text-white font-mono tabular-nums">{tenure}</span>
+                                            <span className="text-[#FFC857] font-bold text-sm">MO</span>
                                         </div>
+                                        <Slider
+                                            min={12}
+                                            max={84}
+                                            step={6}
+                                            value={tenure}
+                                            onChange={(e) => setTenure(Number(e.target.value))}
+                                            className="py-2"
+                                        />
                                         <div className="h-0.5 w-0 group-hover:w-full transition-all duration-500 opacity-50 bg-gradient-to-r from-[#FFC857] to-transparent" />
                                     </div>
 
                                     {/* EMI Card */}
-                                    <div className="col-span-2 space-y-2 bg-white/5 p-4 rounded-2xl border border-white/5">
+                                    <div className="col-span-2 space-y-2 bg-white/5 p-4 rounded-2xl border border-white/5 shadow-inner mt-2">
                                         <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500">
                                             Monthly EMI Projection
                                         </div>
                                         <div className="flex items-baseline justify-between">
-                                            <span className="text-3xl font-extrabold text-[#FFC857] font-mono tracking-tighter">
-                                                ₹32,200
+                                            <span className="text-2xl sm:text-3xl font-extrabold text-[#FFC857] font-mono tracking-tighter tabular-nums">
+                                                {formatCurrency(emi)}
                                             </span>
-                                            <LineChart className="w-6 h-6 text-slate-600" />
+                                            <LineChart className="w-5 h-5 lg:w-6 lg:h-6 text-slate-600" />
                                         </div>
                                     </div>
                                 </div>
 
+                                {/* View Schedule Button */}
+                                <button
+                                    onClick={() => setIsScheduleOpen(true)}
+                                    className="w-full mt-6 py-3 px-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 flex items-center justify-center gap-2 text-sm font-bold text-white transition-all group focus:outline-none focus:ring-2 focus:ring-[#FFC857]/50"
+                                >
+                                    <CalendarClock className="w-4 h-4 text-[#FFC857] group-hover:scale-110 transition-transform" />
+                                    <span>View Amortization Schedule</span>
+                                </button>
+
                                 {/* Footer */}
                                 <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
+                                        <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center hidden sm:flex">
                                             <TrendingUp className="w-4 h-4 text-blue-400" />
                                         </div>
-                                        <span className="text-[10px] font-mono text-slate-500 uppercase leading-tight">
-                                            Data integrity verified via<br />secure node 812-X
+                                        <span className="text-[9px] font-mono text-slate-500 uppercase leading-tight">
+                                            Calculations are estimates<br />Actual rates may vary
                                         </span>
                                     </div>
                                     <div className="flex gap-1">
@@ -242,7 +328,22 @@ export const Hero: React.FC = () => {
                             </div>
 
                             {/* Floating Badge */}
-                            <div className="absolute -bottom-4 -left-4 z-20 px-5 py-3 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)]">
+                            <motion.div
+                                initial={{ x: 20, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ delay: 1, type: "spring" }}
+                                className="absolute -top-6 -right-6 lg:-top-8 lg:-right-8 z-20 px-4 py-3 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)] hidden md:block"
+                            >
+                                <div className="text-[9px] font-mono text-slate-400 mb-1 leading-none text-right">TRENDING</div>
+                                <div className="flex items-center gap-1 justify-end">
+                                    <div className="text-xl font-bold text-white font-mono">
+                                        {rate.toFixed(1)}%
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Floating Live Offers Badge */}
+                            <div className="absolute -bottom-4 -left-4 z-20 px-5 py-3 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)] hidden md:block">
                                 <div className="text-[9px] font-mono text-slate-400 mb-1">LIVE_OFFERS</div>
                                 <div className="text-2xl font-bold text-white">
                                     06<span className="text-xs text-emerald-400 ml-1">↑</span>
@@ -252,6 +353,47 @@ export const Hero: React.FC = () => {
                     </motion.div>
                 </div>
             </div>
+
+            {/* Schedule Modal */}
+            <Modal isOpen={isScheduleOpen} onClose={() => setIsScheduleOpen(false)} title="Amortization Schedule">
+                <div className="space-y-4 max-h-[70vh] overflow-y-auto">
+                    <div className="flex justify-between items-center bg-gray-50 p-4 rounded-xl sticky top-0 z-10 shadow-sm border border-gray-100">
+                        <div>
+                            <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Loan Amount</p>
+                            <p className="font-bold text-lg text-gray-900 font-mono tracking-tight">{formatCurrency(amount)}</p>
+                        </div>
+                        <div className="text-right">
+                            <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Total Interest</p>
+                            <p className="font-bold text-lg text-orange-500 font-mono tracking-tight">
+                                {formatCurrency((emi * tenure) - amount)}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                        <table className="w-full text-sm text-left whitespace-nowrap">
+                            <thead className="bg-[#050A18] text-white">
+                                <tr>
+                                    <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Mo</th>
+                                    <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Principal</th>
+                                    <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Interest</th>
+                                    <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300 text-right">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-100 bg-white">
+                                {generateSchedule().map((row) => (
+                                    <tr key={row.month} className="hover:bg-slate-50 transition-colors">
+                                        <td className="px-4 py-3 font-medium text-slate-900 font-mono">{row.month}</td>
+                                        <td className="px-4 py-3 font-mono text-emerald-600">₹{Math.round(row.principal).toLocaleString("en-IN")}</td>
+                                        <td className="px-4 py-3 font-mono text-orange-500">₹{Math.round(row.interest).toLocaleString("en-IN")}</td>
+                                        <td className="px-4 py-3 font-mono text-slate-500 text-right">₹{Math.round(row.closing).toLocaleString("en-IN")}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </Modal>
         </section>
     );
 };
