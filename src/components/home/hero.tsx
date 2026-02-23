@@ -60,7 +60,7 @@ export const Hero: React.FC = () => {
         }).format(val);
 
     return (
-        <section className="relative min-h-screen bg-[#050A18] overflow-hidden">
+        <section className="relative min-h-[100dvh] bg-[#050A18] overflow-hidden">
             {/* Grid Pattern Background */}
             <div
                 className="fixed inset-0 pointer-events-none"
@@ -90,14 +90,14 @@ export const Hero: React.FC = () => {
             <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600 rounded-full opacity-[0.15] blur-[140px] mix-blend-screen" />
 
             {/* Main Content */}
-            <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-8 min-h-screen flex flex-col justify-center py-24 pt-28">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 min-h-[100dvh] flex flex-col justify-center py-20 pt-24 lg:py-24 lg:pt-28">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
                     {/* Left Content */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="lg:col-span-5 space-y-8"
+                        className="lg:col-span-5 space-y-6 lg:space-y-8"
                     >
                         {/* Status Badge */}
                         <div className="inline-flex items-center space-x-3 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
@@ -112,38 +112,38 @@ export const Hero: React.FC = () => {
 
                         {/* Headline */}
                         <div className="space-y-2">
-                            <h1 className="text-5xl lg:text-6xl xl:text-8xl font-extrabold leading-[0.9] tracking-tight text-white flex flex-col">
+                            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-8xl font-extrabold leading-[0.9] tracking-tight text-white flex flex-col">
                                 <span>REDEFINING</span>
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFC857] via-orange-300 to-[#FFC857]">
                                     CAPITAL
                                 </span>
-                                <span className="text-3xl lg:text-4xl xl:text-5xl font-light text-slate-400 mt-3">
+                                <span className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-light text-slate-400 mt-3">
                                     Flow Management
                                 </span>
                             </h1>
-                            <p className="text-lg lg:text-xl text-slate-400 max-w-lg leading-relaxed font-light pt-4">
+                            <p className="text-base sm:text-lg lg:text-xl text-slate-400 max-w-lg leading-relaxed font-light pt-4">
                                 Next-generation credit infrastructure for the modern era.
                                 Experience real-time eligibility with our institutional-grade dashboard.
                             </p>
                         </div>
 
                         {/* CTA Buttons */}
-                        <div className="flex flex-wrap gap-4">
+                        <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
                             <Link href="/estimator">
-                                <button className="group px-8 lg:px-10 py-4 lg:py-5 rounded-2xl text-primary font-extrabold flex items-center space-x-3 transition-transform hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(255,200,87,0.3)] bg-accent hover:bg-accent/90">
+                                <button className="group w-full sm:w-auto px-6 sm:px-8 lg:px-10 py-3.5 sm:py-4 lg:py-5 rounded-2xl text-primary font-extrabold flex items-center justify-center sm:justify-start space-x-3 transition-transform hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(255,200,87,0.3)] bg-accent hover:bg-accent/90">
                                     <span className="uppercase tracking-wider text-sm">Launch Estimator</span>
                                     <Zap className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                                 </button>
                             </Link>
                             <Link href="/loans">
-                                <button className="px-8 lg:px-10 py-4 lg:py-5 rounded-2xl text-white font-extrabold transition-all hover:bg-white/10 border border-white/10 backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)]">
+                                <button className="w-full sm:w-auto px-6 sm:px-8 lg:px-10 py-3.5 sm:py-4 lg:py-5 rounded-2xl text-white font-extrabold transition-all hover:bg-white/10 border border-white/10 backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)] text-center">
                                     <span className="uppercase tracking-wider text-sm">View Portfolio</span>
                                 </button>
                             </Link>
                         </div>
 
                         {/* Trust Indicators */}
-                        <div className="flex items-center space-x-6 pt-4">
+                        <div className="hidden sm:flex items-center space-x-6 pt-4">
                             <div className="flex -space-x-3">
                                 {['R', 'P', 'A', 'S'].map((initial, i) => (
                                     <div
@@ -178,18 +178,12 @@ export const Hero: React.FC = () => {
                         <div className="relative w-full max-w-[580px] mx-auto lg:ml-auto">
                             {/* Stacked Card Background */}
                             <div
-                                className="absolute inset-0 rounded-[30px] lg:rounded-[40px] z-0 bg-[rgba(11,17,33,0.4)] backdrop-blur-[10px] border border-white/[0.08] hidden lg:block"
-                                style={{
-                                    transform: 'perspective(1000px) translateZ(-40px) translateX(20px) translateY(10px) rotateY(-5deg)',
-                                }}
+                                className="absolute inset-0 rounded-2xl sm:rounded-[30px] lg:rounded-[40px] z-0 bg-[rgba(11,17,33,0.4)] backdrop-blur-[10px] border border-white/[0.08] hidden lg:block lg:[transform:perspective(1000px)_translateZ(-40px)_translateX(20px)_translateY(10px)_rotateY(-5deg)]"
                             />
 
                             {/* Main Dashboard Card */}
                             <div
-                                className="relative z-10 rounded-[30px] lg:rounded-[40px] p-6 sm:p-8 lg:p-10 overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] bg-[rgba(11,17,33,0.7)] backdrop-blur-[20px] border border-white/[0.08]"
-                                style={{
-                                    transform: 'perspective(1000px) rotateY(-5deg) rotateX(2deg)',
-                                }}
+                                className="relative z-10 rounded-2xl sm:rounded-[30px] lg:rounded-[40px] p-5 sm:p-6 md:p-8 lg:p-10 overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] lg:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] bg-[rgba(11,17,33,0.7)] backdrop-blur-[20px] border border-white/[0.08] lg:[transform:perspective(1000px)_rotateY(-5deg)_rotateX(2deg)]"
                             >
                                 {/* Glow Accent */}
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFC857]/5 blur-3xl" />
@@ -219,7 +213,7 @@ export const Hero: React.FC = () => {
 
                                 {/* Main Limit Section */}
                                 <div className="mb-8">
-                                    <div className="flex justify-between items-end mb-4">
+                                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end mb-4 gap-1">
                                         <span className="text-[11px] font-mono uppercase tracking-widest text-slate-400">
                                             Eligibility Limit
                                         </span>
@@ -245,7 +239,7 @@ export const Hero: React.FC = () => {
                                 </div>
 
                                 {/* Metrics Grid */}
-                                <div className="grid grid-cols-2 gap-4 lg:gap-5">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
                                     {/* Interest Rate */}
                                     <div className="space-y-2 group">
                                         <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500">
@@ -287,7 +281,7 @@ export const Hero: React.FC = () => {
                                     </div>
 
                                     {/* EMI Card */}
-                                    <div className="col-span-2 space-y-2 bg-white/5 p-4 rounded-2xl border border-white/5 shadow-inner mt-2">
+                                    <div className="sm:col-span-2 space-y-2 bg-white/5 p-4 rounded-2xl border border-white/5 shadow-inner mt-2">
                                         <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500">
                                             Monthly EMI Projection
                                         </div>
@@ -371,26 +365,28 @@ export const Hero: React.FC = () => {
                     </div>
 
                     <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                        <table className="w-full text-sm text-left whitespace-nowrap">
-                            <thead className="bg-[#050A18] text-white">
-                                <tr>
-                                    <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Mo</th>
-                                    <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Principal</th>
-                                    <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Interest</th>
-                                    <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300 text-right">Balance</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-100 bg-white">
-                                {generateSchedule().map((row) => (
-                                    <tr key={row.month} className="hover:bg-slate-50 transition-colors">
-                                        <td className="px-4 py-3 font-medium text-slate-900 font-mono">{row.month}</td>
-                                        <td className="px-4 py-3 font-mono text-emerald-600">₹{Math.round(row.principal).toLocaleString("en-IN")}</td>
-                                        <td className="px-4 py-3 font-mono text-orange-500">₹{Math.round(row.interest).toLocaleString("en-IN")}</td>
-                                        <td className="px-4 py-3 font-mono text-slate-500 text-right">₹{Math.round(row.closing).toLocaleString("en-IN")}</td>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-sm text-left whitespace-nowrap min-w-[400px]">
+                                <thead className="bg-[#050A18] text-white">
+                                    <tr>
+                                        <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Mo</th>
+                                        <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Principal</th>
+                                        <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Interest</th>
+                                        <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300 text-right">Balance</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100 bg-white">
+                                    {generateSchedule().map((row) => (
+                                        <tr key={row.month} className="hover:bg-slate-50 transition-colors">
+                                            <td className="px-4 py-3 font-medium text-slate-900 font-mono">{row.month}</td>
+                                            <td className="px-4 py-3 font-mono text-emerald-600">₹{Math.round(row.principal).toLocaleString("en-IN")}</td>
+                                            <td className="px-4 py-3 font-mono text-orange-500">₹{Math.round(row.interest).toLocaleString("en-IN")}</td>
+                                            <td className="px-4 py-3 font-mono text-slate-500 text-right">₹{Math.round(row.closing).toLocaleString("en-IN")}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </Modal>
