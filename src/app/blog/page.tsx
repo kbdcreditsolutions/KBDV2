@@ -2,9 +2,9 @@
 
 import * as React from 'react';
 import { Section, SectionHeader } from '@/components/layout';
-import { Calendar, Clock, ArrowRight, Tag } from 'lucide-react';
+import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+
 
 const blogPosts = [
     {

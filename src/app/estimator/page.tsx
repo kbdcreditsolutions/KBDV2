@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Navbar, Footer } from '@/components/layout';
 import { Slider } from "@/components/ui/slider";
 import { Modal } from "@/components/ui/modal";
-import { Shield, TrendingUp, ArrowUpRight, Activity, LineChart, CalendarClock } from "lucide-react";
+import { Shield, TrendingUp, LineChart, CalendarClock } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function LoanDashboard() {

@@ -31,7 +31,7 @@ export const Testimonials: React.FC = () => {
 
                                 {/* Content */}
                                 <p className="text-gray-600 leading-relaxed flex-1 mb-6">
-                                    "{testimonial.content}"
+                                    &quot;{testimonial.content}&quot;
                                 </p>
 
                                 {/* Rating */}

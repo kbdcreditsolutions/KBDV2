@@ -97,7 +97,7 @@ export default function FeedbackPage() {
                                 placeholder="your@email.com"
                             />
                             <p className="text-xs text-gray-400">
-                                We'll only use this to respond to your feedback.
+                                We&apos;ll only use this to respond to your feedback.
                             </p>
                         </div>
 

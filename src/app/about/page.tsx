@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Navbar, Footer } from '@/components/layout';
 import { Section, SectionHeader } from '@/components/layout';
 import { Card, CardContent } from '@/components/ui';
-import { siteConfig } from '@/lib/constants';
 import { Shield, Target, Eye, Users } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -52,7 +51,7 @@ export default function AboutPage() {
                             About <span className="text-accent">KBD Credit Solutions</span>
                         </h1>
                         <p className="mt-6 text-lg text-white/70 max-w-2xl mx-auto">
-                            We're on a mission to democratize access to financial products
+                            We&apos;re on a mission to democratize access to financial products
                             by making loan comparison simple, transparent, and stress-free.
                         </p>
                     </div>
@@ -89,15 +88,15 @@ export default function AboutPage() {
                                     and terms in one place. No more branch visits. No more guesswork.
                                 </p>
                                 <p>
-                                    Today, we've helped over 10,000 customers find their perfect loan match,
-                                    facilitating over ₹500 crores in loan disbursements. But we're just getting started.
+                                    Today, we&apos;ve helped over 10,000 customers find their perfect loan match,
+                                    facilitating over ₹500 crores in loan disbursements. But we&apos;re just getting started.
                                 </p>
                             </div>
                         </div>
                         <div className="bg-surface-200 rounded-2xl p-8 lg:p-12">
                             <blockquote className="text-xl font-medium text-gray-900 italic">
-                                "To empower individuals by simplifying financial access and enabling
-                                transparent decision-making."
+                                &quot;To empower individuals by simplifying financial access and enabling
+                                transparent decision-making.&quot;
                             </blockquote>
                             <p className="mt-4 text-gray-500">— Our Mission</p>
                         </div>
@@ -141,7 +140,7 @@ export default function AboutPage() {
                                             <span key={star} className="text-yellow-400">★</span>
                                         ))}
                                     </div>
-                                    <p className="text-gray-600 mb-6 italic">"{testimonial.content}"</p>
+                                    <p className="text-gray-600 mb-6 italic">&quot;{testimonial.content}&quot;</p>
                                     <div className="flex items-center gap-4">
                                         <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
                                             {testimonial.name[0]}

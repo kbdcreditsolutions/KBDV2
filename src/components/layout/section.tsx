@@ -27,6 +27,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
     ) => {
         return (
             <Component
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 ref={ref as any}
                 className={cn(
                     // Vertical Padding

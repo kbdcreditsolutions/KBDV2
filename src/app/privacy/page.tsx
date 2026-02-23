@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Navbar, Footer, Section } from '@/components/layout';
-import { Card, CardContent } from '@/components/ui';
+
 
 export const metadata: Metadata = {
     title: 'Privacy Policy',

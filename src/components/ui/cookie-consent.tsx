@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Button } from '@/components/ui';
-import { X } from 'lucide-react';
+// removed X import
 import { AnimatePresence, motion } from 'framer-motion';
 
 export function CookieConsent() {
@@ -43,7 +43,7 @@ export function CookieConsent() {
                                 We use cookies
                             </h3>
                             <p className="mt-2 text-sm text-gray-300">
-                                We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept", you consent to our use of cookies.
+                                We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking &quot;Accept&quot;, you consent to our use of cookies.
                             </p>
                         </div>
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

@@ -10,8 +10,8 @@ export default function MaintenancePage() {
                 Under Maintenance
             </h1>
             <p className="max-w-md text-gray-500">
-                We're currently performing scheduled maintenance to improve our services.
-                We'll be back shortly. Thank you for your patience.
+                We&apos;re currently performing scheduled maintenance to improve our services.
+                We&apos;ll be back shortly. Thank you for your patience.
             </p>
         </div>
     );

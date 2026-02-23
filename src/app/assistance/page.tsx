@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Navbar, Footer, Section } from '@/components/layout';
+import { Navbar, Footer } from '@/components/layout';
 import { Card, CardContent, Button, Accordion, AccordionItem, Timeline, TimelineItem } from '@/components/ui';
 import { CheckCircle2, FileText, Clock, HelpCircle, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
@@ -116,14 +116,14 @@ export default function AssistancePage() {
                                             <div
                                                 key={doc.id}
                                                 className={`flex items-center p-3 rounded-lg border cursor-pointer transition-colors ${checkedDocs.includes(doc.id)
-                                                        ? 'bg-green-50 border-green-200'
-                                                        : 'hover:bg-gray-50 border-gray-100'
+                                                    ? 'bg-green-50 border-green-200'
+                                                    : 'hover:bg-gray-50 border-gray-100'
                                                     }`}
                                                 onClick={() => toggleDoc(doc.id)}
                                             >
                                                 <div className={`w-5 h-5 rounded border flex items-center justify-center mr-3 ${checkedDocs.includes(doc.id)
-                                                        ? 'bg-green-500 border-green-500'
-                                                        : 'border-gray-300 bg-white'
+                                                    ? 'bg-green-500 border-green-500'
+                                                    : 'border-gray-300 bg-white'
                                                     }`}>
                                                     {checkedDocs.includes(doc.id) && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
                                                 </div>

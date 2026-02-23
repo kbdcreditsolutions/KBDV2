@@ -21,7 +21,7 @@ export default function TermsPage() {
                     <div className="container-md prose prose-blue max-w-4xl mx-auto">
                         <h3>1. Agreement to Terms</h3>
                         <p>
-                            These Terms of Service constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and KBD Credit Solutions ("we", "us", or "our"), concerning your access to and use of our website.
+                            These Terms of Service constitute a legally binding agreement made between you, whether personally or on behalf of an entity (&quot;you&quot;) and KBD Credit Solutions (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;), concerning your access to and use of our website.
                         </p>
 
                         <h3>2. Services Provided</h3>

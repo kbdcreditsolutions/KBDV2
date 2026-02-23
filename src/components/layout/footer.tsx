@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Link from 'next/link';
-import { siteConfig, navLinks } from '@/lib/constants';
+import { siteConfig } from '@/lib/constants';
 import {
     Phone,
     Mail,

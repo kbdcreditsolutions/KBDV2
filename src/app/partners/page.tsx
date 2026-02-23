@@ -6,7 +6,7 @@ import { Card, CardContent, Button, Badge, Modal } from '@/components/ui';
 import { bankPartners, loanTypes } from '@/lib/constants';
 import { Building2, CheckCircle, ArrowRight, ExternalLink, ShieldCheck, Filter } from 'lucide-react';
 import { formatPercentage } from '@/lib/utils';
-import Image from 'next/image';
+
 import Link from 'next/link';
 
 // Extended partner data for the modal
@@ -40,7 +40,7 @@ export default function PartnersPage() {
                             Our Trusted <span className="text-accent">Banking Partners</span>
                         </h1>
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                            We collaborate with India's leading banks and NBFCs to bring you the best interest rates
+                            We collaborate with India&apos;s leading banks and NBFCs to bring you the best interest rates
                             and loan offers available in the market.
                         </p>
                     </div>
@@ -71,10 +71,10 @@ export default function PartnersPage() {
                 </div>
 
                 <Section background="white">
-                    {bankPartners.filter(p => filterType === 'all' || p.tags.includes(filterType as any)).length > 0 ? (
+                    {bankPartners.filter(p => filterType === 'all' || p.tags.includes(filterType as unknown as string)).length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {bankPartners
-                                .filter(p => filterType === 'all' || p.tags.includes(filterType as any))
+                                .filter(p => filterType === 'all' || p.tags.includes(filterType as unknown as string))
                                 .map((partner) => (
                                     <Card
                                         key={partner.id}

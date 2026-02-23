@@ -3,7 +3,6 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
     const response = NextResponse.next();
-    const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
     // Maintenance Mode Check
     if (process.env.MAINTENANCE_MODE === 'true' && !request.nextUrl.pathname.startsWith('/maintenance')) {

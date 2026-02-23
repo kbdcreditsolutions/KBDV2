@@ -6,7 +6,11 @@ import { useCallback } from 'react';
 export function ChatWidget() {
     const initBotpress = useCallback(() => {
         if (typeof window !== 'undefined') {
-            const win = window as any;
+            type BotpressWindow = {
+                botpress?: { init: (config: unknown) => void };
+                botpressWebChat?: { init: (config: unknown) => void };
+            };
+            const win = window as unknown as BotpressWindow;
 
             // Check for both possible global objects depending on version
             const bp = win.botpress || win.botpressWebChat;

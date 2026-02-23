@@ -4,7 +4,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { navLinks, siteConfig } from '@/lib/constants';
+import { navLinks } from '@/lib/constants';
 import { Menu, X, ChevronRight } from 'lucide-react';
 import { KBDLogo } from '@/components/ui/kbd-logo';
 

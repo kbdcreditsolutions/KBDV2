@@ -2,8 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Zap, Shield, TrendingUp, LineChart } from 'lucide-react';
+import { Zap, Shield, TrendingUp, LineChart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const Hero: React.FC = () => {

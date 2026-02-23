@@ -20,7 +20,6 @@ export const Slider: React.FC<SliderProps> = ({
     onChange,
     className,
     label,
-    suffix,
     ...props
 }) => {
     const percentage = ((value - min) / (max - min)) * 100;

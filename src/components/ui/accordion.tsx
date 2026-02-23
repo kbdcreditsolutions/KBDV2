@@ -14,7 +14,7 @@ interface AccordionItemProps {
     className?: string;
 }
 
-export function AccordionItem({ value, trigger, children, isOpen, onClick, className }: AccordionItemProps) {
+export function AccordionItem({ trigger, children, isOpen, onClick, className }: AccordionItemProps) {
     return (
         <div className={cn("border-b", className)}>
             <button
@@ -79,9 +79,7 @@ export function Accordion({ type = 'single', defaultValue, children, className }
             {React.Children.map(children, (child) => {
                 if (React.isValidElement(child)) {
                     return React.cloneElement(child, {
-                        // @ts-ignore
                         isOpen: openItems.includes(child.props.value),
-                        // @ts-ignore
                         onClick: () => handleItemClick(child.props.value),
                     });
                 }
