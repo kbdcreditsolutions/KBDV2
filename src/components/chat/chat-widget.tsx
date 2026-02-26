@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Bot } from 'lucide-react';
@@ -20,11 +20,24 @@ type StoredMessage = {
     content: string;
 };
 
+function isStoredMessage(v: unknown): v is StoredMessage {
+    if (!v || typeof v !== 'object') return false;
+    const m = v as Record<string, unknown>;
+    return (
+        typeof m.id === 'string' &&
+        (m.role === 'user' || m.role === 'assistant') &&
+        typeof m.content === 'string'
+    );
+}
+
 function loadStoredMessages(): StoredMessage[] {
     if (typeof window === 'undefined') return [];
     try {
         const stored = sessionStorage.getItem(SESSION_KEY);
-        return stored ? JSON.parse(stored) : [];
+        if (!stored) return [];
+        const parsed: unknown = JSON.parse(stored);
+        if (!Array.isArray(parsed)) return [];
+        return parsed.filter(isStoredMessage);
     } catch {
         return [];
     }
@@ -34,7 +47,7 @@ export function ChatWidget() {
     const [isOpen, setIsOpen] = useState(false);
     const [initialMessages] = useState<StoredMessage[]>(loadStoredMessages);
 
-    const { messages, input, handleInputChange, handleSubmit, isLoading, append } = useChat({
+    const { messages, input, handleInputChange, handleSubmit, isLoading, error, append } = useChat({
         api: '/api/chat',
         initialMessages,
     });
@@ -43,14 +56,12 @@ export function ChatWidget() {
 
     // Persist messages to sessionStorage on change
     useEffect(() => {
-        if (messages.length > 0) {
-            const toStore: StoredMessage[] = messages.map((m) => ({
-                id: m.id,
-                role: m.role as 'user' | 'assistant',
-                content: m.content,
-            }));
-            sessionStorage.setItem(SESSION_KEY, JSON.stringify(toStore));
-        }
+        const toStore = messages
+            .filter((m): m is typeof m & { role: 'user' | 'assistant' } =>
+                m.role === 'user' || m.role === 'assistant'
+            )
+            .map((m) => ({ id: m.id, role: m.role, content: m.content }));
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(toStore));
     }, [messages]);
 
     // Auto-scroll to latest message
@@ -58,9 +69,9 @@ export function ChatWidget() {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages, isLoading]);
 
-    const handleQuickReply = (text: string) => {
+    const handleQuickReply = useCallback((text: string) => {
         append({ role: 'user', content: text });
-    };
+    }, [append]);
 
     const showQuickReplies = messages.length === 0 && !isLoading;
 
@@ -93,7 +104,7 @@ export function ChatWidget() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 24, scale: 0.95 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                        className="fixed bottom-6 right-6 z-50 w-[360px] h-[520px] flex flex-col rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+                        className="fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] max-w-[360px] h-[min(520px,calc(100dvh-6rem))] flex flex-col rounded-2xl overflow-hidden shadow-2xl border border-white/10"
                         style={{ background: '#050A18' }}
                     >
                         {/* Header */}
@@ -115,7 +126,12 @@ export function ChatWidget() {
                         </div>
 
                         {/* Messages area */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
+                        <div
+                            className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0"
+                            role="log"
+                            aria-live="polite"
+                            aria-label="Chat messages"
+                        >
                             {/* Static welcome message */}
                             <div className="flex gap-2">
                                 <div className="w-6 h-6 rounded-full bg-[#FFC857] flex-shrink-0 flex items-center justify-center mt-0.5">
@@ -178,6 +194,17 @@ export function ChatWidget() {
                                 </div>
                             )}
 
+                            {error && (
+                                <div className="flex gap-2">
+                                    <div className="w-6 h-6 rounded-full bg-red-500/20 flex-shrink-0 flex items-center justify-center mt-0.5">
+                                        <Bot className="w-3 h-3 text-red-400" />
+                                    </div>
+                                    <div className="bg-red-500/10 border border-red-500/20 rounded-2xl rounded-tl-sm px-3 py-2 text-red-400 text-sm max-w-[80%] leading-relaxed">
+                                        Sorry, something went wrong. Please try again.
+                                    </div>
+                                </div>
+                            )}
+
                             <div ref={messagesEndRef} />
                         </div>
 
@@ -191,6 +218,8 @@ export function ChatWidget() {
                                 onChange={handleInputChange}
                                 placeholder="Ask about loans..."
                                 disabled={isLoading}
+                                aria-label="Type your message"
+                                autoComplete="off"
                                 className="flex-1 bg-white/10 text-white placeholder-white/30 rounded-xl px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#FFC857]/50 disabled:opacity-50 min-w-0"
                             />
                             <button
