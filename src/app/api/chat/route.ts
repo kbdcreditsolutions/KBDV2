@@ -1,4 +1,4 @@
-import { streamText } from 'ai';
+import { streamText, convertToModelMessages, createUIMessageStreamResponse, createUIMessageStream, UIMessage } from 'ai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { chatbotKnowledge } from '@/lib/chatbot-knowledge';
 
@@ -9,15 +9,23 @@ const google = createGoogleGenerativeAI({
 
 export async function POST(req: Request) {
     try {
-        const { messages } = await req.json();
+        const { messages }: { messages: UIMessage[] } = await req.json();
+
+        const modelMessages = await convertToModelMessages(messages);
 
         const result = streamText({
             model: google('gemini-2.0-flash'),
             system: chatbotKnowledge,
-            messages,
+            messages: modelMessages,
         });
 
-        return result.toTextStreamResponse();
+        const stream = createUIMessageStream({
+            execute: async ({ writer }) => {
+                writer.merge(result.toUIMessageStream());
+            },
+        });
+
+        return createUIMessageStreamResponse({ stream });
     } catch (error) {
         console.error('Chat API error:', error);
         if (error instanceof Error) {

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useChat } from '@ai-sdk/react';
+import { UIMessage } from 'ai';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Bot } from 'lucide-react';
 
@@ -14,30 +15,36 @@ const QUICK_REPLIES = [
 
 const SESSION_KEY = 'kbd-chat-messages';
 
-type StoredMessage = {
-    id: string;
-    role: 'user' | 'assistant';
-    content: string;
-};
-
-function isStoredMessage(v: unknown): v is StoredMessage {
-    if (!v || typeof v !== 'object') return false;
-    const m = v as Record<string, unknown>;
-    return (
-        typeof m.id === 'string' &&
-        (m.role === 'user' || m.role === 'assistant') &&
-        typeof m.content === 'string'
-    );
+/** Extracts plain text from a UIMessage's parts array. */
+function getMessageText(msg: UIMessage): string {
+    return msg.parts
+        .filter((p): p is Extract<typeof p, { type: 'text' }> => p.type === 'text')
+        .map((p) => p.text)
+        .join('');
 }
 
-function loadStoredMessages(): StoredMessage[] {
+/** Converts a UIMessage to a minimal serializable form for session storage. */
+function toStorable(msg: UIMessage): object {
+    return { id: msg.id, role: msg.role, parts: msg.parts };
+}
+
+function loadStoredMessages(): UIMessage[] {
     if (typeof window === 'undefined') return [];
     try {
         const stored = sessionStorage.getItem(SESSION_KEY);
         if (!stored) return [];
         const parsed: unknown = JSON.parse(stored);
         if (!Array.isArray(parsed)) return [];
-        return parsed.filter(isStoredMessage);
+        // Basic validation: each entry must have id, role, and parts
+        return parsed.filter(
+            (v): v is UIMessage =>
+                v !== null &&
+                typeof v === 'object' &&
+                typeof (v as Record<string, unknown>).id === 'string' &&
+                ((v as Record<string, unknown>).role === 'user' ||
+                    (v as Record<string, unknown>).role === 'assistant') &&
+                Array.isArray((v as Record<string, unknown>).parts),
+        );
     } catch {
         return [];
     }
@@ -45,22 +52,22 @@ function loadStoredMessages(): StoredMessage[] {
 
 export function ChatWidget() {
     const [isOpen, setIsOpen] = useState(false);
-    const [initialMessages] = useState<StoredMessage[]>(loadStoredMessages);
+    const [initialMessages] = useState<UIMessage[]>(loadStoredMessages);
+    const [input, setInput] = useState('');
 
-    const { messages, input, handleInputChange, handleSubmit, isLoading, error, append } = useChat({
-        api: '/api/chat',
-        initialMessages,
+    const { messages, sendMessage, status, error } = useChat({
+        messages: initialMessages,
     });
+
+    const isLoading = status === 'submitted' || status === 'streaming';
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     // Persist messages to sessionStorage on change
     useEffect(() => {
         const toStore = messages
-            .filter((m): m is typeof m & { role: 'user' | 'assistant' } =>
-                m.role === 'user' || m.role === 'assistant'
-            )
-            .map((m) => ({ id: m.id, role: m.role, content: m.content }));
+            .filter((m) => m.role === 'user' || m.role === 'assistant')
+            .map(toStorable);
         sessionStorage.setItem(SESSION_KEY, JSON.stringify(toStore));
     }, [messages]);
 
@@ -69,9 +76,23 @@ export function ChatWidget() {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages, isLoading]);
 
-    const handleQuickReply = useCallback((text: string) => {
-        append({ role: 'user', content: text });
-    }, [append]);
+    const handleQuickReply = useCallback(
+        (text: string) => {
+            sendMessage({ text });
+        },
+        [sendMessage],
+    );
+
+    const handleSubmit = useCallback(
+        (e: React.FormEvent) => {
+            e.preventDefault();
+            const trimmed = input.trim();
+            if (!trimmed || isLoading) return;
+            sendMessage({ text: trimmed });
+            setInput('');
+        },
+        [input, isLoading, sendMessage],
+    );
 
     const showQuickReplies = messages.length === 0 && !isLoading;
 
@@ -175,7 +196,7 @@ export function ChatWidget() {
                                                 : 'bg-white/10 text-white rounded-tl-sm'
                                         }`}
                                     >
-                                        {m.content}
+                                        {getMessageText(m)}
                                     </div>
                                 </div>
                             ))}
@@ -215,7 +236,7 @@ export function ChatWidget() {
                         >
                             <input
                                 value={input}
-                                onChange={handleInputChange}
+                                onChange={(e) => setInput(e.target.value)}
                                 placeholder="Ask about loans..."
                                 disabled={isLoading}
                                 aria-label="Type your message"
