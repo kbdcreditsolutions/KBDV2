@@ -63,13 +63,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         },
         ref
     ) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const MotionButton = motion.button as any;
 
         return (
             <MotionButton
                 className={cn(buttonVariants({ variant, size, className }))}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 ref={ref as any}
                 disabled={disabled || isLoading}
                 whileHover={{ scale: 1.02 }}
