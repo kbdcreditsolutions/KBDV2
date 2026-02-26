@@ -37,12 +37,12 @@ export const Slider: React.FC<SliderProps> = ({
                 <div className="absolute top-1/2 left-0 w-full h-3 -translate-y-1/2 bg-[#0F172A] rounded-full overflow-hidden border border-white/5 box-border">
                     {/* Fill Gradient - Orange/Gold */}
                     <div
-                        className="h-full bg-[linear-gradient(90deg,#FFC857_0%,#FF9F1C_100%)] rounded-full transition-all duration-100 ease-out box-border"
+                        className="h-full bg-[linear-gradient(90deg,#FFC857_0%,#FF9F1C_100%)] rounded-full transition-all duration-300 ease-out box-border"
                         style={{ width: `${percentage}%` }}
                     />
                     {/* Glow effect on fill */}
                     <div
-                        className="absolute top-0 left-0 h-full w-full opacity-50 blur-[4px] pointer-events-none"
+                        className="absolute top-0 left-0 h-full w-full opacity-50 blur-[4px] pointer-events-none transition-all duration-300 ease-out"
                         style={{
                             width: `${percentage}%`,
                             background: 'linear-gradient(90deg,#FFC857_0%,#FF9F1C_100%)'
