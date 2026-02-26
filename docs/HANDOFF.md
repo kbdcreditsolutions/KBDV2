@@ -36,8 +36,11 @@ npm run lint
 |---------------------|----------|------------------------------------------------|
 | `MAINTENANCE_MODE`  | No       | Set `true` to redirect all traffic to `/maintenance` |
 | `GA_MEASUREMENT_ID` | No       | Google Analytics ID (currently hardcoded as `G-XYZ` in `layout.tsx`) |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | Yes | Required for the chatbot to connect to Google's Gemini 1.5 Flash model. |
 
-> **Note:** No API keys are required. The chatbot uses a local response engine — no OpenAI/external AI dependency.
+## Authentication Guide
+
+The primary user-facing application does not require authentication to browse. However, the backend `/api/chat` endpoint requires a valid `GOOGLE_GENERATIVE_AI_API_KEY` in your environment variables to function correctly. The endpoint itself does not require client-side authentication tokens.
 
 ---
 
@@ -114,7 +117,17 @@ src/
 
 ### `POST /api/chat`
 
-Chatbot endpoint — processes user messages against a local knowledge base (no external API calls).
+Chatbot endpoint — streams AI responses back to the user widget. Processes user messages using Vercel AI SDK and Google's Gemini 1.5 Flash model, augmented by a local knowledge base (`chatbotKnowledge`).
+
+**Authentication Requirements:** No client-side token required. Server requires `GOOGLE_GENERATIVE_AI_API_KEY`.
+**Rate Limiting:** Currently not implemented at the application level. Ensure Vercel or your hosting platform has DDoS protection configured.
+
+**Code Example (cURL):**
+```bash
+curl -X POST http://localhost:3000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages": [{"role": "user", "content": "What are personal loan rates?"}]}'
+```
 
 **Request:**
 
@@ -148,9 +161,8 @@ Chatbot endpoint — processes user messages against a local knowledge base (no 
 ```
 
 **Key files:**
-- `src/app/api/chat/route.ts` — API handler
-- `src/lib/chatbot-responses.ts` — Pattern matching response engine
-- `src/lib/chatbot-knowledge.ts` — Knowledge base data
+- `src/app/api/chat/route.ts` — API handler integrating Vercel AI SDK and Google provider
+- `src/lib/chatbot-knowledge.ts` — System prompt / Knowledge base data
 - `src/components/chat/chat-widget.tsx` — Frontend widget
 
 ---
@@ -220,18 +232,18 @@ Implemented via `src/middleware.ts`:
 | `react-hook-form` | ^7.50   | Form handling                    |
 | `zod`             | ^3.22   | Validation schemas               |
 | `clsx` + `tailwind-merge` | — | Class name utilities      |
+| `@ai-sdk/google`  | ^0.24 | Generative AI integration |
+| `ai`              | ^6.0  | Vercel AI SDK             |
 
 ### Unused Dependencies (can be removed)
 
-The following were part of an earlier chatbot approach and are **no longer used**:
+Some dependencies from previous AI iterations (like OpenAI or LangChain) are no longer used since the migration to Google Gemini.
 
 | Package                | Reason                            |
 |------------------------|-----------------------------------|
-| `ai`                   | Replaced by local response engine |
-| `@ai-sdk/openai`       | No external AI calls              |
-| `@ai-sdk/react`        | ChatWidget uses plain `fetch()`   |
-| `openai`               | No OpenAI dependency              |
-| `langchain`            | Not used in current implementation|
+| `@ai-sdk/openai`       | Switched to Google Gemini model   |
+| `openai`               | No longer using OpenAI directly   |
+| `langchain`            | Replaced by Vercel AI SDK         |
 | `@langchain/openai`    | Not used                          |
 | `@langchain/core`      | Not used                          |
 | `@langchain/community` | Not used                          |
@@ -239,7 +251,7 @@ The following were part of an earlier chatbot approach and are **no longer used*
 **To clean up:**
 
 ```bash
-npm uninstall ai @ai-sdk/openai @ai-sdk/react openai langchain @langchain/openai @langchain/core @langchain/community
+npm uninstall @ai-sdk/openai openai langchain @langchain/openai @langchain/core @langchain/community
 ```
 
 ---
