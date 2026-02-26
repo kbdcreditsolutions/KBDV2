@@ -36,7 +36,7 @@ npm run lint
 |---------------------|----------|------------------------------------------------|
 | `MAINTENANCE_MODE`  | No       | Set `true` to redirect all traffic to `/maintenance` |
 | `GA_MEASUREMENT_ID` | No       | Google Analytics ID (currently hardcoded as `G-XYZ` in `layout.tsx`) |
-| `GOOGLE_GENERATIVE_AI_API_KEY` | Yes | Required for the chatbot to connect to Google's Gemini 1.5 Flash model. |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | Yes | Required for the chatbot to connect to Google's Gemini 2.0 Flash model. |
 
 ## Authentication Guide
 
@@ -52,7 +52,7 @@ src/
 │   ├── layout.tsx          # Root layout — fonts, metadata, analytics, chatbot
 │   ├── page.tsx            # Homepage
 │   ├── middleware.ts       # CSP headers, maintenance mode redirect
-│   ├── api/chat/route.ts   # Chatbot API (local response engine)
+│   ├── api/chat/route.ts   # Chatbot API (Vercel AI SDK + Gemini 2.0 Flash streaming)
 │   ├── about/              # About Us page
 │   ├── assistance/         # Loan assistance / application form
 │   ├── blog/               # Blog listing page
@@ -83,7 +83,6 @@ src/
 ├── lib/
 │   ├── constants.ts        # Site config, nav links, loan types, bank partners
 │   ├── utils.ts            # cn() helper (clsx + tailwind-merge)
-│   ├── chatbot-responses.ts  # Local chatbot response engine
 │   └── chatbot-knowledge.ts  # KBD knowledge base data
 │
 └── styles/
@@ -117,7 +116,7 @@ src/
 
 ### `POST /api/chat`
 
-Chatbot endpoint — streams AI responses back to the user widget. Processes user messages using Vercel AI SDK and Google's Gemini 1.5 Flash model, augmented by a local knowledge base (`chatbotKnowledge`).
+Chatbot endpoint — streams AI responses back to the user widget. Processes user messages using Vercel AI SDK v6 (`createUIMessageStream`, `createUIMessageStreamResponse`, `convertToModelMessages`) and Google's Gemini 2.0 Flash model, augmented by a local knowledge base (`chatbotKnowledge`). The frontend widget consumes the stream via the `useChat` hook from `@ai-sdk/react` v3.
 
 **Authentication Requirements:** No client-side token required. Server requires `GOOGLE_GENERATIVE_AI_API_KEY`.
 **Rate Limiting:** Currently not implemented at the application level. Ensure Vercel or your hosting platform has DDoS protection configured.
@@ -161,9 +160,9 @@ curl -X POST http://localhost:3000/api/chat \
 ```
 
 **Key files:**
-- `src/app/api/chat/route.ts` — API handler integrating Vercel AI SDK and Google provider
+- `src/app/api/chat/route.ts` — API handler integrating Vercel AI SDK v6 and Google Gemini 2.0 Flash
 - `src/lib/chatbot-knowledge.ts` — System prompt / Knowledge base data
-- `src/components/chat/chat-widget.tsx` — Frontend widget
+- `src/components/chat/chat-widget.tsx` — Custom React widget — floating chatbot, useChat hook, sessionStorage persistence, Framer Motion
 
 ---
 
@@ -235,24 +234,9 @@ Implemented via `src/middleware.ts`:
 | `@ai-sdk/google`  | ^0.24 | Generative AI integration |
 | `ai`              | ^6.0  | Vercel AI SDK             |
 
-### Unused Dependencies (can be removed)
+### Unused Dependencies
 
-Some dependencies from previous AI iterations (like OpenAI or LangChain) are no longer used since the migration to Google Gemini.
-
-| Package                | Reason                            |
-|------------------------|-----------------------------------|
-| `@ai-sdk/openai`       | Switched to Google Gemini model   |
-| `openai`               | No longer using OpenAI directly   |
-| `langchain`            | Replaced by Vercel AI SDK         |
-| `@langchain/openai`    | Not used                          |
-| `@langchain/core`      | Not used                          |
-| `@langchain/community` | Not used                          |
-
-**To clean up:**
-
-```bash
-npm uninstall @ai-sdk/openai openai langchain @langchain/openai @langchain/core @langchain/community
-```
+Previously unused AI packages (`@ai-sdk/openai`, `openai`, `langchain`, `@langchain/openai`, `@langchain/core`, `@langchain/community`) have been uninstalled. No further cleanup is needed.
 
 ---
 
@@ -282,7 +266,7 @@ All data is **client-side static** (no database). Content is defined in:
 | 🔴 High | Update structured data | Real street address in `layout.tsx` JSON-LD |
 | 🟡 Medium | Set `metadataBase` | Add to layout metadata for OG image resolution |
 | 🟡 Medium | Add real bank logos | Place SVGs in `/public/banks/` directory |
-| 🟡 Medium | Remove unused AI deps | Run the `npm uninstall` command above |
+| ~~🟡 Medium~~ | ~~Remove unused AI deps~~ | Resolved — unused packages uninstalled |
 | 🟡 Medium | Add blog content | Replace placeholder posts in `blog/page.tsx` |
 | 🟢 Low | Add OG image | Place `og-image.png` (1200×630) in `/public/` |
 | 🟢 Low | Configure error tracking | Add Sentry or similar for production monitoring |
@@ -308,6 +292,7 @@ npm start        # Starts production server on port 3000
 
 | Date       | Change                                          |
 |------------|-------------------------------------------------|
+| 2026-02-26 | Replaced Botpress with custom Gemini 2.0 Flash chat widget |
 | 2026-02-16 | Added Blog section to header navigation         |
 | 2026-02-15 | Integrated KBD brand logo SVG across navbar/footer |
 | 2026-02-15 | Rewrote chatbot to use local response engine    |
