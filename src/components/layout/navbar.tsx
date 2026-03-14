@@ -57,15 +57,21 @@ export const Navbar: React.FC = () => {
 
                         {/* Desktop Navigation */}
                         <div className="hidden lg:flex items-center space-x-10 text-[13px] font-bold uppercase tracking-[0.2em] text-slate-400">
-                            {navLinks.slice(0, 6).map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    className="hover:text-[#FFC857] transition-colors"
-                                >
-                                    {link.label}
-                                </Link>
-                            ))}
+                            {navLinks.slice(0, 6).map((link) => {
+                                const isActive = pathname === link.href;
+                                return (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        className={cn(
+                                            "transition-colors",
+                                            isActive ? "text-[#FFC857]" : "hover:text-[#FFC857]"
+                                        )}
+                                    >
+                                        {link.label}
+                                    </Link>
+                                );
+                            })}
                         </div>
 
                         {/* Desktop CTA */}
@@ -113,18 +119,29 @@ export const Navbar: React.FC = () => {
                 </div>
                 <nav className="p-6">
                     <ul className="space-y-1">
-                        {navLinks.map((link) => (
-                            <li key={link.href}>
-                                <Link
-                                    href={link.href}
-                                    onClick={() => setIsOpen(false)}
-                                    className="flex items-center justify-between px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-[#FFC857] rounded-lg transition-colors"
-                                >
-                                    {link.label}
-                                    <ChevronRight className="h-4 w-4 text-slate-600" />
-                                </Link>
-                            </li>
-                        ))}
+                        {navLinks.map((link) => {
+                            const isActive = pathname === link.href;
+                            return (
+                                <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        onClick={() => setIsOpen(false)}
+                                        className={cn(
+                                            "flex items-center justify-between px-4 py-3 rounded-lg transition-colors",
+                                            isActive 
+                                                ? "bg-white/10 text-[#FFC857]" 
+                                                : "text-slate-300 hover:bg-white/5 hover:text-[#FFC857]"
+                                        )}
+                                    >
+                                        {link.label}
+                                        <ChevronRight className={cn(
+                                            "h-4 w-4",
+                                            isActive ? "text-[#FFC857]/70" : "text-slate-600"
+                                        )} />
+                                    </Link>
+                                </li>
+                            );
+                        })}
                     </ul>
                     <div className="mt-8 pt-6 border-t border-white/10">
                         <Link href="/estimator">
