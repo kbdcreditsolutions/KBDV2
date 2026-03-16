@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { Navbar, Footer } from '@/components/layout';
 import { Slider } from "@/components/ui/slider";
 import { Modal } from "@/components/ui/modal";
-import { Shield, TrendingUp, CalendarClock, Activity, Home, User, Car } from "lucide-react";
+import { Shield, TrendingUp, CalendarClock, Activity, Home, User, Car, Calculator, Briefcase } from "lucide-react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 
-type LoanType = 'home' | 'personal' | 'vehicle';
+type LoanType = 'home' | 'personal' | 'vehicle' | 'business';
 type TenureType = 'yr' | 'mo';
 
 export default function LoanDashboard() {
@@ -43,6 +43,11 @@ export default function LoanDashboard() {
             setRate(9.5);
             setTenure(5);
             setTenureType('yr');
+        } else if (type === 'business') {
+            setAmount(2000000);
+            setRate(14);
+            setTenure(5);
+            setTenureType('yr');
         }
     };
 
@@ -51,9 +56,10 @@ export default function LoanDashboard() {
 
     // Constraints setup based on Loan Type
     const constraints = {
-        home: { minAmt: 100000, maxAmt: 100000000, stepAmt: 100000, minRate: 5, maxRate: 20, minTenureYr: 1, maxTenureYr: 30, minTenureMo: 12, maxTenureMo: 360 },
-        personal: { minAmt: 50000, maxAmt: 5000000, stepAmt: 10000, minRate: 8, maxRate: 24, minTenureYr: 1, maxTenureYr: 7, minTenureMo: 12, maxTenureMo: 84 },
-        vehicle: { minAmt: 100000, maxAmt: 10000000, stepAmt: 10000, minRate: 7, maxRate: 20, minTenureYr: 1, maxTenureYr: 8, minTenureMo: 12, maxTenureMo: 96 }
+        home:     { minAmt: 100000,  maxAmt: 100000000, stepAmt: 100000, minRate: 5,  maxRate: 20, minTenureYr: 1, maxTenureYr: 30, minTenureMo: 12, maxTenureMo: 360 },
+        personal: { minAmt: 50000,   maxAmt: 5000000,   stepAmt: 10000,  minRate: 8,  maxRate: 24, minTenureYr: 1, maxTenureYr: 7,  minTenureMo: 12, maxTenureMo: 84  },
+        vehicle:  { minAmt: 100000,  maxAmt: 10000000,  stepAmt: 10000,  minRate: 7,  maxRate: 20, minTenureYr: 1, maxTenureYr: 8,  minTenureMo: 12, maxTenureMo: 96  },
+        business: { minAmt: 100000,  maxAmt: 20000000,  stepAmt: 50000,  minRate: 12, maxRate: 22, minTenureYr: 1, maxTenureYr: 10, minTenureMo: 12, maxTenureMo: 120 },
     }[loanType];
 
     const minTenure = tenureType === 'yr' ? constraints.minTenureYr : constraints.minTenureMo;
@@ -246,6 +252,13 @@ export default function LoanDashboard() {
                                     <Car className="w-4 h-4" />
                                     Car Loan
                                 </button>
+                                <button
+                                    onClick={() => handleLoanTypeChange('business')}
+                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'business' ? 'bg-[#FFC857] text-[#050A18]' : 'text-slate-400 hover:text-white'}`}
+                                >
+                                    <Briefcase className="w-4 h-4" />
+                                    Business Loan
+                                </button>
                             </div>
 
                             {/* Inputs */}
@@ -254,7 +267,7 @@ export default function LoanDashboard() {
                                 <div className="space-y-4">
                                     <div className="flex flex-col gap-3">
                                         <label className="text-xs font-mono uppercase tracking-widest text-slate-400">
-                                            {loanType === 'home' ? 'Home' : loanType === 'personal' ? 'Personal' : 'Car'} Loan Amount
+                                        {loanType === 'home' ? 'Home' : loanType === 'personal' ? 'Personal' : loanType === 'vehicle' ? 'Car' : 'Business'} Loan Amount
                                         </label>
                                         <div className="relative w-full sm:w-auto self-start">
                                             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 font-mono text-lg font-bold">₹</span>
@@ -374,14 +387,14 @@ export default function LoanDashboard() {
                             <div className="bg-[rgba(11,17,33,0.95)] p-6 sm:p-8 lg:p-10 relative z-10 w-full mx-auto shadow-2xl">
 
                                 {/* SVG Recharts Pie */}
-                                <div className="h-[200px] sm:h-[240px] w-full relative mb-8">
+                                <div className="h-[300px] sm:h-[340px] w-full relative mb-6">
                                     {mounted && (
                                         <ResponsiveContainer width="100%" height="100%">
                                             <PieChart>
                                                 <Pie
                                                     data={pieData}
-                                                    innerRadius={80}
-                                                    outerRadius={110}
+                                                    innerRadius="50%"
+                                                    outerRadius="75%"
                                                     paddingAngle={2}
                                                     dataKey="value"
                                                     stroke="none"
@@ -401,9 +414,9 @@ export default function LoanDashboard() {
                                         </ResponsiveContainer>
                                     )}
                                     {/* Center Text inside Donut */}
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-2">
-                                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Monthly EMI</span>
-                                        <span className="text-2xl sm:text-3xl font-bold text-[#FFC857] font-mono tracking-tighter tabular-nums mt-1">
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                                        <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">Monthly EMI</span>
+                                        <span className="text-lg sm:text-2xl font-bold text-[#FFC857] font-mono tracking-tighter tabular-nums mt-0.5">
                                             {formatCurrency(emi)}
                                         </span>
                                     </div>
@@ -497,6 +510,114 @@ export default function LoanDashboard() {
                                     </BarChart>
                                 </ResponsiveContainer>
                             )}
+                        </div>
+                    </div>
+                </div>
+
+                {/* EMI Formula Explanation */}
+                <div className="relative w-full max-w-6xl z-30 mx-auto mt-8">
+                    <div className="bg-[rgba(15,23,42,0.85)] backdrop-blur-2xl border border-white/10 p-6 sm:p-8 lg:p-10 shadow-2xl">
+
+                        <div className="flex items-center gap-3 mb-8">
+                            <Calculator className="w-5 h-5 text-[#FFC857]" />
+                            <h2 className="text-xl font-bold text-white tracking-tight uppercase font-mono">
+                                How EMI Is Calculated
+                            </h2>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+
+                            {/* Formula Block */}
+                            <div className="space-y-6">
+                                <p className="text-sm text-slate-400 leading-relaxed">
+                                    The <span className="text-[#FFC857] font-semibold">Equated Monthly Instalment (EMI)</span> uses
+                                    a reducing-balance formula — each payment covers both interest and a portion of the principal,
+                                    so the outstanding balance shrinks with every EMI paid.
+                                </p>
+
+                                {/* Formula Box */}
+                                <div className="bg-black/40 border border-white/10 rounded-lg p-5 font-mono text-center space-y-3">
+                                    <p className="text-[11px] text-slate-500 uppercase tracking-widest mb-3">Standard EMI Formula</p>
+                                    <div className="text-white text-base sm:text-lg leading-relaxed">
+                                        <span className="text-[#FFC857] font-bold">EMI</span>
+                                        <span className="text-slate-400"> = </span>
+                                        <span className="text-white">P × r × (1 + r)</span>
+                                        <sup className="text-[#FFC857]">n</sup>
+                                    </div>
+                                    <div className="border-t border-white/10 pt-2 text-white text-base sm:text-lg">
+                                        <span className="text-slate-400 text-sm">divided by </span>
+                                        <span className="text-white">(1 + r)</span>
+                                        <sup className="text-[#FFC857]">n</sup>
+                                        <span className="text-white"> − 1</span>
+                                    </div>
+                                </div>
+
+                                {/* Variable Definitions */}
+                                <div className="space-y-3">
+                                    {[
+                                        { symbol: 'P', label: 'Principal', desc: 'The original loan amount borrowed' },
+                                        { symbol: 'r', label: 'Monthly Rate', desc: 'Annual interest rate ÷ 12 ÷ 100' },
+                                        { symbol: 'n', label: 'Tenor (months)', desc: 'Total number of monthly instalments' },
+                                    ].map(({ symbol, label, desc }) => (
+                                        <div key={symbol} className="flex items-start gap-4">
+                                            <span className="w-8 h-8 flex items-center justify-center bg-[#FFC857]/10 border border-[#FFC857]/20 text-[#FFC857] font-mono font-bold text-sm rounded shrink-0">{symbol}</span>
+                                            <div>
+                                                <p className="text-white text-sm font-semibold">{label}</p>
+                                                <p className="text-slate-500 text-xs mt-0.5">{desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Live Example + Tips */}
+                            <div className="space-y-6">
+
+                                {/* Worked Example with live values */}
+                                <div className="bg-black/40 border border-white/10 rounded-lg p-5 space-y-4">
+                                    <p className="text-[11px] font-mono text-slate-500 uppercase tracking-widest">Worked Example — Current Values</p>
+                                    <div className="space-y-2 font-mono text-sm">
+                                        <div className="flex justify-between">
+                                            <span className="text-slate-400">Principal (P)</span>
+                                            <span className="text-white tabular-nums">{formatCurrency(amount)}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-slate-400">Annual Rate</span>
+                                            <span className="text-white tabular-nums">{rate}%</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-slate-400">Monthly Rate (r)</span>
+                                            <span className="text-white tabular-nums">{(rate / 12 / 100).toFixed(5)}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-slate-400">Tenor (n)</span>
+                                            <span className="text-white tabular-nums">{tenureType === 'yr' ? tenure * 12 : tenure} months</span>
+                                        </div>
+                                        <div className="border-t border-white/10 pt-3 flex justify-between">
+                                            <span className="text-[#FFC857] font-bold">Monthly EMI</span>
+                                            <span className="text-[#FFC857] font-bold tabular-nums">{formatCurrency(emi)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Key Tips */}
+                                <div className="space-y-3">
+                                    <p className="text-[11px] font-mono text-slate-500 uppercase tracking-widest">Key Factors That Affect Your EMI</p>
+                                    {[
+                                        { tip: 'Higher principal → Higher EMI', sub: 'Borrow only what you need to keep payments manageable' },
+                                        { tip: 'Higher interest rate → Higher EMI', sub: 'Even a 0.5% difference can save lakhs over the tenure' },
+                                        { tip: 'Longer tenure → Lower EMI, more total interest', sub: 'Shorter tenure reduces total cost significantly' },
+                                    ].map(({ tip, sub }) => (
+                                        <div key={tip} className="flex items-start gap-3">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-[#FFC857] mt-2 shrink-0" />
+                                            <div>
+                                                <p className="text-white text-sm">{tip}</p>
+                                                <p className="text-slate-500 text-xs mt-0.5">{sub}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
