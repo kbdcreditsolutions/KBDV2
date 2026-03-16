@@ -63,7 +63,7 @@ export const Hero: React.FC = () => {
         <section className="relative min-h-[100dvh] bg-[#050A18] overflow-hidden">
             {/* Grid Pattern Background */}
             <div
-                className="fixed inset-0 pointer-events-none"
+                className="absolute inset-0 pointer-events-none"
                 style={{
                     backgroundImage: `
             linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
@@ -75,7 +75,7 @@ export const Hero: React.FC = () => {
 
             {/* Sub Grid */}
             <div
-                className="fixed inset-0 pointer-events-none"
+                className="absolute inset-0 pointer-events-none"
                 style={{
                     backgroundImage: `
             linear-gradient(to right, rgba(255,200,87,0.02) 1px, transparent 1px),
@@ -86,8 +86,8 @@ export const Hero: React.FC = () => {
             />
 
             {/* Glow Effects */}
-            <div className="fixed top-[-10%] left-[-10%] w-[60%] h-[60%] bg-[#FFC857] rounded-full opacity-[0.15] blur-[140px] mix-blend-screen" />
-            <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600 rounded-full opacity-[0.15] blur-[140px] mix-blend-screen" />
+            <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-[#FFC857] rounded-full opacity-[0.12] blur-[140px] pointer-events-none" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600 rounded-full opacity-[0.12] blur-[140px] pointer-events-none" />
 
             {/* Main Content */}
             <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 min-h-[100dvh] flex flex-col justify-center py-20 pt-24 lg:py-24 lg:pt-28">

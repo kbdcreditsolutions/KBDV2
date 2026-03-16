@@ -83,7 +83,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
-            <body className="min-h-screen bg-white antialiased">
+            <body className="min-h-screen bg-[#050A18] antialiased" suppressHydrationWarning>
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{

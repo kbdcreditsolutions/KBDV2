@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Navbar, Footer } from '@/components/layout';
 import { Slider } from "@/components/ui/slider";
 import { Modal } from "@/components/ui/modal";
-import { Shield, TrendingUp, CalendarClock, Activity } from "lucide-react";
+import { Shield, TrendingUp, CalendarClock, Activity, Home, User, Car } from "lucide-react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 
@@ -106,7 +106,7 @@ export default function LoanDashboard() {
             maximumFractionDigits: 0,
         }).format(val);
 
-    const formatInputValue = (val: number) => 
+    const formatInputValue = (val: number) =>
         new Intl.NumberFormat("en-IN", {
             maximumFractionDigits: 0,
             useGrouping: true
@@ -121,14 +121,14 @@ export default function LoanDashboard() {
     const getChartData = () => {
         const schedule = generateSchedule();
         if (totalMonths <= 36) {
-           return schedule.map(item => ({
-               name: `Mo ${item.month}`,
-               Principal: Math.round(item.principal),
-               Interest: Math.round(item.interest),
-               Balance: Math.round(item.closing)
-           }));
+            return schedule.map(item => ({
+                name: `Mo ${item.month}`,
+                Principal: Math.round(item.principal),
+                Interest: Math.round(item.interest),
+                Balance: Math.round(item.closing)
+            }));
         }
-        
+
         // Group by year
         const yearly = [];
         for (let i = 0; i < schedule.length; i += 12) {
@@ -167,7 +167,7 @@ export default function LoanDashboard() {
         <>
             <Navbar />
             <main className="min-h-screen bg-[#050A18] pt-24 pb-20 px-4 font-sans relative overflow-hidden flex flex-col items-center">
-            
+
                 {/* --- Background Effects --- */}
                 {/* Grid Pattern Background */}
                 <div
@@ -180,7 +180,7 @@ export default function LoanDashboard() {
                         backgroundSize: '60px 60px',
                     }}
                 />
-                
+
                 {/* Glow Effects */}
                 <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-[#FFC857] rounded-full opacity-[0.10] blur-[140px] mix-blend-screen pointer-events-none delay-100 animate-pulse duration-[8000ms]" />
 
@@ -207,12 +207,12 @@ export default function LoanDashboard() {
 
                 {/* EMI Widget - Layered HUD Design */}
                 <div className="relative w-full max-w-6xl z-30 mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 lg:bg-[rgba(15,23,42,0.85)] lg:backdrop-blur-2xl lg:border lg:border-white/10 lg:pl-10 lg:pr-6 lg:py-10">
-                        
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 lg:bg-[rgba(15,23,42,0.85)] lg:backdrop-blur-2xl lg:pl-10 lg:pr-6 lg:py-10">
+
                         {/* Left: Input Console */}
-                        <div className="lg:col-span-7 space-y-8 bg-[rgba(15,23,42,0.85)] lg:bg-transparent backdrop-blur-2xl lg:backdrop-blur-none border border-white/10 lg:border-none p-6 sm:p-8 lg:p-0">
+                        <div className="lg:col-span-7 space-y-8 bg-[rgba(15,23,42,0.85)] lg:bg-transparent backdrop-blur-2xl lg:backdrop-blur-none border border-white/10 lg:border-none p-6 sm:p-8 lg:p-0 overflow-hidden">
                             {/* Header / Badges */}
-                            <div className="flex justify-between items-start">
+                            <div className="flex justify-between items-start mb-6">
                                 <div>
                                     <div className="flex items-center gap-2 mb-2">
                                         <Shield className="w-4 h-4 text-[#FFC857]" />
@@ -221,31 +221,29 @@ export default function LoanDashboard() {
                                         </span>
                                     </div>
                                 </div>
-                                <div className="bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 flex items-center justify-center">
-                                    <span className="text-[10px] font-mono font-bold text-emerald-400">
-                                        ACTIVE_TX
-                                    </span>
-                                </div>
                             </div>
 
                             {/* Segmented Control - Loan Type */}
-                            <div className="flex flex-col sm:flex-row p-1 bg-black/40 border border-white/5 gap-1 sm:gap-0">
+                            <div className="flex flex-col sm:flex-row p-1 bg-black/40 border border-white/5 rounded-xl gap-1 sm:gap-0">
                                 <button
                                     onClick={() => handleLoanTypeChange('home')}
-                                    className={`flex-1 py-3 text-sm font-bold tracking-wider uppercase transition-colors ${loanType === 'home' ? 'bg-[#FFC857] text-[#050A18]' : 'text-slate-400 hover:text-white'}`}
+                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'home' ? 'bg-[#FFC857] text-[#050A18]' : 'text-slate-400 hover:text-white'}`}
                                 >
+                                    <Home className="w-4 h-4" />
                                     Home Loan
                                 </button>
                                 <button
                                     onClick={() => handleLoanTypeChange('personal')}
-                                    className={`flex-1 py-3 text-sm font-bold tracking-wider uppercase transition-colors ${loanType === 'personal' ? 'bg-[#FFC857] text-[#050A18]' : 'text-slate-400 hover:text-white'}`}
+                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'personal' ? 'bg-[#FFC857] text-[#050A18]' : 'text-slate-400 hover:text-white'}`}
                                 >
+                                    <User className="w-4 h-4" />
                                     Personal Loan
                                 </button>
                                 <button
                                     onClick={() => handleLoanTypeChange('vehicle')}
-                                    className={`flex-1 py-3 text-sm font-bold tracking-wider uppercase transition-colors ${loanType === 'vehicle' ? 'bg-[#FFC857] text-[#050A18]' : 'text-slate-400 hover:text-white'}`}
+                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'vehicle' ? 'bg-[#FFC857] text-[#050A18]' : 'text-slate-400 hover:text-white'}`}
                                 >
+                                    <Car className="w-4 h-4" />
                                     Car Loan
                                 </button>
                             </div>
@@ -254,17 +252,17 @@ export default function LoanDashboard() {
                             <div className="space-y-10 mt-8">
                                 {/* Amount */}
                                 <div className="space-y-4">
-                                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 sm:gap-0">
+                                    <div className="flex flex-col gap-3">
                                         <label className="text-xs font-mono uppercase tracking-widest text-slate-400">
                                             {loanType === 'home' ? 'Home' : loanType === 'personal' ? 'Personal' : 'Car'} Loan Amount
                                         </label>
-                                        <div className="relative w-full sm:w-auto">
+                                        <div className="relative w-full sm:w-auto self-start">
                                             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 font-mono text-lg font-bold">₹</span>
                                             <input
                                                 type="text"
                                                 value={formatInputValue(amount)}
                                                 onChange={handleAmountChange}
-                                                className="w-full sm:w-56 bg-black/40 border border-white/10 py-3 pl-10 pr-4 text-right text-xl font-bold text-white font-mono focus:outline-none focus:border-[#FFC857]/50 focus:ring-1 focus:ring-[#FFC857]/50"
+                                                className="w-full sm:w-56 bg-black/40 border border-white/10 py-3 pl-10 pr-4 text-left text-xl font-bold text-white font-mono focus:outline-none focus:border-[#FFC857]/50 focus:ring-1 focus:ring-[#FFC857]/50"
                                             />
                                         </div>
                                     </div>
@@ -276,25 +274,25 @@ export default function LoanDashboard() {
                                         onChange={(e) => setAmount(Number(e.target.value))}
                                         className="py-2"
                                     />
-                                    <div className="flex justify-between mt-1">
-                                        <span className="text-[10px] font-mono text-slate-500">{formatCurrency(constraints.minAmt)}</span>
-                                        <span className="text-[10px] font-mono text-slate-500">{formatCurrency(constraints.maxAmt)}</span>
+                                    <div className="flex justify-start gap-4 mt-1">
+                                        <span className="text-[10px] font-mono text-slate-500">Min: {formatCurrency(constraints.minAmt)}</span>
+                                        <span className="text-[10px] font-mono text-slate-500">Max: {formatCurrency(constraints.maxAmt)}</span>
                                     </div>
                                 </div>
 
                                 {/* Interest Rate */}
                                 <div className="space-y-4">
-                                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 sm:gap-0">
+                                    <div className="flex flex-col gap-3">
                                         <label className="text-xs font-mono uppercase tracking-widest text-slate-400">
                                             Interest Rate (p.a)
                                         </label>
-                                        <div className="relative w-full sm:w-auto">
+                                        <div className="relative w-full sm:w-auto self-start">
                                             <input
                                                 type="number"
                                                 step="0.1"
                                                 value={rate}
                                                 onChange={handleRateChange}
-                                                className="w-full sm:w-40 bg-black/40 border border-white/10 py-3 px-8 text-right text-xl font-bold text-white font-mono focus:outline-none focus:border-[#FFC857]/50 focus:ring-1 focus:ring-[#FFC857]/50"
+                                                className="w-full sm:w-40 bg-black/40 border border-white/10 py-3 pl-4 pr-8 text-left text-xl font-bold text-white font-mono focus:outline-none focus:border-[#FFC857]/50 focus:ring-1 focus:ring-[#FFC857]/50"
                                             />
                                             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#FFC857] font-bold text-lg">%</span>
                                         </div>
@@ -307,25 +305,25 @@ export default function LoanDashboard() {
                                         onChange={(e) => setRate(Number(e.target.value))}
                                         className="py-2"
                                     />
-                                    <div className="flex justify-between mt-1">
-                                        <span className="text-[10px] font-mono text-slate-500">{constraints.minRate}%</span>
-                                        <span className="text-[10px] font-mono text-slate-500">{constraints.maxRate}%</span>
+                                    <div className="flex justify-start gap-4 mt-1">
+                                        <span className="text-[10px] font-mono text-slate-500">Min: {constraints.minRate}%</span>
+                                        <span className="text-[10px] font-mono text-slate-500">Max: {constraints.maxRate}%</span>
                                     </div>
                                 </div>
 
                                 {/* Tenure */}
                                 <div className="space-y-4">
-                                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 sm:gap-0">
+                                    <div className="flex flex-col gap-3">
                                         <label className="text-xs font-mono uppercase tracking-widest text-slate-400">
                                             Loan Tenure
                                         </label>
-                                        <div className="flex gap-4 items-center w-full sm:w-auto justify-between sm:justify-end">
+                                        <div className="flex gap-4 items-center w-full sm:w-auto justify-start self-start">
                                             <input
                                                 type="number"
                                                 step="1"
                                                 value={tenure}
                                                 onChange={handleTenureChange}
-                                                className="w-full sm:w-32 bg-black/40 border border-white/10 py-3 px-4 text-center text-xl font-bold text-white font-mono focus:outline-none focus:border-[#FFC857]/50 focus:ring-1 focus:ring-[#FFC857]/50"
+                                                className="w-full sm:w-32 bg-black/40 border border-white/10 py-3 px-4 text-left text-xl font-bold text-white font-mono focus:outline-none focus:border-[#FFC857]/50 focus:ring-1 focus:ring-[#FFC857]/50"
                                             />
                                             <div className="flex bg-black/40 border border-white/10 p-1 shrink-0">
                                                 <button
@@ -361,9 +359,9 @@ export default function LoanDashboard() {
                                         onChange={(e) => setTenure(Number(e.target.value))}
                                         className="py-2"
                                     />
-                                    <div className="flex justify-between mt-1">
-                                        <span className="text-[10px] font-mono text-slate-500">{minTenure} {tenureType === 'yr' ? 'Years' : 'Months'}</span>
-                                        <span className="text-[10px] font-mono text-slate-500">{maxTenure} {tenureType === 'yr' ? 'Years' : 'Months'}</span>
+                                    <div className="flex justify-start gap-4 mt-1">
+                                        <span className="text-[10px] font-mono text-slate-500">Min: {minTenure} {tenureType === 'yr' ? 'Years' : 'Months'}</span>
+                                        <span className="text-[10px] font-mono text-slate-500">Max: {maxTenure} {tenureType === 'yr' ? 'Years' : 'Months'}</span>
                                     </div>
                                 </div>
                             </div>
@@ -371,12 +369,10 @@ export default function LoanDashboard() {
 
                         {/* Right: Output Breakdown (Overlapping Chart) */}
                         <div className="lg:col-span-5 relative mt-8 lg:mt-0 flex flex-col justify-center">
-                            
-                            {/* overlapping background strictly for right side to create depth on desktop */}
-                            <div className="hidden lg:block absolute inset-y-[-2rem] left-[-3rem] right-[-2rem] bg-white/[0.02] border border-white/10 border-l-[#FFC857]/50 shadow-2xl backdrop-blur-3xl z-[-1]" />
-                            
-                            <div className="bg-[rgba(11,17,33,0.95)] border border-white/10 p-6 sm:p-8 lg:p-10 relative z-10 w-full mx-auto shadow-2xl">
-                                
+
+
+                            <div className="bg-[rgba(11,17,33,0.95)] p-6 sm:p-8 lg:p-10 relative z-10 w-full mx-auto shadow-2xl">
+
                                 {/* SVG Recharts Pie */}
                                 <div className="h-[200px] sm:h-[240px] w-full relative mb-8">
                                     {mounted && (
@@ -393,10 +389,10 @@ export default function LoanDashboard() {
                                                     animationDuration={1500}
                                                 >
                                                     {pieData.map((entry, index) => (
-                                                        <Cell key={`cell-\${index}`} fill={entry.color} />
+                                                        <Cell key={`cell-${index}`} fill={entry.color} />
                                                     ))}
                                                 </Pie>
-                                                <Tooltip 
+                                                <Tooltip
                                                     formatter={(value: any) => formatCurrency(Number(value))}
                                                     contentStyle={{ backgroundColor: '#050A18', borderColor: 'rgba(255,255,255,0.1)', color: 'white' }}
                                                     itemStyle={{ color: 'white' }}
@@ -461,7 +457,7 @@ export default function LoanDashboard() {
                                 Amortization Graph
                             </h2>
                         </div>
-                        
+
                         <div className="h-[350px] w-full mt-4">
                             {mounted && (
                                 <ResponsiveContainer width="100%" height="100%">
@@ -470,29 +466,29 @@ export default function LoanDashboard() {
                                         margin={{ top: 20, right: 0, left: -20, bottom: 5 }}
                                     >
                                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                                        <XAxis 
-                                            dataKey="name" 
-                                            stroke="rgba(255,255,255,0.3)" 
-                                            tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 12, fontFamily: 'monospace' }} 
+                                        <XAxis
+                                            dataKey="name"
+                                            stroke="rgba(255,255,255,0.3)"
+                                            tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 12, fontFamily: 'monospace' }}
                                             axisLine={false}
                                             tickLine={false}
                                             dy={10}
                                         />
-                                        <YAxis 
-                                            stroke="rgba(255,255,255,0.3)" 
-                                            tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 12, fontFamily: 'monospace' }} 
+                                        <YAxis
+                                            stroke="rgba(255,255,255,0.3)"
+                                            tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 12, fontFamily: 'monospace' }}
                                             axisLine={false}
                                             tickLine={false}
                                             tickFormatter={(value) => `₹${(value / 100000).toFixed(0)}L`}
                                         />
-                                        <Tooltip 
+                                        <Tooltip
                                             formatter={(value: any, name: any) => [formatCurrency(Number(value)), String(name)]}
                                             contentStyle={{ backgroundColor: '#050A18', borderColor: 'rgba(255,255,255,0.1)', color: 'white', fontFamily: 'monospace' }}
                                             itemStyle={{ color: 'white', fontWeight: 'bold' }}
                                             cursor={{ fill: 'rgba(255,255,255,0.02)' }}
                                             labelStyle={{ color: '#FFC857', marginBottom: '8px', fontWeight: 'bold' }}
                                         />
-                                        <Legend 
+                                        <Legend
                                             wrapperStyle={{ paddingTop: '20px', fontFamily: 'monospace', fontSize: '12px' }}
                                             iconType="square"
                                         />
@@ -507,7 +503,7 @@ export default function LoanDashboard() {
 
                 {/* Secure Badge below widget */}
                 <div className="mt-12 flex justify-center w-full z-20">
-                     <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-3 rounded-sm backdrop-blur-md">
+                    <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-3 rounded-sm backdrop-blur-md">
                         <TrendingUp className="w-4 h-4 text-emerald-400" />
                         <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">
                             Real-time RBI Rates &middot; Secure Terminal
