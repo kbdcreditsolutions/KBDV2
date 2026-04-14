@@ -1,3 +1,5 @@
+'use client';
+
 import { blogPosts } from '@/lib/blog-data';
 import { blogIconMap } from '@/lib/blog-icons';
 import { Navbar, Footer, Section } from '@/components/layout';

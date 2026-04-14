@@ -1,5 +1,7 @@
 'use client';
 
+'use client';
+
 import { useState } from 'react';
 import { Section } from '@/components/layout';
 import { Shield, ChevronRight, Lock, Mail } from 'lucide-react';

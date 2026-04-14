@@ -1,5 +1,7 @@
 'use client';
 
+'use client';
+
 import * as React from 'react';
 import { Section, SectionHeader } from '@/components/layout';
 import { Card, CardContent } from '@/components/ui';

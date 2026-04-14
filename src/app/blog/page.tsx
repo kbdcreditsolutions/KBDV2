@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Section, SectionHeader } from '@/components/layout';
 import { Navbar, Footer } from '@/components/layout';
