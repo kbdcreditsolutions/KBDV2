@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Modal } from "@/components/ui/modal";
-import { Shield, TrendingUp, LineChart, CalendarClock, Activity } from "lucide-react";
+import { Shield, TrendingUp, LineChart, CalendarClock, Activity, Send, CheckCircle2 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 import { motion } from "framer-motion";
 
 export function LoanEstimator() {
@@ -12,6 +13,9 @@ export function LoanEstimator() {
     const [rate, setRate] = useState(10.5); // 10.5% default
     const [tenure, setTenure] = useState(60); // 60 Months default
     const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [formData, setFormData] = useState({ name: "", phone: "" });
 
     // EMI Calculation
     const calculateEMI = () => {
@@ -56,6 +60,31 @@ export function LoanEstimator() {
             currency: "INR",
             maximumFractionDigits: 0,
         }).format(val);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        try {
+            const { error } = await supabase.from('leads').insert([
+                {
+                    customer_name: formData.name,
+                    phone: formData.phone,
+                    amount: amount,
+                    loan_type: 'Estimator Lead',
+                    status: 'New'
+                }
+            ]);
+
+            if (error) throw error;
+            setIsSubmitted(true);
+        } catch (err) {
+            console.error("Error submitting lead:", err);
+            alert("Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     return (
         <section className="relative w-full py-24 bg-[#050A18] overflow-hidden flex items-center justify-center font-sans border-y border-white/5">
@@ -262,6 +291,70 @@ export function LoanEstimator() {
                                     <CalendarClock className="w-4 h-4 text-[#FFC857] group-hover:scale-110 transition-transform" />
                                     <span>View Amortization Schedule</span>
                                 </button>
+
+                                {/* Lead Capture Form Integration */}
+                                <div className="mt-8 pt-8 border-t border-white/10">
+                                    {!isSubmitted ? (
+                                        <div className="space-y-4">
+                                            <div className="text-center mb-6">
+                                                <h4 className="text-lg font-bold text-white mb-2">Unlock Partner Bank Offers</h4>
+                                                <p className="text-xs text-slate-400">Our engine matches you with 180+ banks for this exact EMI.</p>
+                                            </div>
+                                            <form onSubmit={handleSubmit} className="space-y-3">
+                                                <div className="relative">
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Full Name"
+                                                        required
+                                                        value={formData.name}
+                                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#FFC857]/50 focus:border-[#FFC857]/50 transition-all"
+                                                    />
+                                                </div>
+                                                <div className="relative">
+                                                    <input
+                                                        type="tel"
+                                                        placeholder="WhatsApp Number"
+                                                        required
+                                                        value={formData.phone}
+                                                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#FFC857]/50 focus:border-[#FFC857]/50 transition-all"
+                                                    />
+                                                </div>
+                                                <button
+                                                    type="submit"
+                                                    disabled={isSubmitting}
+                                                    className="w-full py-4 rounded-xl bg-[#FFC857] text-[#050A18] font-bold text-sm hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-[#FFC857]/20"
+                                                >
+                                                    {isSubmitting ? (
+                                                        <motion.div
+                                                            animate={{ rotate: 360 }}
+                                                            transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                                                            className="w-5 h-5 border-2 border-[#050A18]/20 border-t-[#050A18] rounded-full"
+                                                        />
+                                                    ) : (
+                                                        <>
+                                                            <Send className="w-4 h-4" />
+                                                            <span>Get Approvals Now</span>
+                                                        </>
+                                                    )}
+                                                </button>
+                                            </form>
+                                        </div>
+                                    ) : (
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            className="text-center py-8"
+                                        >
+                                            <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                                <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                                            </div>
+                                            <h4 className="text-xl font-bold text-white mb-2">Request Received!</h4>
+                                            <p className="text-sm text-slate-400">Our senior advisor will contact you on WhatsApp within 15 minutes.</p>
+                                        </motion.div>
+                                    )}
+                                </div>
 
                                 {/* Footer */}
                                 <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">

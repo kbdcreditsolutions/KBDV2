@@ -19,49 +19,47 @@ export const siteConfig = {
 // Navigation links
 export const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/loans', label: 'Compare Loans' },
-    { href: '/estimator', label: 'Loan Estimator' },
-    { href: '/partners', label: 'Bank Partners' },
-    { href: '/assistance', label: 'Assistance' },
-    { href: '/about', label: 'About Us' },
-    { href: '/blog', label: 'Blog' },
-    { href: '/contact', label: 'Contact' },
-    { href: '/feedback', label: 'Feedback' },
+    { href: '/services/personal-loan', label: 'Personal Loan' },
+    { href: '/services/business-loan', label: 'Business Loan' },
+    { href: '/services/home-loan', label: 'Home Loan' },
+    { href: '/services/cibil-repair', label: 'CIBIL Repair' },
+    { href: '/blog', label: 'Insights & Blog' },
+    { href: '/partners', label: 'Partner Hub' },
 ];
 
 // Loan types
 export const loanTypes = [
     {
-        id: 'personal',
+        id: 'personal-loan',
         name: 'Personal Loan',
-        description: 'For your personal needs and expenses',
+        description: 'Instant credit for your personal needs',
         icon: 'User',
         minAmount: 50000,
         maxAmount: 4000000,
     },
     {
-        id: 'home',
+        id: 'home-loan',
         name: 'Home Loan',
-        description: 'Make your dream home a reality',
+        description: 'Highest approval rates for your dream home',
         icon: 'Home',
         minAmount: 500000,
         maxAmount: 100000000,
     },
     {
-        id: 'vehicle',
-        name: 'Vehicle Loan',
-        description: 'Finance your car or two-wheeler',
-        icon: 'Car',
-        minAmount: 100000,
-        maxAmount: 10000000,
-    },
-    {
-        id: 'business',
+        id: 'business-loan',
         name: 'Business Loan',
-        description: 'Grow and expand your business',
+        description: 'Collateral-free options for MSMEs',
         icon: 'Briefcase',
         minAmount: 200000,
         maxAmount: 50000000,
+    },
+    {
+        id: 'cibil-repair',
+        name: 'CIBIL Repair',
+        description: 'Strategic roadmap to 750+ score',
+        icon: 'ShieldCheck',
+        minAmount: 0,
+        maxAmount: 0,
     },
 ];
 

@@ -75,9 +75,9 @@ export const Navbar: React.FC = () => {
                         </div>
 
                         {/* Desktop CTA */}
-                        <button className="hidden lg:flex px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest text-white hover:border-[#FFC857] transition-all border border-white/10 backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)]">
+                        <Link href="/partners/login" className="hidden lg:flex px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest text-white hover:border-[#FFC857] transition-all border border-white/10 backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)]">
                             Access Terminal
-                        </button>
+                        </Link>
 
                         {/* Mobile Menu Button */}
                         <button

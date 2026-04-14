@@ -5,14 +5,14 @@ import Link from 'next/link';
 import { Section, SectionHeader } from '@/components/layout';
 import { Card, CardContent, Button } from '@/components/ui';
 import { loanTypes } from '@/lib/constants';
-import { User, Home, Car, Briefcase, ArrowRight } from 'lucide-react';
+import { User, Home, ShieldCheck, Briefcase, ArrowRight } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
 const iconMap: Record<string, React.ElementType> = {
     User,
     Home,
-    Car,
+    ShieldCheck,
     Briefcase,
 };
 
@@ -36,7 +36,7 @@ export const LoanCategories: React.FC = () => {
                             transition={{ duration: 0.4, delay: index * 0.1 }}
                             viewport={{ once: true }}
                         >
-                            <Link href={`/loans?type=${loan.id}`}>
+                            <Link href={`/services/${loan.id}`}>
                                 <Card
                                     variant="default"
                                     hover
