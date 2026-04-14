@@ -18,7 +18,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         <>
             <Navbar />
             <main className="pt-24 min-h-screen bg-surface">
-                <Section background="transparent" size="md">
+                <Section background="surface" size="md">
                     <div className="max-w-3xl mx-auto">
                         {/* Breadcrumbs */}
                         <Link 
