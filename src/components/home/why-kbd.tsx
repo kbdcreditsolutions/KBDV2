@@ -75,29 +75,40 @@ export const WhyKBD: React.FC = () => {
 
             {/* Bank Partner Logos */}
             <div className="mt-16 pt-10 border-t border-gray-100">
-                <p className="text-center text-sm text-gray-400 mb-8 uppercase tracking-widest font-medium">
+                <p className="text-center text-xs text-gray-400 mb-8 uppercase tracking-[0.2em] font-medium">
                     Partnered with India&apos;s leading banks
                 </p>
-                <div className="grid grid-cols-5 md:grid-cols-10 gap-3">
+                <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6">
                     {[
-                        { name: 'HDFC', color: 'bg-blue-900' },
-                        { name: 'ICICI', color: 'bg-orange-600' },
-                        { name: 'SBI', color: 'bg-blue-700' },
-                        { name: 'Axis', color: 'bg-pink-700' },
-                        { name: 'Kotak', color: 'bg-red-700' },
-                        { name: 'Bajaj', color: 'bg-blue-600' },
-                        { name: 'PNB', color: 'bg-red-800' },
-                        { name: 'IDFC', color: 'bg-teal-700' },
-                        { name: 'Tata', color: 'bg-indigo-800' },
-                        { name: 'IndusInd', color: 'bg-sky-800' },
+                        { name: 'HDFC', sub: 'BANK', color: '#004B87' },
+                        { name: 'ICICI', sub: 'BANK', color: '#F58220' },
+                        { name: 'SBI', sub: '', color: '#1A4789' },
+                        { name: 'Axis', sub: 'BANK', color: '#97144D' },
+                        { name: 'Kotak', sub: '', color: '#ED1C24' },
+                        { name: 'Bajaj', sub: 'FINSERV', color: '#00529B' },
+                        { name: 'PNB', sub: 'HOUSING', color: '#A51C30' },
+                        { name: 'IDFC', sub: 'FIRST', color: '#9C1D26' },
+                        { name: 'Tata', sub: 'CAPITAL', color: '#486AAE' },
+                        { name: 'IndusInd', sub: 'BANK', color: '#174A7C' },
                     ].map((bank) => (
                         <div
                             key={bank.name}
-                            className={`${bank.color} rounded-xl h-14 flex items-center justify-center opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-300 cursor-default`}
+                            className="flex items-baseline gap-1 opacity-50 hover:opacity-100 transition-opacity duration-300 cursor-default select-none"
                         >
-                            <span className="text-white text-xs font-bold tracking-wider">
+                            <span
+                                className="text-xl font-extrabold tracking-tight"
+                                style={{ color: bank.color }}
+                            >
                                 {bank.name}
                             </span>
+                            {bank.sub && (
+                                <span
+                                    className="text-[9px] font-bold uppercase tracking-widest"
+                                    style={{ color: bank.color }}
+                                >
+                                    {bank.sub}
+                                </span>
+                            )}
                         </div>
                     ))}
                 </div>
