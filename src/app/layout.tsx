@@ -19,23 +19,29 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL('https://kbdcredit.com'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://kbdv3.onrender.com'),
     title: {
-        default: 'KBD Credit Solutions - Empowering Your Finances',
+        default: 'KBD Credit Solutions - Loan Experts in Bangalore | Home, Personal & Business Loans',
         template: '%s | KBD Credit Solutions',
     },
     description:
-        'Compare bank loans, find your best match, and smoothly process your application with expert-backed guidance. Your trusted fintech companion.',
+        'Compare loans from 10+ banks, get instant EMI estimates, and process applications with expert guidance. Home loans from 8.4%, business loans up to ₹5 Cr. Trusted by 500+ clients in Bangalore.',
     keywords: [
-        'loan comparison',
-        'personal loan',
-        'home loan',
-        'vehicle loan',
-        'business loan',
-        'bank loans',
-        'loan calculator',
-        'credit solutions',
-        'financial services',
+        'loan consultant Bangalore',
+        'best home loan rates Bangalore',
+        'personal loan Bangalore',
+        'business loan for MSME',
+        'CIBIL repair services',
+        'loan against property Bangalore',
+        'home loan balance transfer',
+        'low interest personal loan India',
+        'collateral free business loan',
+        'EMI calculator India',
+        'chartered accountant loan referral',
+        'loan DSA partner program',
+        'KBD Credit Solutions',
+        'best loan consultant near me',
+        'instant personal loan tech professionals',
     ],
     authors: [{ name: 'KBD Credit Solutions' }],
     creator: 'KBD Credit Solutions',
@@ -47,17 +53,17 @@ export const metadata: Metadata = {
     openGraph: {
         type: 'website',
         locale: 'en_IN',
-        url: 'https://kbdcredit.com',
+        url: process.env.NEXT_PUBLIC_SITE_URL || 'https://kbdv3.onrender.com',
         siteName: 'KBD Credit Solutions',
-        title: 'KBD Credit Solutions - Empowering Your Finances',
+        title: 'KBD Credit Solutions - Loan Experts in Bangalore',
         description:
-            'Compare bank loans, find your best match, and process your application with expert guidance.',
+            'Compare loans from 10+ banks, get instant EMI estimates. Home loans from 8.4%, business loans up to ₹5 Cr. Trusted in Bangalore.',
         images: [
             {
                 url: '/og-image.png',
                 width: 1200,
                 height: 630,
-                alt: 'KBD Credit Solutions',
+                alt: 'KBD Credit Solutions - Your Trusted Loan Partner in Bangalore',
             },
         ],
     },
@@ -91,26 +97,25 @@ export default function RootLayout({
                             '@context': 'https://schema.org',
                             '@type': 'FinancialService',
                             name: 'KBD Credit Solutions',
-                            url: 'https://kbdcredit.com',
-                            logo: 'https://kbdcredit.com/logo.png',
-                            sameAs: [
-                                'https://facebook.com/kbdcredit',
-                                'https://twitter.com/kbdcredit',
-                                'https://linkedin.com/company/kbdcredit',
-                            ],
+                            url: 'https://kbdv3.onrender.com',
+                            description: 'Compare loans from 10+ banks. Home, Personal & Business loan experts in Bangalore.',
+                            areaServed: {
+                                '@type': 'City',
+                                name: 'Bangalore',
+                            },
+                            serviceType: ['Home Loan', 'Personal Loan', 'Business Loan', 'CIBIL Repair', 'Loan Balance Transfer'],
                             address: {
                                 '@type': 'PostalAddress',
-                                streetAddress: '123 Finance Street',
-                                addressLocality: 'Mumbai',
-                                addressRegion: 'MH',
-                                postalCode: '400001',
+                                addressLocality: 'Bangalore',
+                                addressRegion: 'KA',
                                 addressCountry: 'IN',
                             },
                         }),
                     }}
                 />
                 {children}
-                <GoogleAnalytics gaId="G-XYZ" />
+                {/* TODO: Replace G-XYZ with your real Google Analytics 4 Measurement ID */}
+                {/* <GoogleAnalytics gaId="G-XXXXXXXXXX" /> */}
                 <WebVitals />
                 <CookieConsent />
                 <ChatWidget />

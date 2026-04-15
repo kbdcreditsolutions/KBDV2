@@ -1,9 +1,10 @@
 import { MetadataRoute } from 'next';
+import { blogPosts } from '@/lib/blog-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://kbdcredit.com';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kbdv3.onrender.com';
 
-    return [
+    const staticPages: MetadataRoute.Sitemap = [
         {
             url: baseUrl,
             lastModified: new Date(),
@@ -11,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 1,
         },
         {
-            url: `${baseUrl}/loans`,
+            url: `${baseUrl}/blog`,
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 0.9,
@@ -20,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             url: `${baseUrl}/estimator`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
-            priority: 0.8,
+            priority: 0.9,
         },
         {
             url: `${baseUrl}/partners`,
@@ -29,22 +30,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         },
         {
-            url: `${baseUrl}/assistance`,
+            url: `${baseUrl}/about`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.7,
         },
         {
-            url: `${baseUrl}/about`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.6,
-        },
-        {
             url: `${baseUrl}/contact`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
-            priority: 0.6,
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/services/home-loan`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/services/personal-loan`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/services/business-loan`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.8,
         },
         {
             url: `${baseUrl}/privacy`,
@@ -59,4 +72,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.3,
         },
     ];
+
+    // Dynamically add all blog posts to the sitemap
+    const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }));
+
+    return [...staticPages, ...blogPages];
 }
