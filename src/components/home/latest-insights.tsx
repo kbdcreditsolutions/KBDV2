@@ -19,7 +19,7 @@ export const LatestInsights: React.FC = () => {
                 subtitle="Expert analysis and practical guides to help you make smarter financial decisions"
             />
 
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-3">
                 {latestPosts.map((post, index) => {
                     const Icon = blogIconMap[post.icon] || Clock;
                     return (
