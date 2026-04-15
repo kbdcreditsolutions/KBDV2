@@ -75,14 +75,14 @@ export const WhyKBD: React.FC = () => {
 
             {/* Bank Partner Logos */}
             <div className="mt-16 pt-10 border-t border-gray-100">
-                <p className="text-center text-sm text-gray-500 mb-6">
-                    Trusted by leading banks in India
+                <p className="text-center text-sm text-gray-500 mb-8">
+                    Partnered with India&apos;s leading financial institutions
                 </p>
-                <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-12 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                    {['HDFC', 'ICICI', 'SBI', 'Axis', 'Kotak', 'Bajaj'].map((bank) => (
+                <div className="flex flex-wrap justify-center items-center gap-6 lg:gap-10">
+                    {['HDFC', 'ICICI', 'SBI', 'Axis', 'Kotak', 'Bajaj', 'PNB Housing', 'IDFC First', 'Tata Capital', 'IndusInd'].map((bank) => (
                         <div
                             key={bank}
-                            className="h-8 px-4 flex items-center justify-center text-lg font-bold text-gray-400"
+                            className="h-10 px-4 flex items-center justify-center text-base font-bold text-gray-300 hover:text-accent transition-colors duration-300 cursor-default"
                         >
                             {bank}
                         </div>

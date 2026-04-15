@@ -13,11 +13,11 @@ export const Testimonials: React.FC = () => {
     return (
         <Section background="surface" size="md">
             <SectionHeader
-                title="What Our Customers Say"
-                subtitle="Real stories from people who found their perfect loan through KBD"
+                title="Real Results, Real People"
+                subtitle="Hear from clients and partners across Bangalore who chose KBD"
             />
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2">
                 {testimonials.map((testimonial, index) => (
                     <motion.div
                         key={testimonial.id}

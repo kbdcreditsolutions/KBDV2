@@ -4,4 +4,5 @@ export { LoanCategories } from './loan-categories';
 export { WhyKBD } from './why-kbd';
 export { Testimonials } from './testimonials';
 export { CTASection } from './cta-section';
-export { LoanEstimator } from './loan-estimator';
+export { StatsCounter } from './stats-counter';
+export { LatestInsights } from './latest-insights';

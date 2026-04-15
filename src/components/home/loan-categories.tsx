@@ -58,12 +58,20 @@ export const LoanCategories: React.FC = () => {
                                             {loan.description}
                                         </p>
 
-                                        {/* Amount Range */}
+                                        {/* Amount Range or Highlight */}
                                         <div className="text-sm mt-auto pt-4 border-t border-dashed border-gray-100">
-                                            <span className="text-gray-400">Up to </span>
-                                            <span className="font-semibold text-primary">
-                                                {formatCurrency(loan.maxAmount)}
-                                            </span>
+                                            {loan.maxAmount > 0 ? (
+                                                <>
+                                                    <span className="text-gray-400">Up to </span>
+                                                    <span className="font-semibold text-primary">
+                                                        {formatCurrency(loan.maxAmount)}
+                                                    </span>
+                                                </>
+                                            ) : (
+                                                <span className="font-semibold text-accent">
+                                                    {(loan as any).highlight || 'Expert Guidance'}
+                                                </span>
+                                            )}
                                         </div>
 
                                         {/* Arrow */}
