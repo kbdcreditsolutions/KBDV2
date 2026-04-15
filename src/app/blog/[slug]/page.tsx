@@ -75,35 +75,57 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
 
-                        {/* Related Insights (Simplified placeholder for now) */}
-                        <div className="mt-16 pt-10 border-t border-gray-100">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-8">Related Insights</h2>
-                            <div className="grid gap-6 md:grid-cols-2">
-                                {blogPosts
-                                    .filter((p) => p.category === post.category && p.slug !== post.slug)
-                                    .slice(0, 2)
-                                    .map((related) => {
-                                        const RelatedIcon = blogIconMap[related.icon] || Clock;
-                                        return (
-                                            <Link 
-                                                key={related.id}
-                                                href={`/blog/${related.slug}`}
-                                                className="group p-5 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all"
-                                            >
-                                                <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-accent/10 group-hover:text-accent transition-colors mb-4">
-                                                    <RelatedIcon className="w-5 h-5" />
-                                                </div>
-                                                <h3 className="font-bold text-gray-900 group-hover:text-accent transition-colors mb-2 line-clamp-2">
-                                                    {related.title}
-                                                </h3>
-                                                <p className="text-sm text-gray-500 line-clamp-2 mb-0">
-                                                    {related.excerpt}
-                                                </p>
-                                            </Link>
-                                        );
-                                    })}
-                            </div>
-                        </div>
+                        {/* Related Insights */}
+                        {(() => {
+                            // First try same-category posts, then fill with other posts
+                            const sameCategory = blogPosts.filter(
+                                (p) => p.category === post.category && p.slug !== post.slug
+                            );
+                            const otherPosts = blogPosts.filter(
+                                (p) => p.category !== post.category && p.slug !== post.slug
+                            );
+                            const relatedPosts = [...sameCategory, ...otherPosts].slice(0, 3);
+
+                            return (
+                                <div className="mt-16 pt-10 border-t border-gray-100">
+                                    <h2 className="text-2xl font-bold text-gray-900 mb-8">Related Insights</h2>
+                                    <div className="grid gap-6 md:grid-cols-3">
+                                        {relatedPosts.map((related) => {
+                                            const RelatedIcon = blogIconMap[related.icon] || Clock;
+                                            return (
+                                                <Link 
+                                                    key={related.id}
+                                                    href={`/blog/${related.slug}`}
+                                                    className="group p-5 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+                                                >
+                                                    <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-accent/10 group-hover:text-accent transition-colors mb-4">
+                                                        <RelatedIcon className="w-5 h-5" />
+                                                    </div>
+                                                    <span className="text-xs font-medium text-accent/70 mb-2 block">
+                                                        {related.category}
+                                                    </span>
+                                                    <h3 className="font-bold text-gray-900 group-hover:text-accent transition-colors mb-2 line-clamp-2 text-sm">
+                                                        {related.title}
+                                                    </h3>
+                                                    <p className="text-xs text-gray-500 line-clamp-2 mb-0">
+                                                        {related.excerpt}
+                                                    </p>
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                    <div className="text-center mt-8">
+                                        <Link
+                                            href="/blog"
+                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent/10 text-accent text-sm font-semibold hover:bg-accent hover:text-white transition-all duration-300"
+                                        >
+                                            View All Insights
+                                            <ArrowLeft className="w-4 h-4 rotate-180" />
+                                        </Link>
+                                    </div>
+                                </div>
+                            );
+                        })()}
                     </div>
                 </Section>
             </main>
