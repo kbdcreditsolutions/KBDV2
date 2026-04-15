@@ -96,15 +96,15 @@ export const WhyKBD: React.FC = () => {
                     {bankLogos.map((bank) => (
                         <div
                             key={bank.name}
-                            className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default"
+                            className="opacity-100 hover:scale-105 transition-all duration-300 cursor-default px-4"
                             title={bank.name}
                         >
                             <Image
                                 src={bank.file}
                                 alt={bank.name}
-                                width={100}
-                                height={40}
-                                className="h-8 md:h-10 w-auto object-contain"
+                                width={120}
+                                height={48}
+                                className="h-10 md:h-12 w-auto object-contain"
                                 unoptimized
                             />
                         </div>
