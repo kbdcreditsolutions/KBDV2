@@ -75,16 +75,29 @@ export const WhyKBD: React.FC = () => {
 
             {/* Bank Partner Logos */}
             <div className="mt-16 pt-10 border-t border-gray-100">
-                <p className="text-center text-sm text-gray-500 mb-8">
-                    Partnered with India&apos;s leading financial institutions
+                <p className="text-center text-sm text-gray-400 mb-8 uppercase tracking-widest font-medium">
+                    Partnered with India&apos;s leading banks
                 </p>
-                <div className="flex flex-wrap justify-center items-center gap-6 lg:gap-10">
-                    {['HDFC', 'ICICI', 'SBI', 'Axis', 'Kotak', 'Bajaj', 'PNB Housing', 'IDFC First', 'Tata Capital', 'IndusInd'].map((bank) => (
+                <div className="grid grid-cols-5 md:grid-cols-10 gap-3">
+                    {[
+                        { name: 'HDFC', color: 'bg-blue-900' },
+                        { name: 'ICICI', color: 'bg-orange-600' },
+                        { name: 'SBI', color: 'bg-blue-700' },
+                        { name: 'Axis', color: 'bg-pink-700' },
+                        { name: 'Kotak', color: 'bg-red-700' },
+                        { name: 'Bajaj', color: 'bg-blue-600' },
+                        { name: 'PNB', color: 'bg-red-800' },
+                        { name: 'IDFC', color: 'bg-teal-700' },
+                        { name: 'Tata', color: 'bg-indigo-800' },
+                        { name: 'IndusInd', color: 'bg-sky-800' },
+                    ].map((bank) => (
                         <div
-                            key={bank}
-                            className="h-10 px-4 flex items-center justify-center text-base font-bold text-gray-300 hover:text-accent transition-colors duration-300 cursor-default"
+                            key={bank.name}
+                            className={`${bank.color} rounded-xl h-14 flex items-center justify-center opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-300 cursor-default`}
                         >
-                            {bank}
+                            <span className="text-white text-xs font-bold tracking-wider">
+                                {bank.name}
+                            </span>
                         </div>
                     ))}
                 </div>
