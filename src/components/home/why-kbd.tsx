@@ -89,25 +89,27 @@ export const WhyKBD: React.FC = () => {
 
             {/* Bank Partner Logos */}
             <div className="mt-16 pt-10 border-t border-gray-100">
-                <p className="text-center text-xs text-gray-400 mb-10 uppercase tracking-[0.2em] font-medium">
+                <p className="text-center text-xs text-gray-400 mb-12 uppercase tracking-[0.2em] font-medium">
                     Partnered with India&apos;s leading banks
                 </p>
-                <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 md:gap-x-12">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 items-center justify-items-center">
                     {bankLogos.map((bank) => (
-                        <div
+                        <motion.div
                             key={bank.name}
-                            className="opacity-100 hover:scale-105 transition-all duration-300 cursor-default px-4"
+                            whileHover={{ scale: 1.1 }}
+                            className="w-full flex items-center justify-center p-4 transition-all duration-300 cursor-default"
                             title={bank.name}
                         >
-                            <Image
-                                src={bank.file}
-                                alt={bank.name}
-                                width={120}
-                                height={48}
-                                className="h-10 md:h-12 w-auto object-contain"
-                                unoptimized
-                            />
-                        </div>
+                            <div className="relative w-full h-16 md:h-20 flex items-center justify-center">
+                                <Image
+                                    src={bank.file}
+                                    alt={bank.name}
+                                    fill
+                                    className="object-contain mix-blend-multiply"
+                                    unoptimized
+                                />
+                            </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
