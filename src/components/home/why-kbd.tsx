@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Section, SectionHeader } from '@/components/layout';
 import { Shield, Clock, FileCheck, Headphones, BadgeCheck, PiggyBank } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const benefits = [
     {
@@ -36,6 +37,19 @@ const benefits = [
         title: 'Zero Processing Fee',
         description: 'No additional charges from KBD. Pay only the bank\'s standard fees.',
     },
+];
+
+const bankLogos = [
+    { name: 'HDFC Bank', file: '/banks/hdfc.png' },
+    { name: 'ICICI Bank', file: '/banks/icici.png' },
+    { name: 'SBI', file: '/banks/sbi.png' },
+    { name: 'Axis Bank', file: '/banks/axis.png' },
+    { name: 'Kotak Mahindra', file: '/banks/kotak.png' },
+    { name: 'Bajaj Finserv', file: '/banks/bajaj.png' },
+    { name: 'PNB Housing', file: '/banks/pnb.png' },
+    { name: 'IDFC First', file: '/banks/idfc.png' },
+    { name: 'Tata Capital', file: '/banks/tata.png' },
+    { name: 'IndusInd Bank', file: '/banks/indusind.png' },
 ];
 
 export const WhyKBD: React.FC = () => {
@@ -75,40 +89,24 @@ export const WhyKBD: React.FC = () => {
 
             {/* Bank Partner Logos */}
             <div className="mt-16 pt-10 border-t border-gray-100">
-                <p className="text-center text-xs text-gray-400 mb-8 uppercase tracking-[0.2em] font-medium">
+                <p className="text-center text-xs text-gray-400 mb-10 uppercase tracking-[0.2em] font-medium">
                     Partnered with India&apos;s leading banks
                 </p>
-                <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6">
-                    {[
-                        { name: 'HDFC', sub: 'BANK', color: '#004B87' },
-                        { name: 'ICICI', sub: 'BANK', color: '#F58220' },
-                        { name: 'SBI', sub: '', color: '#1A4789' },
-                        { name: 'Axis', sub: 'BANK', color: '#97144D' },
-                        { name: 'Kotak', sub: '', color: '#ED1C24' },
-                        { name: 'Bajaj', sub: 'FINSERV', color: '#00529B' },
-                        { name: 'PNB', sub: 'HOUSING', color: '#A51C30' },
-                        { name: 'IDFC', sub: 'FIRST', color: '#9C1D26' },
-                        { name: 'Tata', sub: 'CAPITAL', color: '#486AAE' },
-                        { name: 'IndusInd', sub: 'BANK', color: '#174A7C' },
-                    ].map((bank) => (
+                <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 md:gap-x-12">
+                    {bankLogos.map((bank) => (
                         <div
                             key={bank.name}
-                            className="flex items-baseline gap-1 opacity-50 hover:opacity-100 transition-opacity duration-300 cursor-default select-none"
+                            className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default"
+                            title={bank.name}
                         >
-                            <span
-                                className="text-xl font-extrabold tracking-tight"
-                                style={{ color: bank.color }}
-                            >
-                                {bank.name}
-                            </span>
-                            {bank.sub && (
-                                <span
-                                    className="text-[9px] font-bold uppercase tracking-widest"
-                                    style={{ color: bank.color }}
-                                >
-                                    {bank.sub}
-                                </span>
-                            )}
+                            <Image
+                                src={bank.file}
+                                alt={bank.name}
+                                width={100}
+                                height={40}
+                                className="h-8 md:h-10 w-auto object-contain"
+                                unoptimized
+                            />
                         </div>
                     ))}
                 </div>
