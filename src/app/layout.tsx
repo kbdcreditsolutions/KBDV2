@@ -19,7 +19,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://kbdv3.onrender.com'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://kbdcreditsolutions.in'),
     title: {
         default: 'KBD Credit Solutions - Loan Experts in Bangalore | Home, Personal & Business Loans',
         template: '%s | KBD Credit Solutions',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     openGraph: {
         type: 'website',
         locale: 'en_IN',
-        url: process.env.NEXT_PUBLIC_SITE_URL || 'https://kbdv3.onrender.com',
+        url: process.env.NEXT_PUBLIC_SITE_URL || 'https://kbdcreditsolutions.in',
         siteName: 'KBD Credit Solutions',
         title: 'KBD Credit Solutions - Loan Experts in Bangalore',
         description:

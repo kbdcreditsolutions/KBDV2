@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { blogPosts } from '@/lib/blog-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kbdv3.onrender.com';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kbdcreditsolutions.in';
 
     const staticPages: MetadataRoute.Sitemap = [
         {
