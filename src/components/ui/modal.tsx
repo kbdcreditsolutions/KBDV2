@@ -47,7 +47,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
                             transition={{ duration: 0.2 }}
                             className={cn(
-                                "rounded-2xl w-full shadow-xl pointer-events-auto flex flex-col max-h-[90vh] bg-white max-w-lg",
+                                "bg-white max-w-lg rounded-2xl w-full shadow-xl pointer-events-auto flex flex-col max-h-[90vh]",
                                 className
                             )}
                         >
