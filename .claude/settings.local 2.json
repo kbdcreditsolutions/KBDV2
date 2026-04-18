@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm uninstall @ai-sdk/openai @google/generative-ai)",
+      "Bash(git add docs/plans/2026-02-26-chat-widget-design.md)",
+      "Bash(git commit -m \"docs: add chat widget redesign design document\")",
+      "Bash(git add src/app/api/chat/route.ts)",
+      "Bash(git commit -m \"feat\\(chat\\): upgrade to gemini-2.0-flash\")",
+      "Bash(git add src/components/chat/chat-widget.tsx)",
+      "Bash(git commit -m \"feat\\(chat\\): replace Botpress with custom Gemini-powered widget\")",
+      "Bash(node -e \"const p = require\\(''./package.json''\\); const deps = {...p.dependencies,...p.devDependencies}; const relevant = [''@ai-sdk/react'',''ai'',''framer-motion'',''lucide-react'',''next'',''react'',''typescript'']; relevant.forEach\\(k => console.log\\(k, deps[k]\\)\\)\")",
+      "Bash(git commit -m \"fix\\(chat\\): code quality and accessibility improvements\")",
+      "Bash(npm run lint)",
+      "Bash(npm run build)",
+      "Bash(node -e \"const t = require\\(''@ai-sdk/react''\\); console.log\\(Object.keys\\(t\\)\\)\")",
+      "Bash(git add src/components/chat/chat-widget.tsx src/app/api/chat/route.ts tsconfig.json)",
+      "Bash(git commit -m \"fix\\(chat\\): lint and build fixes\")",
+      "Bash(git add src/middleware.ts)",
+      "Bash(git commit -m \"fix\\(security\\): remove Botpress CDN from CSP headers\")",
+      "Bash(npx tsc --noEmit)",
+      "Bash(npx next lint)",
+      "Bash(git add docs/HANDOFF.md)",
+      "Bash(git commit -m \"docs: update HANDOFF to reflect custom chat widget\")"
+    ]
+  }
+}

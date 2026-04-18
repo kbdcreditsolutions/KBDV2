@@ -23,7 +23,6 @@ export const navLinks = [
     { href: '/services/business-loan', label: 'Business Loan' },
     { href: '/services/home-loan', label: 'Home Loan' },
     { href: '/services/cibil-repair', label: 'CIBIL Repair' },
-    { href: '/check-score', label: 'Check Score' },
     { href: '/blog', label: 'Insights & Blog' },
 ];
 

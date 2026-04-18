@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBD Connect | Secure Entry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --navy: #0A192F;
+            --gold: #C5A059;
+            --white: #FFFFFF;
+        }
+
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--navy) 0%, #112240 100%);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .logo-box {
+            margin-bottom: 30px;
+        }
+
+        .logo-text { font-size: 24px; font-weight: 700; color: var(--gold); }
+        .logo-sub { font-size: 24px; font-weight: 300; }
+
+        h2 { margin-bottom: 10px; font-size: 20px; }
+        p { color: #8892b0; font-size: 14px; margin-bottom: 25px; }
+
+        .auth-form { text-align: left; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 12px; margin-bottom: 5px; color: var(--gold); text-transform: uppercase; }
+        input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+        }
+        input:focus { outline: none; border-color: var(--gold); }
+
+        .btn-auth {
+            width: 100%;
+            padding: 12px;
+            background: var(--gold);
+            color: var(--navy);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .btn-auth:hover { background: #b08d4a; }
+
+        .toggle-text { margin-top: 20px; font-size: 13px; color: #8892b0; }
+        .toggle-link { color: var(--gold); cursor: pointer; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="logo-box">
+                <span class="logo-text">KBD</span><span class="logo-sub">Connect</span>
+            </div>
+            
+            <div id="login-section">
+                <h2>Welcome Back</h2>
+                <p>Login to manage your KBD loan cases.</p>
+                <form class="auth-form" id="login-form">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn-auth">Login to Hub</button>
+                    <div class="toggle-text">
+                        Don't have an account? <span class="toggle-link" onclick="toggleAuth()">Partner Signup</span>
+                    </div>
+                </form>
+            </div>
+
+            <div id="signup-section" style="display: none;">
+                <h2>Apply as Partner</h2>
+                <p>Join India's most transparent loan network.</p>
+                <form class="auth-form" id="signup-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="signup-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Business Email</label>
+                        <input type="email" id="signup-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="signup-password" required>
+                    </div>
+                    <button type="submit" class="btn-auth">Register as Connector</button>
+                    <div class="toggle-text">
+                        Already a partner? <span class="toggle-link" onclick="toggleAuth()">Login Here</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://fnbtwjjjlvfuigraurjq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuYnR3ampqbHZmdWlncmF1cmpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMDMwMDMsImV4cCI6MjA5MTY3OTAwM30.7mxR6zQAGmBLyxD3KfouOxYxz0GcL-TcDTlATLSDH_o';
+        const kbdSupabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        function toggleAuth() {
+            const login = document.getElementById('login-section');
+            const signup = document.getElementById('signup-section');
+            if (login.style.display === 'none') {
+                login.style.display = 'block';
+                signup.style.display = 'none';
+            } else {
+                login.style.display = 'none';
+                signup.style.display = 'block';
+            }
+        }
+
+        // Handle Login
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const { data, error } = await kbdSupabase.auth.signInWithPassword({ email, password });
+
+            if (error) {
+                alert(error.message);
+            } else {
+                // FETCH ROLE and REDIRECT
+                const { data: profile, error: pError } = await kbdSupabase
+                    .from('profiles')
+                    .select('role')
+                    .eq('id', data.user.id)
+                    .single();
+
+                if (profile && profile.role === 'admin') {
+                    await kbdSupabase.auth.signOut();
+                    alert("Admins must login via the HQ portal.");
+                    window.location.href = 'admin_login.html';
+                } else {
+                    window.location.href = 'connector_dashboard.html';
+                }
+            }
+        });
+
+        // Handle Signup
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const fullName = document.getElementById('signup-name').value;
+
+            const { data, error } = await kbdSupabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: { full_name: fullName }
+                }
+            });
+
+            if (error) {
+                alert(error.message);
+            } else {
+                alert('Account requested! Please check your email and login.');
+                toggleAuth();
+            }
+        });
+    </script>
+</body>
+</html>

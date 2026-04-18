@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
-import { Zap, Shield, TrendingUp, LineChart, CalendarClock } from 'lucide-react';
+import { Zap, Shield, TrendingUp, LineChart, CalendarClock, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Slider } from '@/components/ui/slider';
 import { Modal } from '@/components/ui/modal';
@@ -140,6 +140,12 @@ export const Hero: React.FC = () => {
                             <Link href="/loans">
                                 <button className="w-full sm:w-auto px-6 sm:px-8 lg:px-10 py-3.5 sm:py-4 lg:py-5 rounded-2xl text-white font-extrabold transition-all hover:bg-white/10 border border-white/10 backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)] text-center">
                                     <span className="uppercase tracking-wider text-sm">View Portfolio</span>
+                                </button>
+                            </Link>
+                            <Link href="/check-score">
+                                <button className="w-full sm:w-auto px-6 sm:px-8 lg:px-10 py-3.5 sm:py-4 lg:py-5 rounded-2xl text-white font-extrabold transition-all hover:bg-white/10 border border-[#FFC857]/30 backdrop-blur-md bg-white/[0.02] flex items-center justify-center gap-2 group">
+                                    <span className="uppercase tracking-wider text-sm">Check Score</span>
+                                    <ShieldCheck className="w-4 h-4 text-[#FFC857] group-hover:scale-110 transition-transform" />
                                 </button>
                             </Link>
                         </div>

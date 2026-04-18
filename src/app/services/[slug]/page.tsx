@@ -154,6 +154,7 @@ const services = {
         ],
         longDescription: 'A low CIBIL score isn\'t a permanent stain. Our credit repair experts provide a data-driven roadmap to clear disputes, settle old debts, and build a profile that banks respect.',
         relatedBlog: 'home-loan-low-cibil',
+        cta: { label: 'Check Bureau Score', href: '/check-score' }
     }
 };
 
@@ -200,11 +201,11 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     <Link 
-                                        href="/estimator"
+                                        href={(service as any).cta?.href || "/estimator"}
                                         className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:scale-105 transition-all shadow-xl"
                                     >
                                         <Calculator className="w-5 h-5" />
-                                        Check Eligibility
+                                        {(service as any).cta?.label || "Check Eligibility"}
                                     </Link>
                                     <Link 
                                         href={`https://wa.me/916360681493?text=Hi, I'm interested in ${service.title}`}
@@ -294,10 +295,10 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                                 <div className="mt-8 pt-6 border-t border-gray-100">
                                     <p className="text-sm text-gray-500 mb-4">Not sure if you qualify? Check instantly — no impact on your credit score.</p>
                                     <Link
-                                        href="/estimator"
+                                        href={(service as any).cta?.href || "/estimator"}
                                         className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl ${service.lightColor} font-semibold hover:opacity-80 transition-all`}
                                     >
-                                        Check My Eligibility
+                                        {(service as any).cta?.label || "Check My Eligibility"}
                                         <ArrowRight className="w-4 h-4" />
                                     </Link>
                                 </div>
@@ -351,11 +352,11 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <Link
-                                    href="/estimator"
+                                    href={(service as any).cta?.href || "/estimator"}
                                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:scale-105 transition-all shadow-xl"
                                 >
                                     <Calculator className="w-5 h-5" />
-                                    Launch Estimator
+                                    {(service as any).cta?.label || "Launch Estimator"}
                                 </Link>
                                 <Link
                                     href={`https://wa.me/916360681493?text=Hi, I need help with ${service.title}`}
