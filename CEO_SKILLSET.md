@@ -23,3 +23,6 @@ We do not compete with banks or legacy DSAs on physical reach. We compete on **s
 1. **Never break RLS**: Every database query must respect `connector_id` isolation.
 2. **Auto-Refining**: Every database migration MUST include the `notify pgrst, 'reload schema'` command.
 3. **Data Integrity**: Never allow a lead submission with a null Phone, City, or Amount.
+4. **Bank-Grade Precision**: PDF exports must feature high-resolution branding, formal watermarks, and grid-aligned financial data.
+5. **Zero-Hidden-Data Rule**: UI elements (like tables) must never hide critical values (like 'Balance') behind scrollbars or theme-conflicting font colors (white-on-white).
+6. **Cross-Portal Consistency**: Any logic update (e.g., EMI calculation) must be synchronized across the Hero, Home Estimator, and dedicated Dashboard pages.

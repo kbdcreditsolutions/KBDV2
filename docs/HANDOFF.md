@@ -83,7 +83,9 @@ src/
 ├── lib/
 │   ├── constants.ts        # Site config, nav links, loan types, bank partners
 │   ├── utils.ts            # cn() helper (clsx + tailwind-merge)
-│   └── chatbot-knowledge.ts  # KBD knowledge base data
+│   ├── chatbot-knowledge.ts  # KBD knowledge base data
+│   └── services/           # Business logic services
+│       └── pdf-service.ts  # Premium Amortization PDF Engine (jsPDF + AutoTable)
 │
 └── styles/
     └── globals.css         # Design tokens, CSS custom properties
@@ -233,6 +235,8 @@ Implemented via `src/middleware.ts`:
 | `clsx` + `tailwind-merge` | — | Class name utilities      |
 | `@ai-sdk/google`  | ^0.24 | Generative AI integration |
 | `ai`              | ^6.0  | Vercel AI SDK             |
+| `jspdf`           | ^2.5  | PDF generation core       |
+| `jspdf-autotable` | ^3.8  | Table-based PDF layout    |
 
 ### Unused Dependencies
 
@@ -292,6 +296,7 @@ npm start        # Starts production server on port 3000
 
 | Date       | Change                                          |
 |------------|-------------------------------------------------|
+| 2026-04-18 | **Premium Amortization & PDF Overhaul**: High-res branding, diagonal watermarks, EMI-column integration, and HUD-to-Clean UI synchronization. |
 | 2026-02-26 | Replaced Botpress with custom Gemini 2.0 Flash chat widget |
 | 2026-02-16 | Added Blog section to header navigation         |
 | 2026-02-15 | Integrated KBD brand logo SVG across navbar/footer |
