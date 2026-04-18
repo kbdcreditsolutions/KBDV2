@@ -157,7 +157,7 @@ export default function CheckScorePage() {
                                                 label="Full Legal Name (As per PAN)"
                                                 placeholder="Enter Full Legal Name"
                                                 required
-                                                autoComplete="off"
+                                                autoComplete="none"
                                                 value={formData.fullName}
                                                 onChange={e => setFormData({ ...formData, fullName: e.target.value })}
                                                 className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:bg-white/10"
@@ -169,7 +169,7 @@ export default function CheckScorePage() {
                                                 placeholder="ABCDE1234F"
                                                 required
                                                 maxLength={10}
-                                                autoComplete="off"
+                                                autoComplete="none"
                                                 value={formData.pan}
                                                 onChange={e => setFormData({ ...formData, pan: e.target.value.toUpperCase() })}
                                                 className="bg-white/5 border-white/10 text-white uppercase placeholder:text-slate-600 focus:bg-white/10"
@@ -180,7 +180,7 @@ export default function CheckScorePage() {
                                                 label="Date of Birth"
                                                 type="date"
                                                 required
-                                                autoComplete="off"
+                                                autoComplete="none"
                                                 value={formData.dob}
                                                 onChange={e => setFormData({ ...formData, dob: e.target.value })}
                                                 className="bg-white/5 border-white/10 text-white focus:bg-white/10 [color-scheme:dark]"
@@ -191,7 +191,7 @@ export default function CheckScorePage() {
                                                 placeholder="98765 43210"
                                                 required
                                                 type="tel"
-                                                autoComplete="off"
+                                                autoComplete="none"
                                                 value={formData.mobile}
                                                 onChange={e => setFormData({ ...formData, mobile: e.target.value })}
                                                 className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:bg-white/10"
