@@ -5,10 +5,11 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
-import { Zap, Shield, TrendingUp, LineChart, CalendarClock, ShieldCheck } from 'lucide-react';
+import { Zap, Shield, TrendingUp, LineChart, CalendarClock, ShieldCheck, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Slider } from '@/components/ui/slider';
 import { Modal } from '@/components/ui/modal';
+import { pdfService } from '@/lib/services/pdf-service';
 
 export const Hero: React.FC = () => {
     // Loan Estimator State
@@ -51,6 +52,22 @@ export const Hero: React.FC = () => {
             balance = closingBalance;
         }
         return schedule;
+    };
+
+    const handleDownloadPDF = () => {
+        const schedule = generateSchedule();
+        const totalPayment = emi * tenure;
+        const totalInterest = totalPayment - amount;
+
+        pdfService.generateAmortizationPDF({
+            amount,
+            rate,
+            tenure,
+            tenureType: 'mo', // Hero calculator uses months by default
+            emi,
+            totalInterest,
+            totalPayment
+        }, schedule);
     };
 
     // Formatters
@@ -357,18 +374,32 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* Schedule Modal */}
-            <Modal isOpen={isScheduleOpen} onClose={() => setIsScheduleOpen(false)} title="Amortization Schedule">
+            <Modal 
+                isOpen={isScheduleOpen} 
+                onClose={() => setIsScheduleOpen(false)} 
+                title="Amortization Schedule"
+                className="max-w-2xl"
+            >
                 <div className="space-y-4 max-h-[70vh] overflow-y-auto">
-                    <div className="flex justify-between items-center bg-gray-50 p-4 rounded-xl sticky top-0 z-10 shadow-sm border border-gray-100">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 p-4 rounded-xl sticky top-0 z-10 shadow-sm border border-gray-100 gap-4">
                         <div>
                             <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Loan Amount</p>
                             <p className="font-bold text-lg text-gray-900 font-mono tracking-tight">{formatCurrency(amount)}</p>
                         </div>
-                        <div className="text-right">
-                            <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Total Interest</p>
-                            <p className="font-bold text-lg text-orange-500 font-mono tracking-tight">
-                                {formatCurrency((emi * tenure) - amount)}
-                            </p>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
+                            <div className="sm:text-right">
+                                <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Total Interest</p>
+                                <p className="font-bold text-lg text-orange-500 font-mono tracking-tight">
+                                    {formatCurrency((emi * tenure) - amount)}
+                                </p>
+                            </div>
+                            <button
+                                onClick={handleDownloadPDF}
+                                className="flex items-center gap-2 bg-[#050A18] text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-slate-800 transition-colors shadow-sm ml-auto sm:ml-0"
+                            >
+                                <Download className="w-4 h-4" />
+                                DOWNLOAD PDF
+                            </button>
                         </div>
                     </div>
 

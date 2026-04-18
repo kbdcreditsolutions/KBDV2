@@ -649,7 +649,12 @@ export default function LoanDashboard() {
                 </div>
 
                 {/* Schedule Modal */}
-                <Modal isOpen={isScheduleOpen} onClose={() => setIsScheduleOpen(false)} title="Amortization Schedule">
+                <Modal 
+                    isOpen={isScheduleOpen} 
+                    onClose={() => setIsScheduleOpen(false)} 
+                    title="Amortization Schedule"
+                    className="max-w-2xl"
+                >
                     <div className="space-y-4 max-h-[70vh] overflow-y-auto w-full">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 p-4 rounded-sm sticky top-0 z-10 shadow-sm border border-gray-200 gap-4">
                             <div>
