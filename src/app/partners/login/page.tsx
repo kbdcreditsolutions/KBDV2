@@ -17,6 +17,7 @@ import {
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Button, Input } from '@/components/ui';
+import { KBDLogo } from '@/components/ui/kbd-logo';
 
 const benefits = [
     {
@@ -79,13 +80,8 @@ export default function PartnerLoginPage() {
                     animate={{ opacity: 1, x: 0 }}
                     className="relative z-10"
                 >
-                    <Link href="/" className="inline-flex items-center gap-3 group">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FFC857] to-[#D4A017] flex items-center justify-center shadow-lg shadow-accent/20">
-                            <Shield className="w-6 h-6 text-[#050A18]" />
-                        </div>
-                        <span className="text-2xl font-black text-white tracking-tighter">
-                            KBD <span className="text-accent underline underline-offset-4 decoration-accent/30">CONNECT</span>
-                        </span>
+                    <Link href="/" className="inline-flex items-center group">
+                        <KBDLogo variant="full" size="lg" theme="light" />
                     </Link>
                 </motion.div>
 
@@ -140,8 +136,7 @@ export default function PartnerLoginPage() {
                 {/* Mobile Header (Visible only on small screens) */}
                 <div className="absolute top-8 left-8 lg:hidden">
                     <Link href="/" className="flex items-center gap-2">
-                        <Shield className="w-6 h-6 text-accent" />
-                        <span className="font-black text-white">KBD</span>
+                        <KBDLogo variant="full" size="sm" theme="light" />
                     </Link>
                 </div>
 
