@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
         img-src 'self' blob: data: https://maps.googleapis.com https://maps.gstatic.com;
         font-src 'self' https://fonts.gstatic.com;
         frame-src 'self' https://www.google.com;
-        connect-src 'self' https://maps.googleapis.com https://www.google-analytics.com https://generativelanguage.googleapis.com;
+        connect-src 'self' data: blob: https://maps.googleapis.com https://www.google-analytics.com https://generativelanguage.googleapis.com;
         object-src 'none';
         base-uri 'self';
         form-action 'self';
