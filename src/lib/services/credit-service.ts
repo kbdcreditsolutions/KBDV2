@@ -12,6 +12,7 @@ const DECENTRO_HEADERS = {
     'Content-Type': 'application/json',
     'client_id': process.env.DECENTRO_CLIENT_ID || '',
     'client_secret': process.env.DECENTRO_CLIENT_SECRET || '',
+    'module_secret': process.env.DECENTRO_MODULE_SECRET || process.env.DECENTRO_CLIENT_SECRET || '',
 };
 
 export interface CreditProfile {
