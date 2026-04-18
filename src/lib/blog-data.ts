@@ -39,7 +39,7 @@ export const blogPosts: BlogPost[] = [
             <h2>3. How KBD Uses the AA Framework</h2>
             <p>When you apply through KBD Connect, our system uses AA to pull your consented data directly from your bank. This allows us to:</p>
             <ul>
-                <li>Pre-qualify you across <strong>10+ banking partners</strong> simultaneously</li>
+                <li>Pre-qualify you across <strong>120+ Banking Partners</strong> simultaneously</li>
                 <li>Show you personalized interest rates based on your actual financial health</li>
                 <li>Reduce your application-to-approval time from weeks to <strong>as little as 48 hours</strong></li>
             </ul>
@@ -194,7 +194,7 @@ export const blogPosts: BlogPost[] = [
             <ul>
                 <li><strong>Applying at multiple banks:</strong> Each application is a "hard inquiry" that drops your score. Use KBD to soft-match first.</li>
                 <li><strong>Ignoring credit card utilization:</strong> High credit card balances can reduce your eligible amount by 20-30%.</li>
-                <li><strong>Not negotiating:</strong> Many tech professionals accept the first offer. KBD negotiates across 10+ banks to find you the lowest rate.</li>
+                <li><strong>Not negotiating:</strong> Many tech professionals accept the first offer. KBD negotiates across 120+ Banking Partners to find you the lowest rate.</li>
             </ul>
 
             <h2>Get Started</h2>
@@ -423,7 +423,7 @@ export const blogPosts: BlogPost[] = [
 
             <h2>The Balance Transfer Process</h2>
             <ol>
-                <li><strong>Get a quote from the new bank</strong> — KBD facilitates this across 10+ banks simultaneously</li>
+                <li><strong>Get a quote from the new bank</strong> — KBD facilitates this across 120+ Banking Partners simultaneously</li>
                 <li><strong>New bank appraises your property</strong> (they'll order a fresh valuation)</li>
                 <li><strong>Sanction letter issued</strong> — the new bank approves your transfer</li>
                 <li><strong>Foreclosure of old loan</strong> — new bank pays off your old bank directly</li>
@@ -630,14 +630,14 @@ export const blogPosts: BlogPost[] = [
             <p>As a Chartered Accountant, Real Estate Agent, or Financial Consultant, your clients trust you for more than just one-time advice. They look to you for comprehensive financial solutions.</p>
 
             <h2>Why Partners Choose KBD</h2>
-            <p>We provide a wide institutional reach of <strong>10+ banking partners</strong>, dedicated case managers, and real-time payout tracking that ensures your consultancy scales alongside your clients' growth.</p>
+            <p>We provide a wide institutional reach of <strong>120+ Banking Partners</strong>, dedicated case managers, and real-time payout tracking that ensures your consultancy scales alongside your clients&apos; growth.</p>
 
             <h2>The KBD Connector Program — How It Works</h2>
             <ol>
                 <li><strong>Sign up</strong> — Register through our <a href="/partners/login">Partner Portal</a> (takes 2 minutes)</li>
                 <li><strong>Refer clients</strong> — Share loan requirements through the portal or WhatsApp</li>
                 <li><strong>We process</strong> — KBD's team handles all documentation, bank negotiations, and follow-ups</li>
-                <li><strong>Client gets approved</strong> — Fastest approval, best rate across multiple banks</li>
+                <li><strong>Client gets approved</strong> — Fastest approval, best rate across 120+ Banking Partners</li>
                 <li><strong>You earn</strong> — Commission deposited directly to your account within 7 days of disbursal</li>
             </ol>
 
@@ -662,7 +662,7 @@ export const blogPosts: BlogPost[] = [
             <ul>
                 <li><strong>Dedicated Case Manager:</strong> Each partner gets a single point of contact — no call centers</li>
                 <li><strong>Real-Time Dashboard:</strong> Track every referral status, approval, and payout in one place</li>
-                <li><strong>Multi-Bank Access:</strong> We don't tie you to one bank. Your clients get the best offer from 10+ institutions.</li>
+                <li><strong>Multi-Bank Access:</strong> We don&apos;t tie you to one bank. Your clients get the best offer from 120+ Banking Partners.</li>
                 <li><strong>Fast Payouts:</strong> 7-day payout cycle, directly to your bank account</li>
                 <li><strong>Training & Support:</strong> Regular workshops on products, compliance, and lead conversion</li>
             </ul>
@@ -695,7 +695,7 @@ export const blogPosts: BlogPost[] = [
             <p>By partnering with KBD Connect, you transform from a manual agent into a tech-enabled financial consultant:</p>
             <ul>
                 <li><strong>Digital Pipeline:</strong> Submit referrals through the portal — no more WhatsApp chaos</li>
-                <li><strong>Multi-Bank Distribution:</strong> Your client's file goes to 10+ banks simultaneously for the best offer</li>
+                <li><strong>Multi-Bank Distribution:</strong> Your client&apos;s file goes to 120+ Banking Partners simultaneously for the best offer</li>
                 <li><strong>Real-Time Status:</strong> Track every application from submission to disbursal on your dashboard</li>
                 <li><strong>Scale Without Hiring:</strong> KBD's team handles documentation and bank coordination — you focus on relationships</li>
                 <li><strong>Analytics:</strong> See your monthly referrals, conversion rates, and earnings at a glance</li>
@@ -738,7 +738,7 @@ export const blogPosts: BlogPost[] = [
             <h2>Monthly Earning Scenarios</h2>
             <ul>
                 <li><strong>Scenario 1 — Conservative:</strong> 2 Home Loans (₹40L each) + 1 Personal Loan (₹5L) = ₹45,000/month → <strong>₹5.4L/year</strong></li>
-                <li><strong>Scenario 2 — Moderate:</strong> 3 Home Loans + 2 Business Loans (₹20L each) = ₹80,000/month → <strong>₹9.6L/year</strong></li>
+                <li><strong>Scenario 2 — Moderate:</strong> 3 Home Loans + 2 Business Loans (₹20L each) = ₹1,00,000/month → <strong>₹12L/year</strong></li>
                 <li><strong>Scenario 3 — Aggressive:</strong> 5 Home Loans + 3 Business Loans + 2 LAP = ₹1.5L/month → <strong>₹18L/year</strong></li>
             </ul>
 

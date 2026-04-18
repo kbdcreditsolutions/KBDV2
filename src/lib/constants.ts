@@ -2,7 +2,7 @@
 export const siteConfig = {
     name: 'KBD Credit Solutions',
     tagline: 'Empowering Your Finances',
-    description: 'Compare loans from 10+ banks, get instant EMI estimates. Home loans from 8.4%, business loans up to ₹5 Cr. Trusted in Bangalore.',
+    description: 'Compare loans from 120+ Banking Partners, get instant EMI estimates. Home loans from 8.4%, business loans up to ₹5 Cr. Trusted in Bangalore.',
     url: 'https://kbdcreditsolutions.in',
     email: 'contact@kbdcreditsolutions.in',
     phone: '+91 6360681493',
@@ -40,7 +40,7 @@ export const loanTypes = [
     {
         id: 'home-loan',
         name: 'Home Loan',
-        description: 'Lowest rates with 10+ bank options for your dream home',
+        description: 'Lowest rates with 120+ Banking Partners for your dream home',
         icon: 'Home',
         minAmount: 500000,
         maxAmount: 100000000,
@@ -107,7 +107,7 @@ export const testimonials = [
         id: 4,
         name: 'Deepa M.',
         role: 'CA & KBD Partner, Jayanagar',
-        content: 'I joined the KBD Connector program 6 months ago. I now earn an additional ₹60-80K per month from referrals — they handle everything from documentation to bank follow-ups. My clients are happier too.',
+        content: 'I joined the KBD Connector program 6 months ago. I now earn an additional ₹1 Lakh+ per month from referrals — they handle everything from documentation to bank follow-ups. My clients are happier too.',
         rating: 5,
     },
 ];
@@ -124,7 +124,7 @@ export const processSteps = [
     {
         step: 2,
         title: 'We Match You',
-        description: 'Our system compares offers from 10+ banks and finds you the best rate for your profile.',
+        description: 'Our system compares offers from 120+ Banking Partners and finds you the best rate for your profile.',
         icon: 'Sparkles',
         time: '24 hrs',
     },
@@ -141,6 +141,6 @@ export const processSteps = [
 export const statsData = [
     { value: 50, suffix: 'Cr+', label: 'Loans Disbursed', prefix: '₹' },
     { value: 500, suffix: '+', label: 'Happy Clients', prefix: '' },
-    { value: 10, suffix: '+', label: 'Banking Partners', prefix: '' },
+    { value: 120, suffix: '+', label: 'Banking Partners', prefix: '' },
     { value: 48, suffix: ' Hrs', label: 'Avg. Approval Time', prefix: '' },
 ];

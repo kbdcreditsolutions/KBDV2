@@ -20,12 +20,12 @@ import { Button, Input } from '@/components/ui';
 
 const benefits = [
     {
-        title: "₹80K+ Potential Payouts",
+        title: "₹1 Lakh+ Potential Payouts",
         description: "High-tier commissions on quality loan referrals.",
         icon: TrendingUp,
     },
     {
-        title: "10+ Tier-1 Bank Links",
+        title: "120+ Banking Partners",
         description: "Direct mapping with India's top lending institutions.",
         icon: Building2,
     },

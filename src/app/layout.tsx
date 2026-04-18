@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         template: '%s | KBD Credit Solutions',
     },
     description:
-        'Compare loans from 10+ banks, get instant EMI estimates, and process applications with expert guidance. Home loans from 8.4%, business loans up to ₹5 Cr. Trusted by 500+ clients in Bangalore.',
+        'Compare loans from 120+ Banking Partners, get instant EMI estimates, and process applications with expert guidance. Home loans from 8.4%, business loans up to ₹5 Cr. Trusted by 500+ clients in Bangalore.',
     keywords: [
         'loan consultant Bangalore',
         'best home loan rates Bangalore',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         siteName: 'KBD Credit Solutions',
         title: 'KBD Credit Solutions - Loan Experts in Bangalore',
         description:
-            'Compare loans from 10+ banks, get instant EMI estimates. Home loans from 8.4%, business loans up to ₹5 Cr. Trusted in Bangalore.',
+            'Compare loans from 120+ Banking Partners, get instant EMI estimates. Home loans from 8.4%, business loans up to ₹5 Cr. Trusted in Bangalore.',
         images: [
             {
                 url: '/og-image.png',
@@ -98,7 +98,7 @@ export default function RootLayout({
                             '@type': 'FinancialService',
                             name: 'KBD Credit Solutions',
                             url: 'https://kbdv3.onrender.com',
-                            description: 'Compare loans from 10+ banks. Home, Personal & Business loan experts in Bangalore.',
+                            description: 'Compare loans from 120+ Banking Partners. Home, Personal & Business loan experts in Bangalore.',
                             areaServed: {
                                 '@type': 'City',
                                 name: 'Bangalore',

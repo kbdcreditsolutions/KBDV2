@@ -44,7 +44,7 @@ const services = {
             { title: 'Home Renovation', desc: 'Upgrade your space without selling investments' },
             { title: 'Debt Consolidation', desc: 'Merge multiple EMIs into one lower payment' },
         ],
-        longDescription: 'At KBD Credit Solutions, we compare personal loan offers from 10+ banks to find you the lowest rate. Our tech professionals in Bangalore especially benefit from pre-approved limits at top banks.',
+        longDescription: 'At KBD Credit Solutions, we compare personal loan offers from 120+ Banking Partners to find you the lowest rate. Our tech professionals in Bangalore especially benefit from pre-approved limits at top banks.',
         relatedBlog: 'instant-personal-loans-tech',
     },
     'business-loan': {
@@ -86,7 +86,7 @@ const services = {
     'home-loan': {
         title: 'Home Loan',
         subtitle: 'Your Dream Home, Best Rate.',
-        description: 'Purchase, construction, or balance transfer — we compare 10+ banks to find you the lowest rate with maximum tax benefits.',
+        description: 'Purchase, construction, or balance transfer — we compare 120+ Banking Partners to find you the lowest rate with maximum tax benefits.',
         icon: Home,
         color: 'amber',
         heroGradient: 'from-amber-600 via-amber-700 to-orange-800',
@@ -314,7 +314,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                     <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                         {[
                             { step: '01', title: 'Tell Us Your Need', desc: 'Use our estimator or WhatsApp us your requirement. Takes 2 minutes.' },
-                            { step: '02', title: 'We Find the Best Offer', desc: 'We compare across 10+ banks and negotiate the lowest rate for your profile.' },
+                            { step: '02', title: 'We Find the Best Offer', desc: 'We compare across 120+ Banking Partners and negotiate the lowest rate for your profile.' },
                             { step: '03', title: 'Get Your Funds', desc: 'Dedicated case manager handles all paperwork. You just sign and receive.' },
                         ].map((item, i) => (
                             <motion.div
