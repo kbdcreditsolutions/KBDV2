@@ -199,7 +199,7 @@ export default function CheckScorePage() {
                                                         <CheckCircle2 className="w-3 h-3 text-accent opacity-0 peer-checked:opacity-100 transition-opacity" />
                                                     </div>
                                                     <span className="text-xs text-slate-500 leading-relaxed">
-                                                        I authorize KBD Credit Solutions to pull my credit information from Experian/CRIF for the purpose of loan processing. I understand this is a soft inquiry and won't affect my score.
+                                                        I authorize KBD Credit Solutions to pull my credit information from Experian/CRIF for the purpose of loan processing. I understand this is a soft inquiry and won&apos;t affect my score.
                                                     </span>
                                                 </label>
                                             </div>
@@ -269,7 +269,7 @@ export default function CheckScorePage() {
                                         </Button>
 
                                         <p className="text-center text-slate-600 text-xs font-bold uppercase tracking-widest cursor-pointer hover:text-accent transition-colors">
-                                            Didn't receive? Resend in 45s
+                                            Didn&apos;t receive? Resend in 45s
                                         </p>
                                     </form>
                                 </motion.div>
