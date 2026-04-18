@@ -15,164 +15,173 @@ interface LoanData {
     totalPayment: number;
 }
 
-interface ScheduleRow {
-    month: number;
-    opening: number;
-    emi: number;
-    interest: number;
-    principal: number;
-    closing: number;
-}
-
 export const pdfService = {
     /**
      * Generates a branded Amortization Schedule PDF
      */
     generateAmortizationPDF: (loanData: LoanData, schedule: ScheduleRow[]) => {
-        const doc = new jsPDF();
-        const pageWidth = doc.internal.pageSize.width;
-        const pageHeight = doc.internal.pageSize.height;
+        try {
+            const doc = new jsPDF();
+            const pageWidth = doc.internal.pageSize.width;
+            const pageHeight = doc.internal.pageSize.height;
 
-        // Branding Colors (RGB Tuples)
-        const primaryColor: [number, number, number] = [5, 10, 24]; // #050A18
-        const accentColor: [number, number, number] = [255, 200, 87]; // #FFC857
+            // Branding Colors (RGB Tuples)
+            const primaryColor: [number, number, number] = [5, 10, 24]; // #050A18
+            const accentColor: [number, number, number] = [255, 200, 87]; // #FFC857
 
-        // --- Helper: Add Watermark ---
-        const addWatermark = () => {
-            doc.saveGraphicsState();
-            doc.setGState(doc.GState({ opacity: 0.05 }));
-            // Center large logo as watermark
-            doc.addImage(KBD_LOGO_DARK, 'SVG', pageWidth / 2 - 50, pageHeight / 2 - 30, 100, 60);
-            doc.restoreGraphicsState();
-        };
+            // --- Helper: Add Watermark ---
+            const addWatermark = () => {
+                doc.saveGraphicsState();
+                doc.setGState(doc.GState({ opacity: 0.03 }));
+                doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                doc.setFontSize(60);
+                doc.setFont('helvetica', 'bold');
+                doc.text('KBD CREDIT', pageWidth / 2, pageHeight / 2, { 
+                    align: 'center', 
+                    angle: 45 
+                });
+                doc.restoreGraphicsState();
+            };
 
-        // --- Helper: Add Header ---
-        const addHeader = (pageNum: number) => {
-            // Header Bar
-            doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-            doc.rect(0, 0, pageWidth, 40, 'F');
+            // --- Helper: Add Header ---
+            const addHeader = (pageNum: number) => {
+                // Header Bar
+                doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                doc.rect(0, 0, pageWidth, 40, 'F');
 
-            // Logo (Captured from site SVG)
-            doc.addImage(KBD_LOGO_DARK, 'SVG', 15, 10, 45, 20);
+                // Text Branding (Replacing SVG for stability)
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(24);
+                doc.setFont('helvetica', 'bold');
+                doc.text('KBD', 15, 22);
+                
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'normal');
+                doc.text('CREDIT SOLUTIONS', 15, 30);
 
-            // Title
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(18);
-            doc.setFont('helvetica', 'bold');
-            doc.text('LOAN AMORTIZATION SCHEDULE', pageWidth - 15, 20, { align: 'right' });
+                // Title
+                doc.setFontSize(16);
+                doc.setFont('helvetica', 'bold');
+                doc.text('AMORTIZATION SCHEDULE', pageWidth - 15, 20, { align: 'right' });
 
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'normal');
-            doc.text(`Generated on ${new Date().toLocaleDateString('en-IN')}`, pageWidth - 15, 28, { align: 'right' });
-            
-            if (pageNum > 1) {
-                doc.text(`Page ${pageNum}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
-            }
-        };
-
-        // Page 1 Initialization
-        addWatermark();
-        addHeader(1);
-
-        // --- Loan Summary Section ---
-        let currentY = 55;
-        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-        doc.setFontSize(14);
-        doc.text('Loan Summary', 15, currentY);
-        
-        doc.setDrawColor(accentColor[0], accentColor[1], accentColor[2]);
-        doc.setLineWidth(0.5);
-        doc.line(15, currentY + 2, 50, currentY + 2);
-
-        currentY += 15;
-        
-        // Summary Grid
-        const summaryData = [
-            ['Loan Amount', `INR ${loanData.amount.toLocaleString('en-IN')}`],
-            ['Interest Rate', `${loanData.rate}% p.a.`],
-            ['Tenure', `${loanData.tenure} ${loanData.tenureType === 'yr' ? 'Years' : 'Months'}`],
-            ['Monthly EMI', `INR ${loanData.emi.toLocaleString('en-IN')}`]
-        ];
-
-        autoTable(doc, {
-            startY: currentY,
-            head: [],
-            body: summaryData,
-            theme: 'plain',
-            styles: { fontSize: 11, cellPadding: 3 },
-            columnStyles: {
-                0: { fontStyle: 'bold', textColor: [100, 116, 139], cellWidth: 50 },
-                1: { fontStyle: 'bold', textColor: primaryColor }
-            }
-        });
-
-        // Totals Box
-        const finalY = (doc as any).lastAutoTable.finalY + 10;
-        doc.setFillColor(248, 250, 252);
-        doc.rect(130, finalY - 35, 65, 30, 'F');
-        doc.setFontSize(9);
-        doc.setTextColor(100, 116, 139);
-        doc.text('Total Interest:', 135, finalY - 25);
-        doc.text('Total Repayment:', 135, finalY - 15);
-        
-        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-        doc.setFontSize(10);
-        doc.text(`INR ${loanData.totalInterest.toLocaleString('en-IN')}`, 190, finalY - 25, { align: 'right' });
-        doc.setFontSize(11);
-        doc.setFont('helvetica', 'bold');
-        doc.text(`INR ${loanData.totalPayment.toLocaleString('en-IN')}`, 190, finalY - 15, { align: 'right' });
-
-        // --- Amortization Table ---
-        currentY = finalY + 10;
-        
-        const tableBody = schedule.map(row => [
-            row.month.toString(),
-            `INR ${Math.round(row.principal).toLocaleString('en-IN')}`,
-            `INR ${Math.round(row.interest).toLocaleString('en-IN')}`,
-            `INR ${Math.round(row.closing).toLocaleString('en-IN')}`
-        ]);
-
-        autoTable(doc, {
-            startY: currentY,
-            head: [['Month', 'Principal Paid', 'Interest Paid', 'Remaining Balance']],
-            body: tableBody,
-            theme: 'striped',
-            headStyles: {
-                fillColor: primaryColor,
-                textColor: [255, 255, 255],
-                fontStyle: 'bold',
-                halign: 'center'
-            },
-            columnStyles: {
-                0: { halign: 'center' },
-                1: { halign: 'right' },
-                2: { halign: 'right' },
-                3: { halign: 'right' }
-            },
-            styles: {
-                fontSize: 9,
-                font: 'helvetica'
-            },
-            didDrawPage: (data) => {
-                if (data.pageNumber > 1) {
-                    addWatermark();
-                    addHeader(data.pageNumber);
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'normal');
+                doc.text(`Generated on ${new Date().toLocaleDateString('en-IN')}`, pageWidth - 15, 28, { align: 'right' });
+                
+                if (pageNum > 1) {
+                    doc.text(`Page ${pageNum}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
                 }
-            },
-            margin: { top: 45 }
-        });
+            };
 
-        // Footer Disclaimer
-        const lastY = (doc as any).lastAutoTable.finalY + 15;
-        if (lastY < pageHeight - 20) {
-            doc.setFontSize(8);
-            doc.setFont('helvetica', 'italic');
-            doc.setTextColor(148, 163, 184);
-            doc.text('* This is an automated estimate based on standard reducing balance calculations.', 15, lastY);
-            doc.text('Actual terms, interest components, and processing fees may vary as per individual bank norms.', 15, lastY + 5);
+            // Page 1 Initialization
+            addWatermark();
+            addHeader(1);
+
+            // --- Loan Summary Section ---
+            let currentY = 55;
+            doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+            doc.setFontSize(14);
+            doc.text('Loan Summary', 15, currentY);
+            
+            doc.setDrawColor(accentColor[0], accentColor[1], accentColor[2]);
+            doc.setLineWidth(0.5);
+            doc.line(15, currentY + 2, 50, currentY + 2);
+
+            currentY += 15;
+            
+            // Summary Grid
+            const summaryData = [
+                ['Loan Amount', `INR ${loanData.amount.toLocaleString('en-IN')}`],
+                ['Interest Rate', `${loanData.rate}% p.a.`],
+                ['Tenure', `${loanData.tenure} ${loanData.tenureType === 'yr' ? 'Years' : 'Months'}`],
+                ['Monthly EMI', `INR ${loanData.emi.toLocaleString('en-IN')}`]
+            ];
+
+            autoTable(doc, {
+                startY: currentY,
+                head: [],
+                body: summaryData,
+                theme: 'plain',
+                styles: { fontSize: 11, cellPadding: 3 },
+                columnStyles: {
+                    0: { fontStyle: 'bold', textColor: [100, 116, 139], cellWidth: 50 },
+                    1: { fontStyle: 'bold', textColor: primaryColor }
+                }
+            });
+
+            // Totals Box
+            const finalY = (doc as any).lastAutoTable.finalY + 10;
+            doc.setFillColor(248, 250, 252);
+            doc.rect(130, finalY - 35, 65, 30, 'F');
+            doc.setFontSize(9);
+            doc.setTextColor(100, 116, 139);
+            doc.text('Total Interest:', 135, finalY - 25);
+            doc.text('Total Repayment:', 135, finalY - 15);
+            
+            doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+            doc.setFontSize(10);
+            doc.text(`INR ${loanData.totalInterest.toLocaleString('en-IN')}`, 190, finalY - 25, { align: 'right' });
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.text(`INR ${loanData.totalPayment.toLocaleString('en-IN')}`, 190, finalY - 15, { align: 'right' });
+
+            // --- Amortization Table ---
+            currentY = finalY + 10;
+            
+            const tableBody = schedule.map(row => [
+                row.month.toString(),
+                `INR ${Math.round(row.principal).toLocaleString('en-IN')}`,
+                `INR ${Math.round(row.interest).toLocaleString('en-IN')}`,
+                `INR ${Math.round(row.closing).toLocaleString('en-IN')}`
+            ]);
+
+            autoTable(doc, {
+                startY: currentY,
+                head: [['Month', 'Principal Paid', 'Interest Paid', 'Remaining Balance']],
+                body: tableBody,
+                theme: 'striped',
+                headStyles: {
+                    fillColor: primaryColor,
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold',
+                    halign: 'center'
+                },
+                columnStyles: {
+                    0: { halign: 'center' },
+                    1: { halign: 'right' },
+                    2: { halign: 'right' },
+                    3: { halign: 'right' }
+                },
+                styles: {
+                    fontSize: 9,
+                    font: 'helvetica'
+                },
+                didDrawPage: (data) => {
+                    if (data.pageNumber > 1) {
+                        addWatermark();
+                        addHeader(data.pageNumber);
+                    }
+                },
+                margin: { top: 45 }
+            });
+
+            // Footer Disclaimer
+            const lastTableY = (doc as any).lastAutoTable.finalY;
+            const disclaimerY = lastTableY + 15;
+            
+            if (disclaimerY < pageHeight - 20) {
+                doc.setFontSize(8);
+                doc.setFont('helvetica', 'italic');
+                doc.setTextColor(148, 163, 184);
+                doc.text('* This is an automated estimate based on standard reducing balance calculations.', 15, disclaimerY);
+                doc.text('Actual terms, interest components, and processing fees may vary as per individual bank norms.', 15, disclaimerY + 5);
+            }
+
+            // Save the PDF
+            doc.save(`KBD_Amortization_Schedule_${new Date().getTime()}.pdf`);
+        } catch (error: any) {
+            console.error('PDF Generation Error:', error);
+            alert('Failed to generate PDF: ' + error.message);
         }
-
-        // Save the PDF
-        doc.save(`KBD_Amortization_Schedule_${new Date().getTime()}.pdf`);
     }
 };
