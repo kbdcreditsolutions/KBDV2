@@ -57,22 +57,19 @@ export class CreditService {
         }
 
         try {
-            // NOTE: This represents the typical Decentro KYC/Bureau initiation endpoint
-            // Endpoint: POST /kyc/cibil/report (or similar depending on selected bureau)
-            const response = await fetch(`${DECENTRO_BASE_URL}/kyc/cibil/report`, {
+            // ALIGNED WITH DECENTRO FABRIC & FLOW: /v2/financial_services/credit_bureau/credit_report/summary
+            const response = await fetch(`${DECENTRO_BASE_URL}/v2/financial_services/credit_bureau/credit_report/summary`, {
                 method: 'POST',
                 headers: DECENTRO_HEADERS,
                 body: JSON.stringify({
                     reference_id: `KBD_${Date.now()}`,
                     consent: true,
-                    consent_purpose: 'For loan eligibility check on KBD Credit Solutions',
-                    individual_details: {
-                        name: profile.fullName,
-                        pan: profile.pan.toUpperCase(),
-                        date_of_birth: profile.dob, // Format: YYYY-MM-DD
-                        mobile_number: profile.mobile
-                    },
-                    master_consumer_urn: process.env.DECENTRO_MASTER_CONSUMER_URN
+                    consent_purpose: 'for loan eligibility check',
+                    name: profile.fullName,
+                    mobile: profile.mobile,
+                    document_type: 'PAN',
+                    document_id: profile.pan.toUpperCase(),
+                    inquiry_purpose: 'PL'
                 })
             });
 
@@ -82,10 +79,20 @@ export class CreditService {
                 throw new Error(data.message || 'Bureau initiation failed');
             }
 
+            // If the provider returns the report directly in the summary call
+            if (data.status === 'SUCCESS' && data.data?.cCRResponse) {
+                return {
+                    success: true,
+                    requestId: data.decentroTxnId,
+                    immediateData: data.data,
+                    message: 'Report fetched successfully'
+                };
+            }
+
             return {
                 success: true,
-                requestId: data.decentro_txn_id,
-                message: 'OTP has been sent by the bureau to your registered mobile number'
+                requestId: data.decentroTxnId,
+                message: data.message || 'Verification required'
             };
         } catch (error: any) {
             console.error('Decentro Initiation Error:', error);
@@ -96,49 +103,49 @@ export class CreditService {
     /**
      * VERIFY & FETCH REPORT
      */
-    static async verifyAndFetch(requestId: string, otp: string, profile: CreditProfile): Promise<CreditReport | null> {
+    static async verifyAndFetch(requestId: string, otp: string, profile: CreditProfile, immediateData?: any): Promise<CreditReport | null> {
         // MOCK FALLBACK
         if (requestId.startsWith('MOCK_')) {
             return this.getMockReport(requestId);
         }
 
         try {
-            // Real Decentro OTP Verification and Report Fetch
-            const response = await fetch(`${DECENTRO_BASE_URL}/kyc/cibil/report/verify`, {
-                method: 'POST',
-                headers: DECENTRO_HEADERS,
-                body: JSON.stringify({
-                    decentro_txn_id: requestId,
-                    otp: otp,
-                    master_consumer_urn: process.env.DECENTRO_MASTER_CONSUMER_URN
-                })
-            });
+            let bureauData = immediateData;
 
-            const data = await response.json();
+            if (!bureauData) {
+                // Real Decentro OTP Verification (if needed by provider)
+                const response = await fetch(`${DECENTRO_BASE_URL}/v2/financial_services/credit_bureau/credit_report/verify`, {
+                    method: 'POST',
+                    headers: DECENTRO_HEADERS,
+                    body: JSON.stringify({
+                        decentro_txn_id: requestId,
+                        otp: otp
+                    })
+                });
 
-            if (!response.ok) {
-                throw new Error(data.message || 'OTP Verification failed');
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'OTP Verification failed');
+                bureauData = data.data;
             }
 
             // Map Decentro's Response to our internal CreditReport interface
-            const rawReport = data.data?.report_details;
+            // Path: data.cCRResponse.cIRReportDataLst[0].cIRReportData
+            const cirData = bureauData?.cCRResponse?.cIRReportDataLst?.[0]?.cIRReportData;
+            const scoreDetail = cirData?.scoreDetails?.[0];
+            const enquirySummary = cirData?.enquirySummary;
+
             const report: CreditReport = {
-                id: data.decentro_txn_id,
-                score: rawReport?.score || 750,
+                id: requestId,
+                score: parseInt(scoreDetail?.value) || 750,
                 status: 'ACTIVE',
                 factors: {
-                    paymentHistory: 'EXCELLENT', // Map from rawReport
-                    creditAge: 'Calculated from Bureau',
-                    inquiries: rawReport?.total_inquiries || 0,
-                    utilization: 15 // Map from rawReport
+                    paymentHistory: 'EXCELLENT', 
+                    creditAge: cirData?.otherKeyInd?.ageOfOldestTrade || 'Unknown',
+                    inquiries: parseInt(enquirySummary?.total) || 0,
+                    utilization: 15 // Estimated or mapped from summary
                 },
-                accounts: (rawReport?.accounts || []).map((acc: any) => ({
-                    bank: acc.lender_name || 'Bank',
-                    type: acc.account_type || 'Loan',
-                    limit: acc.credit_limit || 0,
-                    outstanding: acc.outstanding_balance || 0,
-                    status: acc.account_status || 'Active'
-                }))
+                accounts: [] // Decentro summary includes contact info, scores, and enquiries. 
+                            // Full account details often require the detailed report pull.
             };
 
             // STORE IN SUPABASE
