@@ -416,24 +416,24 @@ export function LoanEstimator() {
                     isOpen={isScheduleOpen} 
                     onClose={() => setIsScheduleOpen(false)} 
                     title="Amortization Schedule"
-                    className="max-w-2xl"
+                    className="max-w-4xl" // Increased width for better table visibility
                 >
-                    <div className="space-y-4 max-h-[70vh] overflow-y-auto w-full">
-                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 p-4 rounded-xl sticky top-0 z-10 shadow-sm border border-gray-100 gap-4">
+                    <div className="space-y-4 max-h-[75vh] overflow-y-auto w-full px-1">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-[#0F172A] p-5 rounded-2xl sticky top-0 z-10 shadow-xl border border-white/5 gap-4">
                             <div>
-                                <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Loan Amount</p>
-                                <p className="font-bold text-lg text-gray-900 font-mono tracking-tight">{formatCurrency(amount)}</p>
+                                <p className="text-[10px] text-slate-400 uppercase font-mono tracking-widest mb-1">Loan Amount</p>
+                                <p className="font-bold text-xl text-[#FFC857] font-mono tracking-tight">{formatCurrency(amount)}</p>
                             </div>
-                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full sm:w-auto">
                                 <div className="sm:text-right">
-                                    <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Total Interest</p>
-                                    <p className="font-bold text-lg text-orange-500 font-mono tracking-tight">
+                                    <p className="text-[10px] text-slate-400 uppercase font-mono tracking-widest mb-1">Total Interest</p>
+                                    <p className="font-bold text-xl text-white font-mono tracking-tight">
                                         {formatCurrency((emi * tenure) - amount)}
                                     </p>
                                 </div>
                                 <button
                                     onClick={handleDownloadPDF}
-                                    className="flex items-center gap-2 bg-[#050A18] text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-slate-800 transition-colors shadow-sm ml-auto sm:ml-0"
+                                    className="flex items-center gap-2 bg-[#FFC857] text-[#050A18] px-6 py-2.5 rounded-xl text-xs font-black hover:scale-105 transition-all shadow-lg shadow-[#FFC857]/20 ml-auto sm:ml-0"
                                 >
                                     <Download className="w-4 h-4" />
                                     DOWNLOAD PDF
@@ -441,27 +441,29 @@ export function LoanEstimator() {
                             </div>
                         </div>
 
-                        <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                            <table className="w-full text-sm text-left whitespace-nowrap">
-                                <thead className="bg-[#050A18] text-white">
-                                    <tr>
-                                        <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Mo</th>
-                                        <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Principal</th>
-                                        <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300">Interest</th>
-                                        <th className="px-4 py-3 font-medium text-xs tracking-wider uppercase text-slate-300 text-right">Balance</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-100 bg-white">
-                                    {generateSchedule().map((row) => (
-                                        <tr key={row.month} className="hover:bg-slate-50 transition-colors">
-                                            <td className="px-4 py-3 font-medium text-slate-900 font-mono">{row.month}</td>
-                                            <td className="px-4 py-3 font-mono text-emerald-600">₹{Math.round(row.principal).toLocaleString("en-IN")}</td>
-                                            <td className="px-4 py-3 font-mono text-orange-500">₹{Math.round(row.interest).toLocaleString("en-IN")}</td>
-                                            <td className="px-4 py-3 font-mono text-slate-500 text-right">₹{Math.round(row.closing).toLocaleString("en-IN")}</td>
+                        <div className="border border-white/5 rounded-2xl overflow-hidden shadow-2xl bg-black/20">
+                            <div className="overflow-x-auto w-full">
+                                <table className="w-full text-xs sm:text-sm text-left whitespace-nowrap">
+                                    <thead className="bg-[#050A18] text-white/70 border-b border-white/5">
+                                        <tr>
+                                            <th className="px-3 sm:px-6 py-4 font-mono text-[10px] uppercase tracking-widest">Month</th>
+                                            <th className="px-3 sm:px-6 py-4 font-mono text-[10px] uppercase tracking-widest">Principal</th>
+                                            <th className="px-3 sm:px-6 py-4 font-mono text-[10px] uppercase tracking-widest">Interest</th>
+                                            <th className="px-3 sm:px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-right">Balance</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody className="divide-y divide-white/5">
+                                        {generateSchedule().map((row) => (
+                                            <tr key={row.month} className="hover:bg-white/[0.02] transition-colors group">
+                                                <td className="px-3 sm:px-6 py-4 font-bold text-slate-400 font-mono">{row.month}</td>
+                                                <td className="px-3 sm:px-6 py-4 font-mono text-emerald-400/80">₹{Math.round(row.principal).toLocaleString("en-IN")}</td>
+                                                <td className="px-3 sm:px-6 py-4 font-mono text-orange-400/80">₹{Math.round(row.interest).toLocaleString("en-IN")}</td>
+                                                <td className="px-3 sm:px-6 py-4 font-mono text-white text-right font-bold group-hover:text-[#FFC857]">₹{Math.round(row.closing).toLocaleString("en-IN")}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </Modal>
