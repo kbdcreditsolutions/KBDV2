@@ -1,6 +1,0 @@
-{
-  "enabledPlugins": {
-    "example-skills@anthropic-agent-skills": true,
-    "superpowers@superpowers-dev": true
-  }
-}
