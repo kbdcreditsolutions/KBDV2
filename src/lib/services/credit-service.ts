@@ -142,10 +142,15 @@ export class CreditService {
                     paymentHistory: 'EXCELLENT', 
                     creditAge: cirData?.otherKeyInd?.ageOfOldestTrade || 'Unknown',
                     inquiries: parseInt(enquirySummary?.total) || 0,
-                    utilization: 15 // Estimated or mapped from summary
+                    utilization: 15
                 },
-                accounts: [] // Decentro summary includes contact info, scores, and enquiries. 
-                            // Full account details often require the detailed report pull.
+                accounts: cirData?.enquiryHistory?.map((enq: any) => ({
+                    bank: enq.enquiringMemberName || 'Financial Institution',
+                    type: enq.inquiryPurpose || 'Personal Loan',
+                    limit: parseInt(enq.inquiryAmount) || 0,
+                    outstanding: 0,
+                    status: 'ENQUIRY'
+                })) || []
             };
 
             // STORE IN SUPABASE
