@@ -150,7 +150,7 @@ export default function CheckScorePage() {
                                     </div>
 
                                     <div className="bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden group">
-                                        <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2" />
+                                        <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                                         
                                         <form onSubmit={handleInitiate} className="grid md:grid-cols-2 gap-6 relative z-10">
                                             <Input 
@@ -159,7 +159,8 @@ export default function CheckScorePage() {
                                                 required
                                                 value={formData.fullName}
                                                 onChange={e => setFormData({ ...formData, fullName: e.target.value })}
-                                                className="bg-white/5 border-white/10 text-white"
+                                                className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:bg-white/10"
+                                                labelClassName="text-slate-400 font-bold uppercase tracking-widest text-[10px]"
                                                 leftIcon={<User className="w-4 h-4 text-slate-500" />}
                                             />
                                             <Input 
@@ -169,7 +170,8 @@ export default function CheckScorePage() {
                                                 maxLength={10}
                                                 value={formData.pan}
                                                 onChange={e => setFormData({ ...formData, pan: e.target.value.toUpperCase() })}
-                                                className="bg-white/5 border-white/10 text-white uppercase"
+                                                className="bg-white/5 border-white/10 text-white uppercase placeholder:text-slate-600 focus:bg-white/10"
+                                                labelClassName="text-slate-400 font-bold uppercase tracking-widest text-[10px]"
                                                 leftIcon={<CreditCard className="w-4 h-4 text-slate-500" />}
                                             />
                                             <Input 
@@ -178,8 +180,8 @@ export default function CheckScorePage() {
                                                 required
                                                 value={formData.dob}
                                                 onChange={e => setFormData({ ...formData, dob: e.target.value })}
-                                                className="bg-white/5 border-white/10 text-white"
-                                                leftIcon={<Calendar className="w-4 h-4 text-slate-500" />}
+                                                className="bg-white/5 border-white/10 text-white focus:bg-white/10 [color-scheme:dark]"
+                                                labelClassName="text-slate-400 font-bold uppercase tracking-widest text-[10px]"
                                             />
                                             <Input 
                                                 label="Mobile Number"
@@ -188,7 +190,8 @@ export default function CheckScorePage() {
                                                 type="tel"
                                                 value={formData.mobile}
                                                 onChange={e => setFormData({ ...formData, mobile: e.target.value })}
-                                                className="bg-white/5 border-white/10 text-white"
+                                                className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:bg-white/10"
+                                                labelClassName="text-slate-400 font-bold uppercase tracking-widest text-[10px]"
                                                 leftIcon={<Smartphone className="w-4 h-4 text-slate-500" />}
                                             />
                                             
