@@ -125,7 +125,7 @@ export default function CheckScorePage() {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen bg-[#050A18] pt-24">
+            <main className="min-h-screen bg-slate-50 pt-24">
                 <Section>
                     <div className="max-w-4xl mx-auto">
                         <AnimatePresence mode="wait">
@@ -142,14 +142,14 @@ export default function CheckScorePage() {
                                             <ShieldCheck className="w-4 h-4" />
                                             KBD Credit Intelligence
                                         </div>
-                                        <h1 className="text-4xl md:text-5xl font-black text-white">Check Your Eligibility Instantly.</h1>
-                                        <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                                        <h1 className="text-4xl md:text-5xl font-black text-slate-900">Check Your Eligibility Instantly.</h1>
+                                        <p className="text-slate-600 text-lg max-w-2xl mx-auto">
                                             Pull your co-branded credit report from 120+ Banking Partners. 
                                             Zero impact on your credit score. Secured with AES-256 encryption.
                                         </p>
                                     </div>
 
-                                    <div className="bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden group">
+                                    <div className="bg-white border border-slate-200 rounded-[2.5rem] p-8 md:p-12 shadow-xl relative overflow-hidden group">
                                         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                                         
                                         <form onSubmit={handleInitiate} className="grid md:grid-cols-2 gap-6 relative z-10" autoComplete="off">
@@ -160,9 +160,9 @@ export default function CheckScorePage() {
                                                 autoComplete="none"
                                                 value={formData.fullName}
                                                 onChange={e => setFormData({ ...formData, fullName: e.target.value })}
-                                                className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:bg-white/10"
-                                                labelClassName="text-slate-400 font-bold uppercase tracking-widest text-[10px]"
-                                                leftIcon={<User className="w-4 h-4 text-slate-500" />}
+                                                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-accent"
+                                                labelClassName="text-slate-600 font-bold uppercase tracking-widest text-[10px]"
+                                                leftIcon={<User className="w-4 h-4 text-slate-400" />}
                                             />
                                             <Input 
                                                 label="PAN Number"
@@ -172,9 +172,9 @@ export default function CheckScorePage() {
                                                 autoComplete="none"
                                                 value={formData.pan}
                                                 onChange={e => setFormData({ ...formData, pan: e.target.value.toUpperCase() })}
-                                                className="bg-white/5 border-white/10 text-white uppercase placeholder:text-slate-600 focus:bg-white/10"
-                                                labelClassName="text-slate-400 font-bold uppercase tracking-widest text-[10px]"
-                                                leftIcon={<CreditCard className="w-4 h-4 text-slate-500" />}
+                                                className="bg-slate-50 border-slate-200 text-slate-900 uppercase placeholder:text-slate-400 focus:bg-white focus:border-accent"
+                                                labelClassName="text-slate-600 font-bold uppercase tracking-widest text-[10px]"
+                                                leftIcon={<CreditCard className="w-4 h-4 text-slate-400" />}
                                             />
                                             <Input 
                                                 label="Date of Birth"
@@ -183,8 +183,8 @@ export default function CheckScorePage() {
                                                 autoComplete="none"
                                                 value={formData.dob}
                                                 onChange={e => setFormData({ ...formData, dob: e.target.value })}
-                                                className="bg-white/5 border-white/10 text-white focus:bg-white/10 [color-scheme:dark]"
-                                                labelClassName="text-slate-400 font-bold uppercase tracking-widest text-[10px]"
+                                                className="bg-slate-50 border-slate-200 text-slate-900 focus:bg-white focus:border-accent [color-scheme:light]"
+                                                labelClassName="text-slate-600 font-bold uppercase tracking-widest text-[10px]"
                                             />
                                             <Input 
                                                 label="Mobile Number"
@@ -194,9 +194,9 @@ export default function CheckScorePage() {
                                                 autoComplete="none"
                                                 value={formData.mobile}
                                                 onChange={e => setFormData({ ...formData, mobile: e.target.value })}
-                                                className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:bg-white/10"
-                                                labelClassName="text-slate-400 font-bold uppercase tracking-widest text-[10px]"
-                                                leftIcon={<Smartphone className="w-4 h-4 text-slate-500" />}
+                                                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-accent"
+                                                labelClassName="text-slate-600 font-bold uppercase tracking-widest text-[10px]"
+                                                leftIcon={<Smartphone className="w-4 h-4 text-slate-400" />}
                                             />
                                             
                                             <div className="md:col-span-2 py-4">
@@ -243,13 +243,13 @@ export default function CheckScorePage() {
                                         <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6">
                                             <Lock className="w-10 h-10 text-accent" />
                                         </div>
-                                        <h2 className="text-3xl font-bold text-white">Bureau Verification</h2>
-                                        <p className="text-slate-400">
+                                        <h2 className="text-3xl font-bold text-slate-900">Bureau Verification</h2>
+                                        <p className="text-slate-600">
                                             A secure OTP has been sent by the Bureau to your mobile number +91 {formData.mobile.slice(-4).padStart(10, '*')}.
                                         </p>
                                     </div>
 
-                                    <form onSubmit={handleVerify} className="bg-white/[0.03] p-8 rounded-[2rem] border border-white/10 space-y-6">
+                                    <form onSubmit={handleVerify} className="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-xl space-y-6">
                                         <Input 
                                             label="6-Digit OTP"
                                             placeholder="••••••"
@@ -257,7 +257,7 @@ export default function CheckScorePage() {
                                             maxLength={6}
                                             value={formData.otp}
                                             onChange={e => setFormData({ ...formData, otp: e.target.value })}
-                                            className="bg-white/5 border-white/10 text-white text-center text-3xl font-bold tracking-[0.5em]"
+                                            className="bg-slate-50 border-slate-200 text-slate-900 text-center text-3xl font-bold tracking-[0.5em] focus:bg-white focus:border-accent"
                                         />
 
                                         {error && (
@@ -294,8 +294,8 @@ export default function CheckScorePage() {
                                         <Shield className="w-8 h-8 text-accent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                                     </div>
                                     <div className="text-center space-y-2">
-                                        <h3 className="text-2xl font-bold text-white">Validating Identity...</h3>
-                                        <p className="text-slate-500 animate-pulse">Communicating with Bureau Servers (Experian/CRIF)</p>
+                                        <h3 className="text-2xl font-bold text-slate-900">Validating Identity...</h3>
+                                        <p className="text-slate-400 animate-pulse">Communicating with Bureau Servers (Experian/CRIF)</p>
                                     </div>
                                 </motion.div>
                             )}
@@ -308,13 +308,13 @@ export default function CheckScorePage() {
                                     className="space-y-8"
                                 >
                                     {/* Dashboard Header */}
-                                    <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white/[0.02] border border-white/5 p-8 rounded-[2rem]">
+                                    <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-slate-100 p-8 rounded-[2rem] shadow-sm">
                                         <div className="space-y-2 text-center md:text-left">
-                                            <h2 className="text-2xl font-bold text-white">Welcome, {formData.fullName.split(' ')[0]}</h2>
+                                            <h2 className="text-2xl font-bold text-slate-900">Welcome, {formData.fullName.split(' ')[0]}</h2>
                                             <p className="text-slate-500 text-sm">Report generated on {new Date().toLocaleDateString()}</p>
                                         </div>
                                         <Button 
-                                            className="bg-white/10 text-white border border-white/10 hover:bg-white/20 px-8" 
+                                            className="bg-slate-900 text-white hover:bg-black px-8" 
                                             leftIcon={<Download className="w-4 h-4" />}
                                             onClick={handleDownload}
                                             isLoading={isDownloading}
@@ -335,7 +335,7 @@ export default function CheckScorePage() {
                                                     <circle 
                                                         cx="128" cy="128" r="110" 
                                                         stroke="currentColor" strokeWidth="12" 
-                                                        fill="transparent" className="text-white/5" 
+                                                        fill="transparent" className="text-slate-100" 
                                                     />
                                                     <motion.circle 
                                                         cx="128" cy="128" r="110" 
@@ -352,7 +352,7 @@ export default function CheckScorePage() {
                                                     <motion.span 
                                                         initial={{ opacity: 0 }}
                                                         animate={{ opacity: 1 }}
-                                                        className="text-7xl font-black text-white block"
+                                                        className="text-7xl font-black text-slate-900 block"
                                                     >
                                                         {report.score}
                                                     </motion.span>
@@ -360,25 +360,25 @@ export default function CheckScorePage() {
                                                 </div>
                                             </div>
 
-                                            <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/5 pt-8">
+                                            <div className="mt-8 grid grid-cols-3 gap-4 border-t border-slate-100 pt-8">
                                                 <div className="space-y-1">
                                                     <span className="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">Payment History</span>
-                                                    <span className="text-white font-bold text-sm">{report.factors.paymentHistory}</span>
+                                                    <span className="text-slate-900 font-bold text-sm">{report.factors.paymentHistory}</span>
                                                 </div>
                                                 <div className="space-y-1">
                                                     <span className="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">Credit Age</span>
-                                                    <span className="text-white font-bold text-sm">{report.factors.creditAge}</span>
+                                                    <span className="text-slate-900 font-bold text-sm">{report.factors.creditAge}</span>
                                                 </div>
                                                 <div className="space-y-1">
                                                     <span className="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">Active Inquiries</span>
-                                                    <span className="text-white font-bold text-sm">{report.factors.inquiries}</span>
+                                                    <span className="text-slate-900 font-bold text-sm">{report.factors.inquiries}</span>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className="space-y-6">
-                                            <div className="bg-white/[0.02] border border-white/5 p-6 rounded-[2rem]">
-                                                <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                                            <div className="bg-white border border-slate-100 p-6 rounded-[2rem] shadow-sm">
+                                                <h4 className="text-slate-900 font-bold mb-4 flex items-center gap-2">
                                                     <TrendingUp className="w-4 h-4 text-accent" />
                                                     Personalized Offers
                                                 </h4>
@@ -387,10 +387,10 @@ export default function CheckScorePage() {
                                                         { label: 'Unsecured Business Loan', amount: '₹50 Lakhs', rate: '11.5%' },
                                                         { label: 'Home Loan Transfer', amount: 'Best Rate', rate: '8.4%' }
                                                     ].map((offer, idx) => (
-                                                        <div key={idx} className="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-accent/30 transition-all cursor-pointer">
+                                                        <div key={idx} className="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-accent/30 transition-all cursor-pointer">
                                                             <div className="text-[10px] text-slate-500 font-bold uppercase mb-1">{offer.label}</div>
                                                             <div className="flex justify-between items-end">
-                                                                <div className="text-white font-black text-lg">{offer.amount}</div>
+                                                                <div className="text-slate-900 font-black text-lg">{offer.amount}</div>
                                                                 <div className="text-accent text-sm font-bold">@ {offer.rate}</div>
                                                             </div>
                                                         </div>
@@ -411,9 +411,9 @@ export default function CheckScorePage() {
                                     </div>
 
                                     {/* Account List Summary */}
-                                    <div className="bg-white/[0.02] border border-white/5 rounded-[2.5rem] overflow-hidden">
-                                        <div className="p-6 border-b border-white/5 bg-white/[0.01] flex justify-between items-center">
-                                            <h3 className="text-white font-bold">Credit Line Summary</h3>
+                                    <div className="bg-white border border-slate-100 rounded-[2.5rem] overflow-hidden shadow-sm">
+                                        <div className="p-6 border-b border-slate-50 bg-slate-50/30 flex justify-between items-center">
+                                            <h3 className="text-slate-900 font-bold">Credit Line Summary</h3>
                                         </div>
                                         <div className="overflow-x-auto">
                                             <table className="w-full text-left">
@@ -426,13 +426,13 @@ export default function CheckScorePage() {
                                                         <th className="p-6">Status</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody className="text-slate-300">
+                                                <tbody className="text-slate-600">
                                                     {report.accounts.map((acc: any, i: number) => (
-                                                        <tr key={i} className="border-b border-white/5 hover:bg-white/[0.01]">
-                                                            <td className="p-6 font-bold text-white">{acc.bank}</td>
+                                                        <tr key={i} className="border-b border-slate-50 hover:bg-slate-50/50">
+                                                            <td className="p-6 font-bold text-slate-900">{acc.bank}</td>
                                                             <td className="p-6 text-sm">{acc.type}</td>
                                                             <td className="p-6 text-sm">₹{acc.limit.toLocaleString()}</td>
-                                                            <td className="p-6 text-sm text-red-400/80 font-mono">₹{acc.outstanding.toLocaleString()}</td>
+                                                            <td className="p-6 text-sm text-red-500 font-mono">₹{acc.outstanding.toLocaleString()}</td>
                                                             <td className="p-6">
                                                                 <span className="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase rounded-md tracking-wider">
                                                                     {acc.status}
