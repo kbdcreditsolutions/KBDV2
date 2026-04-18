@@ -15,6 +15,15 @@ interface LoanData {
     totalPayment: number;
 }
 
+interface ScheduleRow {
+    month: number;
+    opening: number;
+    emi: number;
+    interest: number;
+    principal: number;
+    closing: number;
+}
+
 export const pdfService = {
     /**
      * Generates a branded Amortization Schedule PDF
