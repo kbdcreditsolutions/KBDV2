@@ -170,6 +170,7 @@ export const pdfService = {
 
             const tableData = schedule.map(row => [
                 row.month.toString(),
+                `INR ${Math.round(row.emi).toLocaleString('en-IN')}`,
                 `INR ${Math.round(row.principal).toLocaleString('en-IN')}`,
                 `INR ${Math.round(row.interest).toLocaleString('en-IN')}`,
                 `INR ${Math.round(row.closing).toLocaleString('en-IN')}`
@@ -177,7 +178,7 @@ export const pdfService = {
 
             autoTable(doc, {
                 startY: currentY,
-                head: [['Month', 'Principal Component', 'Interest Component', 'Outstanding Balance']],
+                head: [['Month', 'Installment (EMI)', 'Principal', 'Interest', 'Balance']],
                 body: tableData,
                 theme: 'grid',
                 headStyles: {
@@ -185,13 +186,14 @@ export const pdfService = {
                     textColor: [255, 255, 255],
                     fontStyle: 'bold',
                     halign: 'center',
-                    fontSize: 9
+                    fontSize: 8.5
                 },
                 columnStyles: {
-                    0: { halign: 'center', cellWidth: 20 },
-                    1: { halign: 'right' }, 
+                    0: { halign: 'center', cellWidth: 15 },
+                    1: { halign: 'right', fontStyle: 'bold' }, 
                     2: { halign: 'right' },
-                    3: { halign: 'right', fontStyle: 'bold' }
+                    3: { halign: 'right' },
+                    4: { halign: 'right', fontStyle: 'bold' }
                 },
                 styles: {
                     fontSize: 8.5,

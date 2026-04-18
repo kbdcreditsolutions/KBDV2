@@ -684,6 +684,7 @@ export default function LoanDashboard() {
                                     <thead className="bg-[#050A18] text-white">
                                         <tr>
                                             <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300">Month</th>
+                                            <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300">EMI</th>
                                             <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300">Principal</th>
                                             <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300">Interest</th>
                                             <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300 text-right">Balance</th>
@@ -693,6 +694,7 @@ export default function LoanDashboard() {
                                         {generateSchedule().map((row) => (
                                             <tr key={row.month} className="hover:bg-gray-50/50 transition-colors">
                                                 <td className="px-4 py-4 font-medium text-slate-900 font-mono">{row.month}</td>
+                                                <td className="px-4 py-4 font-mono text-blue-600 font-bold">₹{Math.round(row.emi).toLocaleString("en-IN")}</td>
                                                 <td className="px-4 py-4 font-mono text-emerald-600">₹{Math.round(row.principal).toLocaleString("en-IN")}</td>
                                                 <td className="px-4 py-4 font-mono text-orange-600">₹{Math.round(row.interest).toLocaleString("en-IN")}</td>
                                                 <td className="px-4 py-4 font-mono text-slate-600 text-right font-bold">₹{Math.round(row.closing).toLocaleString("en-IN")}</td>
