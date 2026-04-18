@@ -101,7 +101,7 @@ export default function PartnerLoginPage() {
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white">Referral Engine.</span>
                         </h2>
                         <p className="text-lg text-slate-400 max-w-lg mb-12">
-                            Join Bangalore's fastest-growing partner network. Empower your clients with the best loan rates while you build a sustainable revenue stream.
+                            Join Bangalore&apos;s fastest-growing partner network. Empower your clients with the best loan rates while you build a sustainable revenue stream.
                         </p>
                     </motion.div>
 
@@ -210,7 +210,7 @@ export default function PartnerLoginPage() {
 
                     <div className="mt-10 text-center">
                         <p className="text-slate-500 text-sm">
-                            Don't have a partner account yet? <br className="md:hidden" />
+                            Don&apos;t have a partner account yet? <br className="md:hidden" />
                             <Link href="/partners" className="text-accent font-black hover:underline ml-1">
                                 Apply to Join Network
                             </Link>
