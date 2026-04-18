@@ -670,7 +670,7 @@ export default function LoanDashboard() {
                                 </div>
                                 <button
                                     onClick={handleDownloadPDF}
-                                    className="flex items-center gap-2 bg-[#050A18] text-white px-4 py-2 rounded-sm text-xs font-bold hover:bg-slate-800 transition-colors shadow-sm"
+                                    className="flex items-center gap-2 bg-[#050A18] text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-slate-800 transition-colors shadow-sm"
                                 >
                                     <Download className="w-4 h-4" />
                                     DOWNLOAD PDF
@@ -678,7 +678,7 @@ export default function LoanDashboard() {
                             </div>
                         </div>
 
-                        <div className="border border-gray-200 rounded-sm overflow-hidden shadow-sm">
+                        <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
                             <div className="overflow-x-auto w-full max-w-[100vw]">
                                 <table className="w-full text-sm text-left whitespace-nowrap min-w-[500px]">
                                     <thead className="bg-[#050A18] text-white">

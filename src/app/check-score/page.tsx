@@ -319,7 +319,7 @@ export default function CheckScorePage() {
                                             onClick={handleDownload}
                                             isLoading={isDownloading}
                                         >
-                                            Download Co-branded PDF
+                                            DOWNLOAD PDF
                                         </Button>
                                     </div>
 
