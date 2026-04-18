@@ -6,9 +6,10 @@ import { useState, useEffect } from "react";
 import { Navbar, Footer } from '@/components/layout';
 import { Slider } from "@/components/ui/slider";
 import { Modal } from "@/components/ui/modal";
-import { Shield, TrendingUp, CalendarClock, Activity, Home, User, Car, Calculator, Briefcase } from "lucide-react";
+import { Shield, TrendingUp, CalendarClock, Activity, Home, User, Car, Calculator, Briefcase, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
+import { pdfService } from "@/lib/services/pdf-service";
 
 type LoanType = 'home' | 'personal' | 'vehicle' | 'business';
 type TenureType = 'yr' | 'mo';
@@ -104,6 +105,19 @@ export default function LoanDashboard() {
             balance = closingBalance;
         }
         return schedule;
+    };
+
+    const handleDownloadPDF = () => {
+        const schedule = generateSchedule();
+        pdfService.generateAmortizationPDF({
+            amount,
+            rate,
+            tenure,
+            tenureType,
+            emi,
+            totalInterest,
+            totalPayment
+        }, schedule);
     };
 
     // Formatters
@@ -642,11 +656,20 @@ export default function LoanDashboard() {
                                 <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Loan Amount</p>
                                 <p className="font-bold text-lg text-[#050A18] font-mono tracking-tight">{formatCurrency(amount)}</p>
                             </div>
-                            <div className="sm:text-right">
-                                <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Total Interest</p>
-                                <p className="font-bold text-lg text-orange-600 font-mono tracking-tight">
-                                    {formatCurrency(totalInterest)}
-                                </p>
+                            <div className="sm:text-right flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                                <div>
+                                    <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Total Interest</p>
+                                    <p className="font-bold text-lg text-orange-600 font-mono tracking-tight">
+                                        {formatCurrency(totalInterest)}
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={handleDownloadPDF}
+                                    className="flex items-center gap-2 bg-[#050A18] text-white px-4 py-2 rounded-sm text-xs font-bold hover:bg-slate-800 transition-colors shadow-sm"
+                                >
+                                    <Download className="w-4 h-4" />
+                                    DOWNLOAD PDF
+                                </button>
                             </div>
                         </div>
 
