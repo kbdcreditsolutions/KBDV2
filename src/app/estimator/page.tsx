@@ -653,18 +653,18 @@ export default function LoanDashboard() {
                     isOpen={isScheduleOpen} 
                     onClose={() => setIsScheduleOpen(false)} 
                     title="Amortization Schedule"
-                    className="!max-w-4xl !bg-[#050A18] dark" 
+                    className="max-w-4xl" // Maintained wider modal for balance visibility
                 >
-                    <div className="space-y-4 max-h-[75vh] overflow-y-auto w-full px-1">
-                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-[#0F172A] p-5 rounded-2xl sticky top-0 z-10 shadow-xl border border-white/5 gap-4">
+                    <div className="space-y-4 max-h-[75vh] overflow-y-auto w-full">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 p-5 rounded-xl sticky top-0 z-10 shadow-sm border border-gray-100 gap-4">
                             <div>
-                                <p className="text-[10px] text-slate-400 uppercase font-mono tracking-widest mb-1">Loan Amount</p>
-                                <p className="font-bold text-xl text-[#FFC857] font-mono tracking-tight">{formatCurrency(amount)}</p>
+                                <p className="text-xs text-gray-400 uppercase font-bold tracking-wider mb-1">Loan Amount</p>
+                                <p className="font-bold text-xl text-[#050A18] font-mono tracking-tight">{formatCurrency(amount)}</p>
                             </div>
                             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full sm:w-auto">
                                 <div className="sm:text-right">
-                                    <p className="text-[10px] text-slate-400 uppercase font-mono tracking-widest mb-1">Total Interest</p>
-                                    <p className="font-bold text-xl text-white font-mono tracking-tight">
+                                    <p className="text-xs text-gray-400 uppercase font-bold tracking-wider mb-1">Total Interest</p>
+                                    <p className="font-bold text-xl text-orange-600 font-mono tracking-tight">
                                         {formatCurrency(totalInterest)}
                                     </p>
                                 </div>
@@ -678,24 +678,24 @@ export default function LoanDashboard() {
                             </div>
                         </div>
 
-                        <div className="border border-white/5 rounded-2xl overflow-hidden shadow-2xl bg-black/40">
+                        <div className="border border-gray-100 rounded-xl overflow-hidden shadow-sm bg-white">
                             <div className="overflow-x-auto w-full">
-                                <table className="w-full text-xs sm:text-sm text-left whitespace-nowrap">
-                                    <thead className="bg-[#050A18] text-white/70 border-b border-white/5">
+                                <table className="w-full text-sm text-left whitespace-nowrap">
+                                    <thead className="bg-[#050A18] text-white">
                                         <tr>
-                                            <th className="px-3 sm:px-6 py-4 font-mono text-[10px] uppercase tracking-widest">Month</th>
-                                            <th className="px-3 sm:px-6 py-4 font-mono text-[10px] uppercase tracking-widest">Principal</th>
-                                            <th className="px-3 sm:px-6 py-4 font-mono text-[10px] uppercase tracking-widest">Interest</th>
-                                            <th className="px-3 sm:px-6 py-4 font-mono text-[10px] uppercase tracking-widest text-right">Balance</th>
+                                            <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300">Month</th>
+                                            <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300">Principal</th>
+                                            <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300">Interest</th>
+                                            <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300 text-right">Balance</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-white/5">
+                                    <tbody className="divide-y divide-gray-50">
                                         {generateSchedule().map((row) => (
-                                            <tr key={row.month} className="hover:bg-white/[0.02] transition-colors group">
-                                                <td className="px-3 sm:px-6 py-4 font-bold text-slate-400 font-mono">{row.month}</td>
-                                                <td className="px-3 sm:px-6 py-4 font-mono text-emerald-400/80">₹{Math.round(row.principal).toLocaleString("en-IN")}</td>
-                                                <td className="px-3 sm:px-6 py-4 font-mono text-orange-400/80">₹{Math.round(row.interest).toLocaleString("en-IN")}</td>
-                                                <td className="px-3 sm:px-6 py-4 font-mono text-white text-right font-bold group-hover:text-[#FFC857]">₹{Math.round(row.closing).toLocaleString("en-IN")}</td>
+                                            <tr key={row.month} className="hover:bg-gray-50/50 transition-colors">
+                                                <td className="px-4 py-4 font-medium text-slate-900 font-mono">{row.month}</td>
+                                                <td className="px-4 py-4 font-mono text-emerald-600">₹{Math.round(row.principal).toLocaleString("en-IN")}</td>
+                                                <td className="px-4 py-4 font-mono text-orange-600">₹{Math.round(row.interest).toLocaleString("en-IN")}</td>
+                                                <td className="px-4 py-4 font-mono text-slate-600 text-right font-bold">₹{Math.round(row.closing).toLocaleString("en-IN")}</td>
                                             </tr>
                                         ))}
                                     </tbody>
