@@ -51,11 +51,11 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
                                 className
                             )}
                         >
-                            <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-white/10 bg-inherit rounded-t-2xl">
-                                {title && <h3 className="text-xl font-bold text-gray-900 dark:text-white font-sans">{title}</h3>}
+                            <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-inherit rounded-t-2xl">
+                                {title && <h3 className="text-xl font-bold text-gray-900 font-sans">{title}</h3>}
                                 <button
                                     onClick={onClose}
-                                    className="p-2 -mr-2 text-gray-400 hover:text-gray-600 dark:hover:text-white dark:hover:bg-white/10 rounded-full transition-colors"
+                                    className="p-2 -mr-2 text-gray-400 hover:text-gray-600 rounded-full transition-colors"
                                 >
                                     <X className="w-5 h-5" />
                                 </button>
