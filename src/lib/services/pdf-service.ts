@@ -33,9 +33,9 @@ export const pdfService = {
         const pageWidth = doc.internal.pageSize.width;
         const pageHeight = doc.internal.pageSize.height;
 
-        // Branding Colors
-        const primaryColor = [5, 10, 24]; // #050A18
-        const accentColor = [255, 200, 87]; // #FFC857
+        // Branding Colors (RGB Tuples)
+        const primaryColor: [number, number, number] = [5, 10, 24]; // #050A18
+        const accentColor: [number, number, number] = [255, 200, 87]; // #FFC857
 
         // --- Helper: Add Watermark ---
         const addWatermark = () => {
@@ -138,7 +138,7 @@ export const pdfService = {
             body: tableBody,
             theme: 'striped',
             headStyles: {
-                fillColor: primaryColor as any,
+                fillColor: primaryColor,
                 textColor: [255, 255, 255],
                 fontStyle: 'bold',
                 halign: 'center'
