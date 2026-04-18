@@ -47,15 +47,15 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
                             transition={{ duration: 0.2 }}
                             className={cn(
-                                "bg-white rounded-2xl w-full max-w-lg shadow-xl pointer-events-auto flex flex-col max-h-[90vh]",
+                                "rounded-2xl w-full shadow-xl pointer-events-auto flex flex-col max-h-[90vh] bg-white max-w-lg",
                                 className
                             )}
                         >
-                            <div className="flex items-center justify-between p-6 border-b">
-                                {title && <h3 className="text-xl font-semibold text-gray-900">{title}</h3>}
+                            <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-white/10 bg-inherit rounded-t-2xl">
+                                {title && <h3 className="text-xl font-bold text-gray-900 dark:text-white font-sans">{title}</h3>}
                                 <button
                                     onClick={onClose}
-                                    className="p-2 -mr-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
+                                    className="p-2 -mr-2 text-gray-400 hover:text-gray-600 dark:hover:text-white dark:hover:bg-white/10 rounded-full transition-colors"
                                 >
                                     <X className="w-5 h-5" />
                                 </button>

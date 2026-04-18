@@ -416,7 +416,7 @@ export function LoanEstimator() {
                     isOpen={isScheduleOpen} 
                     onClose={() => setIsScheduleOpen(false)} 
                     title="Amortization Schedule"
-                    className="max-w-4xl" // Increased width for better table visibility
+                    className="!max-w-4xl !bg-[#050A18] dark" 
                 >
                     <div className="space-y-4 max-h-[75vh] overflow-y-auto w-full px-1">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-[#0F172A] p-5 rounded-2xl sticky top-0 z-10 shadow-xl border border-white/5 gap-4">
@@ -441,7 +441,7 @@ export function LoanEstimator() {
                             </div>
                         </div>
 
-                        <div className="border border-white/5 rounded-2xl overflow-hidden shadow-2xl bg-black/20">
+                        <div className="border border-white/5 rounded-2xl overflow-hidden shadow-2xl bg-black/40">
                             <div className="overflow-x-auto w-full">
                                 <table className="w-full text-xs sm:text-sm text-left whitespace-nowrap">
                                     <thead className="bg-[#050A18] text-white/70 border-b border-white/5">
