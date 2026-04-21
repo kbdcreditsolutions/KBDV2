@@ -23,8 +23,10 @@ export const Testimonials: React.FC = () => {
                         key={testimonial.id}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
+                        whileHover={{ y: -8, scale: 1.01 }}
                         transition={{ duration: 0.4, delay: index * 0.1 }}
                         viewport={{ once: true }}
+                        className="transition-all duration-300 hover:shadow-xl hover:shadow-black/5"
                     >
                         <Card variant="default" className="h-full">
                             <CardContent className="flex flex-col h-full">

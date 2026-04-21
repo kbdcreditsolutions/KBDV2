@@ -189,11 +189,6 @@ export const Hero: React.FC = () => {
                                             Live Estimator
                                         </h2>
                                     </div>
-                                    <div className="bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-md hidden sm:block">
-                                        <span className="text-[10px] font-mono font-bold text-emerald-400">
-                                            ACTIVE_TX
-                                        </span>
-                                    </div>
                                 </div>
 
                                 {/* Main Limit Section */}

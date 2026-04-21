@@ -16,24 +16,24 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 const cardGradients = [
-    'from-blue-500/10 to-cyan-500/5',
-    'from-amber-500/10 to-orange-500/5',
-    'from-emerald-500/10 to-teal-500/5',
-    'from-violet-500/10 to-purple-500/5',
+    'from-primary/5 to-primary/10',
+    'from-accent/5 to-accent/10',
+    'from-primary/5 to-primary/10',
+    'from-accent/5 to-accent/10',
 ];
 
 const iconColors = [
-    'bg-blue-500/10 text-blue-600',
-    'bg-amber-500/10 text-amber-600',
-    'bg-emerald-500/10 text-emerald-600',
-    'bg-violet-500/10 text-violet-600',
+    'bg-primary text-accent',
+    'bg-accent text-primary',
+    'bg-primary text-accent',
+    'bg-accent text-primary',
 ];
 
 const accentColors = [
-    'text-blue-600',
-    'text-amber-600',
-    'text-emerald-600',
-    'text-violet-600',
+    'text-accent',
+    'text-accent-dark',
+    'text-accent',
+    'text-accent-dark',
 ];
 
 export const LoanCategories: React.FC = () => {
@@ -57,34 +57,34 @@ export const LoanCategories: React.FC = () => {
                             viewport={{ once: true }}
                         >
                             <Link href={`/services/${loan.id}`}>
-                                <div className={`relative group h-full rounded-2xl bg-gradient-to-br ${cardGradients[index]} border border-gray-100 hover:border-gray-200 p-6 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}>
+                                <div className={`relative group h-full rounded-2xl bg-gradient-to-br ${cardGradients[index]} border border-primary/10 hover:border-accent/30 p-6 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}>
                                     
                                     {/* Highlight badge */}
                                     <div className="absolute top-4 right-4">
-                                        <span className={`text-[10px] font-bold uppercase tracking-wider ${accentColors[index]} bg-white/80 backdrop-blur-sm px-2.5 py-1 rounded-full shadow-sm`}>
+                                        <span className={`text-[10px] font-bold uppercase tracking-wider ${accentColors[index]} bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full shadow-sm`}>
                                             {loan.highlight}
                                         </span>
                                     </div>
 
                                     {/* Icon */}
-                                    <div className={`w-14 h-14 rounded-2xl ${iconColors[index]} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                                    <div className={`w-14 h-14 rounded-2xl ${iconColors[index]} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300 shadow-md`}>
                                         <Icon className="w-7 h-7" />
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className="text-lg font-bold text-gray-900 mb-2">
+                                    <h3 className="text-lg font-bold text-primary mb-2">
                                         {loan.name}
                                     </h3>
 
                                     {/* Description */}
-                                    <p className="text-sm text-gray-500 leading-relaxed mb-6">
+                                    <p className="text-sm text-primary/60 leading-relaxed mb-6">
                                         {loan.description}
                                     </p>
 
                                     {/* Amount / Highlight */}
                                     {loan.maxAmount > 0 ? (
                                         <div className="flex items-baseline gap-1 mb-5">
-                                            <span className="text-xs text-gray-400 uppercase tracking-wide">Up to</span>
+                                            <span className="text-xs text-primary/40 uppercase tracking-wide">Up to</span>
                                             <span className={`text-xl font-extrabold ${accentColors[index]}`}>
                                                 {formatCurrency(loan.maxAmount)}
                                             </span>
@@ -99,7 +99,7 @@ export const LoanCategories: React.FC = () => {
                                     )}
 
                                     {/* CTA Arrow */}
-                                    <div className="flex items-center gap-2 text-sm font-semibold text-gray-400 group-hover:text-gray-900 transition-colors">
+                                    <div className="flex items-center gap-2 text-sm font-semibold text-primary/40 group-hover:text-primary transition-colors">
                                         <span>Explore</span>
                                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                     </div>

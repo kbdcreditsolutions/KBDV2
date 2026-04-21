@@ -7,7 +7,7 @@
    ============================================ */
 
 :root {
-  /* Brand Colors */
+  /* Brand Colors - Default Theme */
   --color-primary: #14213D;
   --color-primary-light: #1a2d52;
   --color-primary-dark: #0F1B33;
@@ -20,12 +20,35 @@
   --color-surface-light: #F2F2F2;
   --color-surface-dark: #D4D4D4;
   
-  --color-text: #000000;
-  --color-text-muted: #525252;
-  --color-text-light: #737373;
+  --color-text: #FFFFFF;
+  --color-text-muted: #B8C2CC;
+  --color-text-light: #8FA3B8;
   
-  --color-background: #FFFFFF;
+  --color-background: #050A18;
+}
+
+/* Premium Scope - Deep Navy & Gold */
+.theme-premium {
+  --color-primary: #0B1F3A;
+  --color-primary-light: #132F57;
+  --color-primary-dark: #071529;
   
+  --color-accent: #F2B544;
+  --color-accent-light: #FDE7B9;
+  --color-accent-dark: #C9972C;
+  
+  --color-surface: #132F57;
+  --color-surface-light: #1A3D6B;
+  --color-surface-dark: #0E2442;
+  
+  --color-text: #FFFFFF;
+  --color-text-muted: rgba(255, 255, 255, 0.6);
+  --color-text-light: #8FA3B8;
+  
+  --color-background: #0B1F3A;
+}
+
+:root {
   /* Typography */
   --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
   --font-display: var(--font-manrope), 'Manrope', system-ui, sans-serif;
@@ -87,24 +110,21 @@ html {
   }
 }
 
-body {
-  font-family: var(--font-sans);
-  color: var(--color-text);
-  background-color: var(--color-background);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@layer base {
+  body {
+    @apply font-sans;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-/* ============================================
-   Typography
-   ============================================ */
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--color-text);
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold;
+    line-height: 1.2;
+    color: inherit;
+  }
 }
 
 h1 {
@@ -182,6 +202,22 @@ a {
   .focus-visible-ring {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2;
   }
+
+  /* Premium Gold Button */
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold transition-all duration-300 transform shadow-lg text-primary-dark;
+    background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .btn-gold:hover {
+    @apply scale-105 shadow-xl brightness-110 -translate-y-0.5;
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+  }
+
+  .btn-gold:active {
+    @apply scale-95;
+  }
 }
 
 /* ============================================
@@ -214,3 +250,4 @@ a {
   background-color: var(--color-accent);
   color: var(--color-primary);
 }
+

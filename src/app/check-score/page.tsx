@@ -125,7 +125,7 @@ export default function CheckScorePage() {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen bg-slate-50 pt-24">
+            <main className="min-h-screen bg-transparent pt-24">
                 <Section>
                     <div className="max-w-4xl mx-auto">
                         <AnimatePresence mode="wait">
@@ -142,14 +142,14 @@ export default function CheckScorePage() {
                                             <ShieldCheck className="w-4 h-4" />
                                             KBD Credit Intelligence
                                         </div>
-                                        <h1 className="text-4xl md:text-5xl font-black text-slate-900">Check Your Eligibility Instantly.</h1>
-                                        <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+                                        <h1 className="text-4xl md:text-5xl font-black text-white">Check Your Eligibility Instantly.</h1>
+                                        <p className="text-white/70 text-lg max-w-2xl mx-auto">
                                             Pull your co-branded credit report from 120+ Banking Partners. 
                                             Zero impact on your credit score. Secured with AES-256 encryption.
                                         </p>
                                     </div>
 
-                                    <div className="bg-white border border-slate-200 rounded-[2.5rem] p-8 md:p-12 shadow-xl relative overflow-hidden group">
+                                    <div className="bg-white/5 border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-xl relative overflow-hidden group">
                                         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                                         
                                         <form onSubmit={handleInitiate} className="grid md:grid-cols-2 gap-6 relative z-10" autoComplete="off">
@@ -160,9 +160,9 @@ export default function CheckScorePage() {
                                                 autoComplete="none"
                                                 value={formData.fullName}
                                                 onChange={e => setFormData({ ...formData, fullName: e.target.value })}
-                                                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-accent"
-                                                labelClassName="text-slate-600 font-bold uppercase tracking-widest text-[10px]"
-                                                leftIcon={<User className="w-4 h-4 text-slate-400" />}
+                                                className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:bg-white/10 focus:border-accent"
+                                                labelClassName="text-white/50 font-bold uppercase tracking-widest text-[10px]"
+                                                leftIcon={<User className="w-4 h-4 text-white/40" />}
                                             />
                                             <Input 
                                                 label="PAN Number"
@@ -172,9 +172,9 @@ export default function CheckScorePage() {
                                                 autoComplete="none"
                                                 value={formData.pan}
                                                 onChange={e => setFormData({ ...formData, pan: e.target.value.toUpperCase() })}
-                                                className="bg-slate-50 border-slate-200 text-slate-900 uppercase placeholder:text-slate-400 focus:bg-white focus:border-accent"
-                                                labelClassName="text-slate-600 font-bold uppercase tracking-widest text-[10px]"
-                                                leftIcon={<CreditCard className="w-4 h-4 text-slate-400" />}
+                                                className="bg-white/5 border-white/10 text-white uppercase placeholder:text-white/30 focus:bg-white/10 focus:border-accent"
+                                                labelClassName="text-white/50 font-bold uppercase tracking-widest text-[10px]"
+                                                leftIcon={<CreditCard className="w-4 h-4 text-white/40" />}
                                             />
                                             <Input 
                                                 label="Date of Birth"
@@ -184,9 +184,9 @@ export default function CheckScorePage() {
                                                 autoComplete="none"
                                                 value={formData.dob}
                                                 onChange={e => setFormData({ ...formData, dob: e.target.value })}
-                                                className="bg-slate-50 border-slate-200 text-slate-900 focus:bg-white focus:border-accent [color-scheme:light]"
-                                                labelClassName="text-slate-600 font-bold uppercase tracking-widest text-[10px]"
-                                                rightIcon={<Calendar className="w-4 h-4 text-slate-400" />}
+                                                className="bg-white/5 border-white/10 text-white focus:bg-white/10 focus:border-accent [color-scheme:dark]"
+                                                labelClassName="text-white/50 font-bold uppercase tracking-widest text-[10px]"
+                                                rightIcon={<Calendar className="w-4 h-4 text-white/40" />}
                                             />
                                             <Input 
                                                 label="Mobile Number"
@@ -196,9 +196,9 @@ export default function CheckScorePage() {
                                                 autoComplete="none"
                                                 value={formData.mobile}
                                                 onChange={e => setFormData({ ...formData, mobile: e.target.value })}
-                                                className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-accent"
-                                                labelClassName="text-slate-600 font-bold uppercase tracking-widest text-[10px]"
-                                                leftIcon={<Smartphone className="w-4 h-4 text-slate-400" />}
+                                                className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:bg-white/10 focus:border-accent"
+                                                labelClassName="text-white/50 font-bold uppercase tracking-widest text-[10px]"
+                                                leftIcon={<Smartphone className="w-4 h-4 text-white/40" />}
                                             />
                                             
                                             <div className="md:col-span-2 py-4">
@@ -207,7 +207,7 @@ export default function CheckScorePage() {
                                                         <input type="checkbox" required className="opacity-0 absolute w-5 h-5 cursor-pointer peer" />
                                                         <CheckCircle2 className="w-3 h-3 text-accent opacity-0 peer-checked:opacity-100 transition-opacity" />
                                                     </div>
-                                                    <span className="text-xs text-slate-500 leading-relaxed">
+                                                    <span className="text-xs text-white/40 leading-relaxed">
                                                         I authorize KBD Credit Solutions to pull my credit information from Experian/CRIF for the purpose of loan processing. I understand this is a soft inquiry and won&apos;t affect my score.
                                                     </span>
                                                 </label>
@@ -222,7 +222,8 @@ export default function CheckScorePage() {
 
                                             <Button 
                                                 type="submit" 
-                                                className="md:col-span-2 h-14 bg-accent text-[#050A18] font-black text-sm uppercase tracking-widest rounded-2xl shadow-xl hover:scale-[1.01] transition-all"
+                                                variant="gold"
+                                                className="md:col-span-2 h-14 font-black text-sm uppercase tracking-widest rounded-2xl shadow-xl hover:scale-[1.01] transition-all"
                                                 isLoading={isLoading}
                                                 rightIcon={<ChevronRight className="w-4 h-4" />}
                                             >
@@ -245,13 +246,13 @@ export default function CheckScorePage() {
                                         <div className="w-20 h-20 bg-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-6">
                                             <Lock className="w-10 h-10 text-accent" />
                                         </div>
-                                        <h2 className="text-3xl font-bold text-slate-900">Bureau Verification</h2>
-                                        <p className="text-slate-600">
+                                        <h2 className="text-3xl font-bold text-white">Bureau Verification</h2>
+                                        <p className="text-white/60">
                                             A secure OTP has been sent by the Bureau to your mobile number +91 {formData.mobile.slice(-4).padStart(10, '*')}.
                                         </p>
                                     </div>
 
-                                    <form onSubmit={handleVerify} className="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-xl space-y-6">
+                                    <form onSubmit={handleVerify} className="bg-white/5 p-8 rounded-[2rem] border border-white/10 shadow-xl space-y-6">
                                         <Input 
                                             label="6-Digit OTP"
                                             placeholder="••••••"
@@ -259,7 +260,7 @@ export default function CheckScorePage() {
                                             maxLength={6}
                                             value={formData.otp}
                                             onChange={e => setFormData({ ...formData, otp: e.target.value })}
-                                            className="bg-slate-50 border-slate-200 text-accent text-center text-3xl font-bold tracking-[0.5em] focus:bg-white focus:border-accent"
+                                            className="bg-white/5 border-white/10 text-accent text-center text-3xl font-bold tracking-[0.5em] focus:bg-white/10 focus:border-accent"
                                         />
 
                                         {error && (
@@ -271,13 +272,13 @@ export default function CheckScorePage() {
 
                                         <Button 
                                             type="submit" 
-                                            className="w-full h-14 bg-accent text-[#050A18] font-black rounded-2xl"
+                                            className="w-full h-14 bg-accent text-primary font-black rounded-2xl"
                                             rightIcon={<ChevronRight className="w-4 h-4" />}
                                         >
                                             Verify & Generate Report
                                         </Button>
 
-                                        <p className="text-center text-slate-600 text-xs font-bold uppercase tracking-widest cursor-pointer hover:text-accent transition-colors">
+                                        <p className="text-center text-white/50 text-xs font-bold uppercase tracking-widest cursor-pointer hover:text-accent transition-colors">
                                             Didn&apos;t receive? Resend in 45s
                                         </p>
                                     </form>
@@ -296,8 +297,8 @@ export default function CheckScorePage() {
                                         <Shield className="w-8 h-8 text-accent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                                     </div>
                                     <div className="text-center space-y-2">
-                                        <h3 className="text-2xl font-bold text-slate-900">Validating Identity...</h3>
-                                        <p className="text-slate-400 animate-pulse">Communicating with Bureau Servers (Experian/CRIF)</p>
+                                        <h3 className="text-2xl font-bold text-white">Validating Identity...</h3>
+                                        <p className="text-white/40 animate-pulse">Communicating with Bureau Servers (Experian/CRIF)</p>
                                     </div>
                                 </motion.div>
                             )}
@@ -310,13 +311,14 @@ export default function CheckScorePage() {
                                     className="space-y-8"
                                 >
                                     {/* Dashboard Header */}
-                                    <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-slate-100 p-8 rounded-[2rem] shadow-sm">
+                                    <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white/5 border border-white/10 p-8 rounded-[2rem] shadow-sm">
                                         <div className="space-y-2 text-center md:text-left">
-                                            <h2 className="text-2xl font-bold text-slate-900">Welcome, {formData.fullName.split(' ')[0]}</h2>
-                                            <p className="text-slate-500 text-sm">Report generated on {new Date().toLocaleDateString()}</p>
+                                            <h2 className="text-2xl font-bold text-white">Welcome, {formData.fullName.split(' ')[0]}</h2>
+                                            <p className="text-white/50 text-sm">Report generated on {new Date().toLocaleDateString()}</p>
                                         </div>
                                         <Button 
-                                            className="bg-slate-900 text-white hover:bg-black px-8" 
+                                            variant="gold"
+                                            className="px-8" 
                                             leftIcon={<Download className="w-4 h-4" />}
                                             onClick={handleDownload}
                                             isLoading={isDownloading}
@@ -330,14 +332,14 @@ export default function CheckScorePage() {
                                         <div className="lg:col-span-2 bg-gradient-to-br from-accent/10 to-transparent border border-accent/20 p-10 rounded-[3rem] text-center relative overflow-hidden">
                                             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_120%,rgba(255,200,87,0.15),transparent)] pointer-events-none" />
                                             
-                                            <h3 className="text-slate-400 font-bold uppercase tracking-widest text-xs mb-8">Bureau Credit Score</h3>
+                                            <h3 className="text-white/40 font-bold uppercase tracking-widest text-xs mb-8">Bureau Credit Score</h3>
                                             
                                             <div className="relative inline-block">
                                                 <svg className="w-64 h-64 transform -rotate-90">
                                                     <circle 
                                                         cx="128" cy="128" r="110" 
                                                         stroke="currentColor" strokeWidth="12" 
-                                                        fill="transparent" className="text-slate-100" 
+                                                        fill="transparent" className="text-white/5" 
                                                     />
                                                     <motion.circle 
                                                         cx="128" cy="128" r="110" 
@@ -364,23 +366,23 @@ export default function CheckScorePage() {
 
                                             <div className="mt-8 grid grid-cols-3 gap-4 border-t border-slate-100 pt-8">
                                                 <div className="space-y-1">
-                                                    <span className="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">Payment History</span>
-                                                    <span className="text-slate-900 font-bold text-sm">{report.factors.paymentHistory}</span>
+                                                    <span className="block text-[10px] text-white/50 font-bold uppercase tracking-wider">Payment History</span>
+                                                    <span className="text-white font-bold text-sm">{report.factors.paymentHistory}</span>
                                                 </div>
                                                 <div className="space-y-1">
-                                                    <span className="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">Credit Age</span>
-                                                    <span className="text-slate-900 font-bold text-sm">{report.factors.creditAge}</span>
+                                                    <span className="block text-[10px] text-white/50 font-bold uppercase tracking-wider">Credit Age</span>
+                                                    <span className="text-white font-bold text-sm">{report.factors.creditAge}</span>
                                                 </div>
                                                 <div className="space-y-1">
-                                                    <span className="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">Active Inquiries</span>
-                                                    <span className="text-slate-900 font-bold text-sm">{report.factors.inquiries}</span>
+                                                    <span className="block text-[10px] text-white/50 font-bold uppercase tracking-wider">Active Inquiries</span>
+                                                    <span className="text-white font-bold text-sm">{report.factors.inquiries}</span>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className="space-y-6">
-                                            <div className="bg-white border border-slate-100 p-6 rounded-[2rem] shadow-sm">
-                                                <h4 className="text-slate-900 font-bold mb-4 flex items-center gap-2">
+                                            <div className="bg-white/5 border border-white/10 p-6 rounded-[2rem] shadow-sm">
+                                                <h4 className="text-white font-bold mb-4 flex items-center gap-2">
                                                     <TrendingUp className="w-4 h-4 text-accent" />
                                                     Personalized Offers
                                                 </h4>
@@ -389,10 +391,10 @@ export default function CheckScorePage() {
                                                         { label: 'Unsecured Business Loan', amount: '₹50 Lakhs', rate: '11.5%' },
                                                         { label: 'Home Loan Transfer', amount: 'Best Rate', rate: '8.4%' }
                                                     ].map((offer, idx) => (
-                                                        <div key={idx} className="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-accent/30 transition-all cursor-pointer">
-                                                            <div className="text-[10px] text-slate-500 font-bold uppercase mb-1">{offer.label}</div>
+                                                        <div key={idx} className="p-4 bg-white/5 rounded-xl border border-white/10 hover:border-accent/30 transition-all cursor-pointer">
+                                                            <div className="text-[10px] text-white/50 font-bold uppercase mb-1">{offer.label}</div>
                                                             <div className="flex justify-between items-end">
-                                                                <div className="text-slate-900 font-black text-lg">{offer.amount}</div>
+                                                                <div className="text-white font-black text-lg">{offer.amount}</div>
                                                                 <div className="text-accent text-sm font-bold">@ {offer.rate}</div>
                                                             </div>
                                                         </div>
@@ -405,7 +407,7 @@ export default function CheckScorePage() {
                                                     <ShieldCheck className="w-4 h-4" />
                                                     Security Audit
                                                 </h4>
-                                                <p className="text-slate-400 text-xs leading-relaxed">
+                                                <p className="text-white/40 text-xs leading-relaxed">
                                                     Your data has been purged from our immediate buffer. The full report is stored using AES-256 military-grade encryption.
                                                 </p>
                                             </div>
@@ -413,14 +415,14 @@ export default function CheckScorePage() {
                                     </div>
 
                                     {/* Account List Summary */}
-                                    <div className="bg-white border border-slate-100 rounded-[2.5rem] overflow-hidden shadow-sm">
-                                        <div className="p-6 border-b border-slate-50 bg-slate-50/30 flex justify-between items-center">
-                                            <h3 className="text-slate-900 font-bold">Credit Line Summary</h3>
+                                    <div className="bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden shadow-sm">
+                                        <div className="p-6 border-b border-white/5 bg-white/5 flex justify-between items-center">
+                                            <h3 className="text-white font-bold">Credit Line Summary</h3>
                                         </div>
                                         <div className="overflow-x-auto">
                                             <table className="w-full text-left">
                                                 <thead>
-                                                    <tr className="border-b border-white/5 text-[10px] text-slate-500 font-black uppercase tracking-widest">
+                                                    <tr className="border-b border-white/5 text-[10px] text-white/50 font-black uppercase tracking-widest">
                                                         <th className="p-6">Lender</th>
                                                         <th className="p-6">Account Type</th>
                                                         <th className="p-6">Limit</th>
@@ -428,15 +430,15 @@ export default function CheckScorePage() {
                                                         <th className="p-6">Status</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody className="text-slate-600">
+                                                <tbody className="text-white/60">
                                                     {report.accounts.map((acc: any, i: number) => (
-                                                        <tr key={i} className="border-b border-slate-50 hover:bg-slate-50/50">
-                                                            <td className="p-6 font-bold text-slate-900">{acc.bank}</td>
+                                                        <tr key={i} className="border-b border-white/5 hover:bg-white/5">
+                                                            <td className="p-6 font-bold text-white">{acc.bank}</td>
                                                             <td className="p-6 text-sm">{acc.type}</td>
                                                             <td className="p-6 text-sm">₹{acc.limit.toLocaleString()}</td>
-                                                            <td className="p-6 text-sm text-red-500 font-mono">₹{acc.outstanding.toLocaleString()}</td>
+                                                            <td className="p-6 text-sm text-red-400 font-mono">₹{acc.outstanding.toLocaleString()}</td>
                                                             <td className="p-6">
-                                                                <span className="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase rounded-md tracking-wider">
+                                                                <span className="px-2 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase rounded-md tracking-wider">
                                                                     {acc.status}
                                                                 </span>
                                                             </td>

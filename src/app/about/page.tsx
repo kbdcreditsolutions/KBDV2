@@ -58,13 +58,13 @@ export default function AboutPage() {
                 </section>
 
                 {/* Stats */}
-                <section className="bg-white border-b">
+                <section className="bg-white/5 backdrop-blur-sm border-b border-white/10">
                     <div className="container-default py-12">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                             {stats.map((stat) => (
                                 <div key={stat.label} className="text-center">
-                                    <p className="text-3xl lg:text-4xl font-bold text-primary">{stat.value}</p>
-                                    <p className="text-gray-500 mt-1">{stat.label}</p>
+                                    <p className="text-3xl lg:text-4xl font-bold text-accent">{stat.value}</p>
+                                    <p className="text-white/60 mt-1">{stat.label}</p>
                                 </div>
                             ))}
                         </div>
@@ -75,8 +75,8 @@ export default function AboutPage() {
                 <Section background="white" size="md">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
-                            <div className="space-y-4 text-gray-600 leading-relaxed">
+                            <h2 className="text-3xl font-bold text-white mb-6">Our Story</h2>
+                            <div className="space-y-4 text-white/70 leading-relaxed">
                                 <p>
                                     KBD Credit Solutions was founded with a simple observation: getting a loan
                                     in India is unnecessarily complicated. Customers spend hours visiting banks,
@@ -93,12 +93,12 @@ export default function AboutPage() {
                                 </p>
                             </div>
                         </div>
-                        <div className="bg-surface-200 rounded-2xl p-8 lg:p-12">
-                            <blockquote className="text-xl font-medium text-gray-900 italic">
+                        <div className="bg-white/5 rounded-2xl p-8 lg:p-12 border border-white/10">
+                            <blockquote className="text-xl font-medium text-white italic">
                                 &quot;To empower individuals by simplifying financial access and enabling
                                 transparent decision-making.&quot;
                             </blockquote>
-                            <p className="mt-4 text-gray-500">— Our Mission</p>
+                            <p className="mt-4 text-white/50">— Our Mission</p>
                         </div>
                     </div>
                 </Section>
@@ -140,14 +140,14 @@ export default function AboutPage() {
                                             <span key={star} className="text-yellow-400">★</span>
                                         ))}
                                     </div>
-                                    <p className="text-gray-600 mb-6 italic">&quot;{testimonial.content}&quot;</p>
+                                    <p className="text-white/60 mb-6 italic">&quot;{testimonial.content}&quot;</p>
                                     <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                                        <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold">
                                             {testimonial.name[0]}
                                         </div>
                                         <div>
-                                            <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                                            <p className="text-sm text-gray-500">{testimonial.role}, {testimonial.location}</p>
+                                            <p className="font-semibold text-white">{testimonial.name}</p>
+                                            <p className="text-sm text-white/50">{testimonial.role}, {testimonial.location}</p>
                                         </div>
                                     </div>
                                 </CardContent>
@@ -163,20 +163,21 @@ export default function AboutPage() {
                         subtitle="The visionaries behind KBD Credit Solutions"
                     />
                     <div className="grid md:grid-cols-3 gap-8">
+                        {/* Leadership Cards */}
                         {[
                             { name: 'Kishore BD', role: 'Founder & CEO', image: '/team/founder.jpg' },
                             { name: 'Aishwarya P', role: 'Chief Operating Officer', image: '/team/coo.jpg' },
                             { name: 'Rahul Sharma', role: 'Head of Technology', image: '/team/cto.jpg' },
                         ].map((leader) => (
-                            <Card key={leader.name} className="text-center overflow-hidden group">
-                                <div className="h-64 bg-gray-200 w-full relative">
-                                    <div className="absolute inset-0 flex items-center justify-center text-gray-400 bg-gray-100">
+                            <Card key={leader.name} className="text-center overflow-hidden group bg-white/5 border-white/10 hover:border-accent/30 transition-all">
+                                <div className="h-64 bg-white/5 w-full relative">
+                                    <div className="absolute inset-0 flex items-center justify-center text-white/10">
                                         <Users className="w-16 h-16 opacity-50" />
                                     </div>
                                     {/* <Image src={leader.image} alt={leader.name} fill className="object-cover" /> */}
                                 </div>
                                 <CardContent className="p-6">
-                                    <h3 className="text-xl font-bold text-gray-900">{leader.name}</h3>
+                                    <h3 className="text-xl font-bold text-white">{leader.name}</h3>
                                     <p className="text-accent font-medium">{leader.role}</p>
                                 </CardContent>
                             </Card>
@@ -187,12 +188,12 @@ export default function AboutPage() {
                 {/* Presence */}
                 <Section background="white" size="md">
                     <div className="text-center mb-12">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Presence</h2>
-                        <p className="text-gray-600">Serving customers across major Indian cities</p>
+                        <h2 className="text-2xl font-bold text-white mb-4">Our Presence</h2>
+                        <p className="text-white/60">Serving customers across major Indian cities</p>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                         {['Mumbai', 'Delhi NCR', 'Bangalore', 'Hyderabad', 'Chennai', 'Pune', 'Kolkata', 'Ahmedabad', 'Jaipur', 'Lucknow', 'Indore', 'Chandigarh'].map((city) => (
-                            <div key={city} className="p-4 rounded-lg bg-gray-50 text-center hover:bg-primary/5 hover:text-primary transition-colors cursor-pointer border border-transparent hover:border-primary/20">
+                            <div key={city} className="p-4 rounded-lg bg-white/5 text-center hover:bg-accent/10 hover:text-accent transition-colors cursor-pointer border border-white/10 hover:border-accent/30 text-white/70">
                                 <span className="font-semibold">{city}</span>
                             </div>
                         ))}
@@ -213,8 +214,8 @@ export default function AboutPage() {
                                     <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-4">
                                         <value.icon className="w-7 h-7 text-accent" />
                                     </div>
-                                    <h3 className="font-semibold text-gray-900 mb-2">{value.title}</h3>
-                                    <p className="text-sm text-gray-600">{value.description}</p>
+                                    <h3 className="font-semibold text-white mb-2">{value.title}</h3>
+                                    <p className="text-sm text-white/60">{value.description}</p>
                                 </CardContent>
                             </Card>
                         ))}
@@ -225,22 +226,22 @@ export default function AboutPage() {
                 <Section background="white" size="md">
                     <div className="max-w-3xl mx-auto text-center">
                         <Shield className="w-12 h-12 text-accent mx-auto mb-4" />
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                        <h2 className="text-2xl font-bold text-white mb-4">
                             Compliance & Security
                         </h2>
-                        <p className="text-gray-600 leading-relaxed mb-6">
+                        <p className="text-white/70 leading-relaxed mb-6">
                             Your data security is our top priority. We use bank-grade encryption
                             and comply with all regulatory requirements. We never share your personal
                             information without explicit consent.
                         </p>
                         <div className="flex flex-wrap justify-center gap-4">
-                            <div className="px-4 py-2 bg-surface-200 rounded-lg text-sm text-gray-600">
+                            <div className="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/60 border border-white/10">
                                 🔒 256-bit SSL Encryption
                             </div>
-                            <div className="px-4 py-2 bg-surface-200 rounded-lg text-sm text-gray-600">
+                            <div className="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/60 border border-white/10">
                                 ✓ RBI Regulated Partners Only
                             </div>
-                            <div className="px-4 py-2 bg-surface-200 rounded-lg text-sm text-gray-600">
+                            <div className="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/60 border border-white/10">
                                 🛡️ GDPR Compliant
                             </div>
                         </div>

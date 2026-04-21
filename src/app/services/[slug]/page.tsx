@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 const services = {
     'personal-loan': {
@@ -16,10 +17,10 @@ const services = {
         subtitle: 'Fast. Digital. No Collateral.',
         description: 'Get funds in 24-48 hours for any personal need — medical, wedding, renovation, or travel. Salaried & self-employed welcome.',
         icon: User,
-        color: 'blue',
-        heroGradient: 'from-blue-600 via-blue-700 to-indigo-800',
-        lightColor: 'bg-blue-50 text-blue-700',
-        accentColor: 'text-blue-600',
+        color: 'accent',
+        heroGradient: 'from-primary-dark via-primary to-primary-light',
+        lightColor: 'bg-accent/10 text-accent',
+        accentColor: 'text-accent',
         stats: [
             { value: '10.49%', label: 'Starting Rate' },
             { value: '₹40L', label: 'Max Amount' },
@@ -52,10 +53,10 @@ const services = {
         subtitle: 'Scale Without Pledging Assets.',
         description: 'Collateral-free MSME loans up to ₹5 Cr through CGTMSE, Mudra, and GST-based lending. From sole proprietors to Pvt Ltd companies.',
         icon: Briefcase,
-        color: 'emerald',
-        heroGradient: 'from-emerald-600 via-emerald-700 to-teal-800',
-        lightColor: 'bg-emerald-50 text-emerald-700',
-        accentColor: 'text-emerald-600',
+        color: 'accent',
+        heroGradient: 'from-primary-dark via-primary to-primary-light',
+        lightColor: 'bg-accent/10 text-accent',
+        accentColor: 'text-accent',
         stats: [
             { value: '10%', label: 'Starting Rate' },
             { value: '₹5 Cr', label: 'Max Amount' },
@@ -88,10 +89,10 @@ const services = {
         subtitle: 'Your Dream Home, Best Rate.',
         description: 'Purchase, construction, or balance transfer — we compare 120+ Banking Partners to find you the lowest rate with maximum tax benefits.',
         icon: Home,
-        color: 'amber',
-        heroGradient: 'from-amber-600 via-amber-700 to-orange-800',
-        lightColor: 'bg-amber-50 text-amber-700',
-        accentColor: 'text-amber-600',
+        color: 'accent',
+        heroGradient: 'from-primary-dark via-primary to-primary-light',
+        lightColor: 'bg-accent/10 text-accent',
+        accentColor: 'text-accent',
         stats: [
             { value: '8.4%', label: 'Starting Rate' },
             { value: '₹10 Cr', label: 'Max Amount' },
@@ -124,10 +125,10 @@ const services = {
         subtitle: 'From Rejected to Respected.',
         description: 'Our 90-day credit repair program has an 85% success rate in boosting scores by 50-100 points. Data-driven, not guesswork.',
         icon: ShieldCheck,
-        color: 'violet',
-        heroGradient: 'from-violet-600 via-violet-700 to-purple-800',
-        lightColor: 'bg-violet-50 text-violet-700',
-        accentColor: 'text-violet-600',
+        color: 'accent',
+        heroGradient: 'from-primary-dark via-primary to-primary-light',
+        lightColor: 'bg-accent/10 text-accent',
+        accentColor: 'text-accent',
         stats: [
             { value: '750+', label: 'Target Score' },
             { value: '90 Days', label: 'Program Duration' },
@@ -173,12 +174,17 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
 
     const Icon = service.icon;
 
+    const isPremium = ['personal-loan', 'business-loan', 'home-loan'].includes(params.slug);
+
     return (
         <>
             <Navbar />
             <main className="min-h-screen">
                 {/* Hero Section */}
-                <section className={`relative pt-32 pb-20 bg-gradient-to-br ${service.heroGradient} overflow-hidden`}>
+                <section className={cn(
+                    "relative pt-32 pb-20 overflow-hidden",
+                    isPremium ? "bg-gradient-hero" : `bg-gradient-to-br ${service.heroGradient}`
+                )}>
                     {/* Decorative elements */}
                     <div className="absolute inset-0">
                         <div className="absolute top-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
@@ -202,7 +208,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     <Link 
                                         href={(service as any).cta?.href || "/estimator"}
-                                        className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:scale-105 transition-all shadow-xl"
+                                        className="btn-gold"
                                     >
                                         <Calculator className="w-5 h-5" />
                                         {(service as any).cta?.label || "Check Eligibility"}
@@ -234,10 +240,10 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 </section>
 
                 {/* Features Section */}
-                <Section background="white">
+                <Section background="primary">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Why KBD for {service.title}?</h2>
-                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                        <h2 className="text-3xl font-bold text-white mb-4">Why KBD for {service.title}?</h2>
+                        <p className="text-lg text-white/70 max-w-2xl mx-auto">
                             {service.longDescription}
                         </p>
                     </div>
@@ -247,13 +253,13 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                                 key={i}
                                 {...fadeIn}
                                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                                className="p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all group"
+                                className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-accent/30 hover:shadow-md transition-all group"
                             >
                                 <div className={`w-12 h-12 rounded-xl ${service.lightColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                                     <feature.icon className="w-6 h-6" />
                                 </div>
-                                <h3 className="font-bold text-gray-900 mb-2">{feature.title}</h3>
-                                <p className="text-sm text-gray-500 leading-relaxed">{feature.desc}</p>
+                                <h3 className="font-bold text-white mb-2">{feature.title}</h3>
+                                <p className="text-sm text-white/50 leading-relaxed">{feature.desc}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -264,16 +270,16 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                     <div className="grid lg:grid-cols-2 gap-12">
                         {/* Use Cases */}
                         <motion.div {...fadeIn} transition={{ duration: 0.5 }}>
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Perfect For</h2>
+                            <h2 className="text-2xl font-bold text-white mb-6">Perfect For</h2>
                             <div className="space-y-4">
                                 {service.useCases.map((uc, i) => (
-                                    <div key={i} className="flex gap-4 p-4 rounded-xl bg-white border border-gray-100 hover:shadow-sm transition-all">
+                                    <div key={i} className="flex gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:shadow-sm transition-all">
                                         <div className={`w-10 h-10 rounded-lg ${service.lightColor} flex items-center justify-center flex-shrink-0`}>
                                             <Star className="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold text-gray-900 mb-1">{uc.title}</h4>
-                                            <p className="text-sm text-gray-500">{uc.desc}</p>
+                                            <h4 className="font-semibold text-white mb-1">{uc.title}</h4>
+                                            <p className="text-sm text-white/50">{uc.desc}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -282,18 +288,18 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
 
                         {/* Eligibility */}
                         <motion.div {...fadeIn} transition={{ duration: 0.5, delay: 0.2 }}>
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Eligibility Checklist</h2>
-                            <div className="bg-white rounded-2xl border border-gray-100 p-8">
+                            <h2 className="text-2xl font-bold text-white mb-6">Eligibility Checklist</h2>
+                            <div className="bg-white/5 rounded-2xl border border-white/10 p-8">
                                 <div className="space-y-5">
                                     {service.eligibility.map((item, i) => (
                                         <div key={i} className="flex items-start gap-3">
-                                            <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${service.accentColor}`} />
-                                            <span className="text-gray-700 font-medium">{item}</span>
+                                            <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${isPremium ? 'text-accent' : service.accentColor}`} />
+                                            <span className="text-white/80 font-medium">{item}</span>
                                         </div>
                                     ))}
                                 </div>
-                                <div className="mt-8 pt-6 border-t border-gray-100">
-                                    <p className="text-sm text-gray-500 mb-4">Not sure if you qualify? Check instantly — no impact on your credit score.</p>
+                                <div className="mt-8 pt-6 border-t border-white/10">
+                                    <p className="text-sm text-white/50 mb-4">Not sure if you qualify? Check instantly — no impact on your credit score.</p>
                                     <Link
                                         href={(service as any).cta?.href || "/estimator"}
                                         className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl ${service.lightColor} font-semibold hover:opacity-80 transition-all`}
@@ -308,9 +314,9 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 </Section>
 
                 {/* How It Works */}
-                <Section background="white">
+                <Section background="primary">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">3 Steps to Your {service.title}</h2>
+                        <h2 className="text-3xl font-bold text-white mb-4">3 Steps to Your {service.title}</h2>
                     </div>
                     <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                         {[
@@ -324,9 +330,9 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                                 transition={{ duration: 0.4, delay: i * 0.15 }}
                                 className="text-center relative"
                             >
-                                <div className={`text-5xl font-extrabold ${service.accentColor} opacity-20 mb-4`}>{item.step}</div>
-                                <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
-                                <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                                <div className={`text-5xl font-extrabold ${isPremium ? 'text-accent' : service.accentColor} opacity-20 mb-4`}>{item.step}</div>
+                                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+                                <p className="text-sm text-white/50 leading-relaxed">{item.desc}</p>
                                 {i < 2 && (
                                     <div className="hidden md:block absolute top-8 -right-4 text-gray-200">
                                         <ArrowRight className="w-8 h-8" />
@@ -338,7 +344,10 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 </Section>
 
                 {/* Final CTA */}
-                <section className={`py-20 bg-gradient-to-br ${service.heroGradient} relative overflow-hidden`}>
+                <section className={cn(
+                    "py-20 relative overflow-hidden",
+                    isPremium ? "bg-gradient-hero" : `bg-gradient-to-br ${service.heroGradient}`
+                )}>
                     <div className="absolute inset-0">
                         <div className="absolute top-10 right-20 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
                     </div>
@@ -350,10 +359,10 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                             <p className="text-lg text-white/70 mb-8 max-w-xl mx-auto">
                                 Check your eligibility in 2 minutes. Zero impact on your credit score.
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <Link
                                     href={(service as any).cta?.href || "/estimator"}
-                                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:scale-105 transition-all shadow-xl"
+                                    className="btn-gold"
                                 >
                                     <Calculator className="w-5 h-5" />
                                     {(service as any).cta?.label || "Launch Estimator"}

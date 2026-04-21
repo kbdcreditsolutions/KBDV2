@@ -1,11 +1,10 @@
 'use client';
 
-"use client";
-
 import { useState, useEffect } from "react";
 import { Navbar, Footer } from '@/components/layout';
 import { Slider } from "@/components/ui/slider";
 import { Modal } from "@/components/ui/modal";
+import { Button } from "@/components/ui/button";
 import { Shield, TrendingUp, CalendarClock, Activity, Home, User, Car, Calculator, Briefcase, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
@@ -13,6 +12,13 @@ import { pdfService } from "@/lib/services/pdf-service";
 
 type LoanType = 'home' | 'personal' | 'vehicle' | 'business';
 type TenureType = 'yr' | 'mo';
+
+const LOAN_CONSTRAINTS = {
+    home:     { minAmt: 100000,  maxAmt: 100000000, stepAmt: 100000, minRate: 5,  maxRate: 20, minTenureYr: 1, maxTenureYr: 30, minTenureMo: 12, maxTenureMo: 360 },
+    personal: { minAmt: 50000,   maxAmt: 5000000,   stepAmt: 10000,  minRate: 8,  maxRate: 24, minTenureYr: 1, maxTenureYr: 7,  minTenureMo: 12, maxTenureMo: 84  },
+    vehicle:  { minAmt: 100000,  maxAmt: 10000000,  stepAmt: 10000,  minRate: 7,  maxRate: 20, minTenureYr: 1, maxTenureYr: 8,  minTenureMo: 12, maxTenureMo: 96  },
+    business: { minAmt: 100000,  maxAmt: 20000000,  stepAmt: 50000,  minRate: 12, maxRate: 22, minTenureYr: 1, maxTenureYr: 10, minTenureMo: 12, maxTenureMo: 120 },
+};
 
 export default function LoanDashboard() {
     // State
@@ -58,12 +64,7 @@ export default function LoanDashboard() {
     const totalMonths = tenureType === 'yr' ? Math.round(tenure * 12) : Math.round(tenure);
 
     // Constraints setup based on Loan Type
-    const constraints = {
-        home:     { minAmt: 100000,  maxAmt: 100000000, stepAmt: 100000, minRate: 5,  maxRate: 20, minTenureYr: 1, maxTenureYr: 30, minTenureMo: 12, maxTenureMo: 360 },
-        personal: { minAmt: 50000,   maxAmt: 5000000,   stepAmt: 10000,  minRate: 8,  maxRate: 24, minTenureYr: 1, maxTenureYr: 7,  minTenureMo: 12, maxTenureMo: 84  },
-        vehicle:  { minAmt: 100000,  maxAmt: 10000000,  stepAmt: 10000,  minRate: 7,  maxRate: 20, minTenureYr: 1, maxTenureYr: 8,  minTenureMo: 12, maxTenureMo: 96  },
-        business: { minAmt: 100000,  maxAmt: 20000000,  stepAmt: 50000,  minRate: 12, maxRate: 22, minTenureYr: 1, maxTenureYr: 10, minTenureMo: 12, maxTenureMo: 120 },
-    }[loanType];
+    const constraints = LOAN_CONSTRAINTS[loanType];
 
     const minTenure = tenureType === 'yr' ? constraints.minTenureYr : constraints.minTenureMo;
     const maxTenure = tenureType === 'yr' ? constraints.maxTenureYr : constraints.maxTenureMo;
@@ -135,9 +136,10 @@ export default function LoanDashboard() {
         }).format(val);
 
     const pieData = [
-        { name: 'Principal Amount', value: amount, color: '#334155' },
-        { name: 'Total Interest', value: totalInterest, color: '#FFC857' }
+        { name: 'Principal Amount', value: amount, color: 'var(--color-surface-light)' },
+        { name: 'Total Interest', value: totalInterest, color: 'var(--color-accent)' }
     ];
+
 
     // Group schedule by year/month for plotting
     const getChartData = () => {
@@ -204,7 +206,7 @@ export default function LoanDashboard() {
                 />
 
                 {/* Glow Effects */}
-                <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-[#FFC857] rounded-full opacity-[0.10] blur-[140px] mix-blend-screen pointer-events-none delay-100 animate-pulse duration-[8000ms]" />
+                <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-accent rounded-full opacity-[0.10] blur-[140px] mix-blend-screen pointer-events-none delay-100 animate-pulse duration-[8000ms]" />
 
                 {/* Content Header */}
                 <motion.div
@@ -214,13 +216,13 @@ export default function LoanDashboard() {
                     className="relative z-20 mb-12 flex flex-col items-center text-center mt-8"
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-sm shadow-xl">
-                        <Activity className="w-4 h-4 text-[#FFC857]" />
+                        <Activity className="w-4 h-4 text-accent" />
                         <span className="text-xs font-mono uppercase tracking-widest text-slate-300">
                             Advanced EMI Estimator
                         </span>
                     </div>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-4 drop-shadow-2xl">
-                        Estimate <span className="text-[#FFC857]">Calculations</span>
+                        Estimate <span className="text-accent">Calculations</span>
                     </h1>
                     <p className="text-lg text-slate-400 max-w-2xl px-4">
                         Adjust desired amounts, rates, and terms across Home, Personal, and Vehicle loans to project precise monthly commitments.
@@ -233,44 +235,33 @@ export default function LoanDashboard() {
 
                         {/* Left: Input Console */}
                         <div className="lg:col-span-7 space-y-8 bg-[rgba(15,23,42,0.85)] lg:bg-transparent backdrop-blur-2xl lg:backdrop-blur-none border border-white/10 lg:border-none p-6 sm:p-8 lg:p-0 overflow-hidden">
-                            {/* Header / Badges */}
-                            <div className="flex justify-between items-start mb-6">
-                                <div>
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <Shield className="w-4 h-4 text-[#FFC857]" />
-                                        <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFC857]">
-                                            RBI REGULATED TERMINAL
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
 
                             {/* Segmented Control - Loan Type */}
                             <div className="flex flex-col sm:flex-row p-1 bg-black/40 border border-white/5 rounded-xl gap-1 sm:gap-0">
                                 <button
                                     onClick={() => handleLoanTypeChange('home')}
-                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'home' ? 'bg-[#FFC857] text-[#050A18]' : 'text-slate-400 hover:text-white'}`}
+                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'home' ? 'bg-accent text-primary-dark' : 'text-slate-400 hover:text-white'}`}
                                 >
                                     <Home className="w-4 h-4" />
                                     Home Loan
                                 </button>
                                 <button
                                     onClick={() => handleLoanTypeChange('personal')}
-                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'personal' ? 'bg-[#FFC857] text-[#050A18]' : 'text-slate-400 hover:text-white'}`}
+                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'personal' ? 'bg-accent text-primary-dark' : 'text-slate-400 hover:text-white'}`}
                                 >
                                     <User className="w-4 h-4" />
                                     Personal Loan
                                 </button>
                                 <button
                                     onClick={() => handleLoanTypeChange('vehicle')}
-                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'vehicle' ? 'bg-[#FFC857] text-[#050A18]' : 'text-slate-400 hover:text-white'}`}
+                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'vehicle' ? 'bg-accent text-primary-dark' : 'text-slate-400 hover:text-white'}`}
                                 >
                                     <Car className="w-4 h-4" />
                                     Car Loan
                                 </button>
                                 <button
                                     onClick={() => handleLoanTypeChange('business')}
-                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'business' ? 'bg-[#FFC857] text-[#050A18]' : 'text-slate-400 hover:text-white'}`}
+                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'business' ? 'bg-accent text-primary-dark' : 'text-slate-400 hover:text-white'}`}
                                 >
                                     <Briefcase className="w-4 h-4" />
                                     Business Loan
@@ -291,7 +282,7 @@ export default function LoanDashboard() {
                                                 type="text"
                                                 value={formatInputValue(amount)}
                                                 onChange={handleAmountChange}
-                                                className="w-full sm:w-56 bg-black/40 border border-white/10 py-3 pl-10 pr-4 text-left text-xl font-bold text-white font-mono focus:outline-none focus:border-[#FFC857]/50 focus:ring-1 focus:ring-[#FFC857]/50"
+                                                className="w-full sm:w-56 bg-black/40 border border-white/10 py-3 pl-10 pr-4 text-left text-xl font-bold text-white font-mono focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50"
                                             />
                                         </div>
                                     </div>
@@ -301,12 +292,10 @@ export default function LoanDashboard() {
                                         step={constraints.stepAmt}
                                         value={amount}
                                         onChange={(e) => setAmount(Number(e.target.value))}
+                                        minLabel={`Min: ${formatCurrency(constraints.minAmt)}`}
+                                        maxLabel={`Max: ${formatCurrency(constraints.maxAmt)}`}
                                         className="py-2"
                                     />
-                                    <div className="flex justify-start gap-4 mt-1">
-                                        <span className="text-[10px] font-mono text-slate-500">Min: {formatCurrency(constraints.minAmt)}</span>
-                                        <span className="text-[10px] font-mono text-slate-500">Max: {formatCurrency(constraints.maxAmt)}</span>
-                                    </div>
                                 </div>
 
                                 {/* Interest Rate */}
@@ -321,9 +310,9 @@ export default function LoanDashboard() {
                                                 step="0.1"
                                                 value={rate}
                                                 onChange={handleRateChange}
-                                                className="w-full sm:w-40 bg-black/40 border border-white/10 py-3 pl-4 pr-8 text-left text-xl font-bold text-white font-mono focus:outline-none focus:border-[#FFC857]/50 focus:ring-1 focus:ring-[#FFC857]/50"
+                                                className="w-full sm:w-40 bg-black/40 border border-white/10 py-3 pl-4 pr-8 text-left text-xl font-bold text-white font-mono focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50"
                                             />
-                                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#FFC857] font-bold text-lg">%</span>
+                                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-accent font-bold text-lg">%</span>
                                         </div>
                                     </div>
                                     <Slider
@@ -332,12 +321,10 @@ export default function LoanDashboard() {
                                         step={0.1}
                                         value={rate}
                                         onChange={(e) => setRate(Number(e.target.value))}
+                                        minLabel={`Min: ${constraints.minRate}%`}
+                                        maxLabel={`Max: ${constraints.maxRate}%`}
                                         className="py-2"
                                     />
-                                    <div className="flex justify-start gap-4 mt-1">
-                                        <span className="text-[10px] font-mono text-slate-500">Min: {constraints.minRate}%</span>
-                                        <span className="text-[10px] font-mono text-slate-500">Max: {constraints.maxRate}%</span>
-                                    </div>
                                 </div>
 
                                 {/* Tenure */}
@@ -352,7 +339,7 @@ export default function LoanDashboard() {
                                                 step="1"
                                                 value={tenure}
                                                 onChange={handleTenureChange}
-                                                className="w-full sm:w-32 bg-black/40 border border-white/10 py-3 px-4 text-left text-xl font-bold text-white font-mono focus:outline-none focus:border-[#FFC857]/50 focus:ring-1 focus:ring-[#FFC857]/50"
+                                                className="w-full sm:w-32 bg-black/40 border border-white/10 py-3 px-4 text-left text-xl font-bold text-white font-mono focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50"
                                             />
                                             <div className="flex bg-black/40 border border-white/10 p-1 shrink-0">
                                                 <button
@@ -362,7 +349,7 @@ export default function LoanDashboard() {
                                                             setTenure(Math.max(constraints.minTenureYr, Math.round(tenure / 12)));
                                                         }
                                                     }}
-                                                    className={`px-4 py-2 font-mono text-xs font-bold transition-colors ${tenureType === 'yr' ? 'bg-[#FFC857] text-black' : 'text-slate-400 border border-transparent hover:text-white'}`}
+                                                    className={`px-4 py-2 font-mono text-xs font-bold transition-colors ${tenureType === 'yr' ? 'bg-accent text-primary-dark' : 'text-slate-400 border border-transparent hover:text-white'}`}
                                                 >
                                                     Yr
                                                 </button>
@@ -373,7 +360,7 @@ export default function LoanDashboard() {
                                                             setTenure(Math.min(constraints.maxTenureMo, tenure * 12));
                                                         }
                                                     }}
-                                                    className={`px-4 py-2 font-mono text-xs font-bold transition-colors ${tenureType === 'mo' ? 'bg-[#FFC857] text-black' : 'text-slate-400 border border-transparent hover:text-white'}`}
+                                                    className={`px-4 py-2 font-mono text-xs font-bold transition-colors ${tenureType === 'mo' ? 'bg-accent text-primary-dark' : 'text-slate-400 border border-transparent hover:text-white'}`}
                                                 >
                                                     Mo
                                                 </button>
@@ -386,12 +373,10 @@ export default function LoanDashboard() {
                                         step={1}
                                         value={tenure}
                                         onChange={(e) => setTenure(Number(e.target.value))}
+                                        minLabel={`Min: ${minTenure} ${tenureType === 'yr' ? 'Years' : 'Months'}`}
+                                        maxLabel={`Max: ${maxTenure} ${tenureType === 'yr' ? 'Years' : 'Months'}`}
                                         className="py-2"
                                     />
-                                    <div className="flex justify-start gap-4 mt-1">
-                                        <span className="text-[10px] font-mono text-slate-500">Min: {minTenure} {tenureType === 'yr' ? 'Years' : 'Months'}</span>
-                                        <span className="text-[10px] font-mono text-slate-500">Max: {maxTenure} {tenureType === 'yr' ? 'Years' : 'Months'}</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -432,7 +417,7 @@ export default function LoanDashboard() {
                                     {/* Center Text inside Donut */}
                                     <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                                         <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">Monthly EMI</span>
-                                        <span className="text-lg sm:text-2xl font-bold text-[#FFC857] font-mono tracking-tighter tabular-nums mt-0.5">
+                                        <span className="text-lg sm:text-2xl font-bold text-accent font-mono tracking-tighter tabular-nums mt-0.5">
                                             {formatCurrency(emi)}
                                         </span>
                                     </div>
@@ -450,27 +435,28 @@ export default function LoanDashboard() {
                                     <div className="w-full h-px bg-white/5" />
                                     <div className="flex justify-between items-center group">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-4 h-4 bg-[#FFC857] rounded-sm" />
+                                            <div className="w-4 h-4 bg-accent rounded-sm" />
                                             <span className="text-sm font-mono text-slate-400">Total Interest</span>
                                         </div>
                                         <span className="font-bold text-white font-mono tabular-nums">{formatCurrency(totalInterest)}</span>
                                     </div>
                                     <div className="w-full h-px bg-white/5" />
                                     <div className="flex justify-between items-center pt-2">
-                                        <span className="text-sm font-bold uppercase tracking-widest text-[#FFC857]">Total Payment</span>
+                                        <span className="text-sm font-bold uppercase tracking-widest text-accent">Total Payment</span>
                                         <span className="font-extrabold text-2xl text-white font-mono tabular-nums text-right break-all ml-4">
                                             {formatCurrency(totalPayment)}
                                         </span>
                                     </div>
                                 </div>
 
-                                <button
+                                <Button
+                                    variant="gold"
                                     onClick={() => setIsScheduleOpen(true)}
-                                    className="w-full mt-10 py-4 rounded-sm border border-white/10 bg-white/5 hover:bg-[#FFC857] hover:text-[#050A18] flex items-center justify-center gap-3 text-sm font-bold text-white transition-all group focus:outline-none"
+                                    className="w-full mt-10 py-4 h-14"
+                                    leftIcon={<CalendarClock className="w-5 h-5" />}
                                 >
-                                    <CalendarClock className="w-5 h-5 group-hover:text-[#050A18] transition-colors text-[#FFC857]" />
-                                    <span className="uppercase tracking-wider">Amortization Schedule</span>
-                                </button>
+                                    <span className="uppercase tracking-widest font-black text-sm">Amortization Schedule</span>
+                                </Button>
                             </div>
 
                         </div>
@@ -481,7 +467,7 @@ export default function LoanDashboard() {
                 <div className="relative w-full max-w-6xl z-30 mx-auto mt-8">
                     <div className="bg-[rgba(15,23,42,0.85)] backdrop-blur-2xl border border-white/10 p-6 sm:p-8 lg:p-10 relative shadow-2xl overflow-hidden">
                         <div className="flex items-center gap-3 mb-8">
-                            <Activity className="w-5 h-5 text-[#FFC857]" />
+                            <Activity className="w-5 h-5 text-accent" />
                             <h2 className="text-xl font-bold text-white tracking-tight uppercase font-mono">
                                 Amortization Graph
                             </h2>
@@ -515,14 +501,14 @@ export default function LoanDashboard() {
                                             contentStyle={{ backgroundColor: '#050A18', borderColor: 'rgba(255,255,255,0.1)', color: 'white', fontFamily: 'monospace' }}
                                             itemStyle={{ color: 'white', fontWeight: 'bold' }}
                                             cursor={{ fill: 'rgba(255,255,255,0.02)' }}
-                                            labelStyle={{ color: '#FFC857', marginBottom: '8px', fontWeight: 'bold' }}
+                                            labelStyle={{ color: 'var(--color-accent)', marginBottom: '8px', fontWeight: 'bold' }}
                                         />
                                         <Legend
                                             wrapperStyle={{ paddingTop: '20px', fontFamily: 'monospace', fontSize: '12px' }}
                                             iconType="square"
                                         />
                                         <Bar dataKey="Principal" stackId="a" fill="#334155" animationDuration={1000} />
-                                        <Bar dataKey="Interest" stackId="a" fill="#FFC857" animationDuration={1000} />
+                                        <Bar dataKey="Interest" stackId="a" fill="var(--color-accent)" animationDuration={1000} />
                                     </BarChart>
                                 </ResponsiveContainer>
                             )}
@@ -535,7 +521,7 @@ export default function LoanDashboard() {
                     <div className="bg-[rgba(15,23,42,0.85)] backdrop-blur-2xl border border-white/10 p-6 sm:p-8 lg:p-10 shadow-2xl">
 
                         <div className="flex items-center gap-3 mb-8">
-                            <Calculator className="w-5 h-5 text-[#FFC857]" />
+                            <Calculator className="w-5 h-5 text-accent" />
                             <h2 className="text-xl font-bold text-white tracking-tight uppercase font-mono">
                                 How EMI Is Calculated
                             </h2>
@@ -546,7 +532,7 @@ export default function LoanDashboard() {
                             {/* Formula Block */}
                             <div className="space-y-6">
                                 <p className="text-sm text-slate-400 leading-relaxed">
-                                    The <span className="text-[#FFC857] font-semibold">Equated Monthly Instalment (EMI)</span> uses
+                                    The <span className="text-accent font-semibold">Equated Monthly Instalment (EMI)</span> uses
                                     a reducing-balance formula — each payment covers both interest and a portion of the principal,
                                     so the outstanding balance shrinks with every EMI paid.
                                 </p>
@@ -555,15 +541,15 @@ export default function LoanDashboard() {
                                 <div className="bg-black/40 border border-white/10 rounded-lg p-5 font-mono text-center space-y-3">
                                     <p className="text-[11px] text-slate-500 uppercase tracking-widest mb-3">Standard EMI Formula</p>
                                     <div className="text-white text-base sm:text-lg leading-relaxed">
-                                        <span className="text-[#FFC857] font-bold">EMI</span>
+                                        <span className="text-accent font-bold">EMI</span>
                                         <span className="text-slate-400"> = </span>
                                         <span className="text-white">P × r × (1 + r)</span>
-                                        <sup className="text-[#FFC857]">n</sup>
+                                        <sup className="text-accent">n</sup>
                                     </div>
                                     <div className="border-t border-white/10 pt-2 text-white text-base sm:text-lg">
                                         <span className="text-slate-400 text-sm">divided by </span>
                                         <span className="text-white">(1 + r)</span>
-                                        <sup className="text-[#FFC857]">n</sup>
+                                        <sup className="text-accent">n</sup>
                                         <span className="text-white"> − 1</span>
                                     </div>
                                 </div>
@@ -576,7 +562,7 @@ export default function LoanDashboard() {
                                         { symbol: 'n', label: 'Tenor (months)', desc: 'Total number of monthly instalments' },
                                     ].map(({ symbol, label, desc }) => (
                                         <div key={symbol} className="flex items-start gap-4">
-                                            <span className="w-8 h-8 flex items-center justify-center bg-[#FFC857]/10 border border-[#FFC857]/20 text-[#FFC857] font-mono font-bold text-sm rounded shrink-0">{symbol}</span>
+                                            <span className="w-8 h-8 flex items-center justify-center bg-accent/10 border border-accent/20 text-accent font-mono font-bold text-sm rounded shrink-0">{symbol}</span>
                                             <div>
                                                 <p className="text-white text-sm font-semibold">{label}</p>
                                                 <p className="text-slate-500 text-xs mt-0.5">{desc}</p>
@@ -610,8 +596,8 @@ export default function LoanDashboard() {
                                             <span className="text-white tabular-nums">{tenureType === 'yr' ? tenure * 12 : tenure} months</span>
                                         </div>
                                         <div className="border-t border-white/10 pt-3 flex justify-between">
-                                            <span className="text-[#FFC857] font-bold">Monthly EMI</span>
-                                            <span className="text-[#FFC857] font-bold tabular-nums">{formatCurrency(emi)}</span>
+                                            <span className="text-accent font-bold">Monthly EMI</span>
+                                            <span className="text-accent font-bold tabular-nums">{formatCurrency(emi)}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -625,7 +611,7 @@ export default function LoanDashboard() {
                                         { tip: 'Longer tenure → Lower EMI, more total interest', sub: 'Shorter tenure reduces total cost significantly' },
                                     ].map(({ tip, sub }) => (
                                         <div key={tip} className="flex items-start gap-3">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-[#FFC857] mt-2 shrink-0" />
+                                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
                                             <div>
                                                 <p className="text-white text-sm">{tip}</p>
                                                 <p className="text-slate-500 text-xs mt-0.5">{sub}</p>
@@ -653,51 +639,54 @@ export default function LoanDashboard() {
                     isOpen={isScheduleOpen} 
                     onClose={() => setIsScheduleOpen(false)} 
                     title="Amortization Schedule"
-                    className="max-w-4xl" // Maintained wider modal for balance visibility
+                    className="max-w-4xl bg-[#0B1F3A] border-white/10"
                 >
-                    <div className="space-y-4 max-h-[75vh] overflow-y-auto w-full">
-                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 p-5 rounded-xl sticky top-0 z-10 shadow-sm border border-gray-100 gap-4">
-                            <div>
-                                <p className="text-xs text-gray-400 uppercase font-bold tracking-wider mb-1">Loan Amount</p>
-                                <p className="font-bold text-xl text-[#050A18] font-mono tracking-tight">{formatCurrency(amount)}</p>
+                    <div className="space-y-6 max-h-[75vh] overflow-y-auto w-full p-2">
+                        {/* Summary Header */}
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white/5 backdrop-blur-md p-6 rounded-2xl sticky top-0 z-10 border border-white/10 gap-6">
+                            <div className="space-y-1">
+                                <p className="text-[10px] text-slate-500 uppercase font-black tracking-[0.2em]">Principal Amount</p>
+                                <p className="font-bold text-2xl text-white font-mono tracking-tight">{formatCurrency(amount)}</p>
                             </div>
-                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full sm:w-auto">
-                                <div className="sm:text-right">
-                                    <p className="text-xs text-gray-400 uppercase font-bold tracking-wider mb-1">Total Interest</p>
-                                    <p className="font-bold text-xl text-orange-600 font-mono tracking-tight">
+                            <div className="flex flex-wrap items-center gap-8">
+                                <div className="space-y-1">
+                                    <p className="text-[10px] text-slate-500 uppercase font-black tracking-[0.2em]">Total Interest</p>
+                                    <p className="font-bold text-2xl text-accent font-mono tracking-tight">
                                         {formatCurrency(totalInterest)}
                                     </p>
                                 </div>
-                                <button
+                                <Button
                                     onClick={handleDownloadPDF}
-                                    className="flex items-center gap-2 bg-[#FFC857] text-[#050A18] px-6 py-2.5 rounded-xl text-xs font-black hover:scale-105 transition-all shadow-lg shadow-[#FFC857]/20 ml-auto sm:ml-0"
+                                    variant="gold"
+                                    className="px-6 py-2 h-11"
+                                    leftIcon={<Download className="w-4 h-4" />}
                                 >
-                                    <Download className="w-4 h-4" />
-                                    DOWNLOAD PDF
-                                </button>
+                                    <span className="text-xs tracking-widest">DOWNLOAD PDF</span>
+                                </Button>
                             </div>
                         </div>
 
-                        <div className="border border-gray-100 rounded-xl overflow-hidden shadow-sm bg-white">
+                        {/* Table Container */}
+                        <div className="border border-white/5 rounded-2xl overflow-hidden bg-black/20 backdrop-blur-sm">
                             <div className="overflow-x-auto w-full">
                                 <table className="w-full text-sm text-left whitespace-nowrap">
-                                    <thead className="bg-[#050A18] text-white">
+                                    <thead className="bg-white/5 text-white/50 border-b border-white/5">
                                         <tr>
-                                            <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300">Month</th>
-                                            <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300">EMI</th>
-                                            <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300">Principal</th>
-                                            <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300">Interest</th>
-                                            <th className="px-4 py-4 font-medium text-xs tracking-wider uppercase text-slate-300 text-right">Balance</th>
+                                            <th className="px-6 py-5 font-black text-[10px] tracking-[0.2em] uppercase">Month</th>
+                                            <th className="px-6 py-5 font-black text-[10px] tracking-[0.2em] uppercase text-accent">EMI</th>
+                                            <th className="px-6 py-5 font-black text-[10px] tracking-[0.2em] uppercase">Principal</th>
+                                            <th className="px-6 py-5 font-black text-[10px] tracking-[0.2em] uppercase text-accent/70">Interest</th>
+                                            <th className="px-6 py-5 font-black text-[10px] tracking-[0.2em] uppercase text-right">Balance</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-gray-50">
+                                    <tbody className="divide-y divide-white/5">
                                         {generateSchedule().map((row) => (
-                                            <tr key={row.month} className="hover:bg-gray-50/50 transition-colors">
-                                                <td className="px-4 py-4 font-medium text-slate-900 font-mono">{row.month}</td>
-                                                <td className="px-4 py-4 font-mono text-blue-600 font-bold">₹{Math.round(row.emi).toLocaleString("en-IN")}</td>
-                                                <td className="px-4 py-4 font-mono text-emerald-600">₹{Math.round(row.principal).toLocaleString("en-IN")}</td>
-                                                <td className="px-4 py-4 font-mono text-orange-600">₹{Math.round(row.interest).toLocaleString("en-IN")}</td>
-                                                <td className="px-4 py-4 font-mono text-slate-600 text-right font-bold">₹{Math.round(row.closing).toLocaleString("en-IN")}</td>
+                                            <tr key={row.month} className="hover:bg-white/[0.02] transition-colors group">
+                                                <td className="px-6 py-4 font-bold text-white/40 font-mono text-xs">{row.month.toString().padStart(2, '0')}</td>
+                                                <td className="px-6 py-4 font-bold text-white font-mono">₹{Math.round(row.emi).toLocaleString("en-IN")}</td>
+                                                <td className="px-6 py-4 font-mono text-white/70">₹{Math.round(row.principal).toLocaleString("en-IN")}</td>
+                                                <td className="px-6 py-4 font-mono text-accent/60">₹{Math.round(row.interest).toLocaleString("en-IN")}</td>
+                                                <td className="px-6 py-4 font-mono text-white text-right font-bold">₹{Math.round(row.closing).toLocaleString("en-IN")}</td>
                                             </tr>
                                         ))}
                                     </tbody>

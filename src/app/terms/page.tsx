@@ -11,14 +11,14 @@ export default function TermsPage() {
         <>
             <Navbar />
             <main className="pt-20">
-                <section className="bg-gray-50 py-12">
+                <section className="bg-white/5 py-12 border-b border-white/10">
                     <div className="container-md text-center">
-                        <h1 className="text-3xl font-bold text-gray-900">Terms of Service</h1>
-                        <p className="text-gray-600 mt-2">Last Updated: {new Date().toLocaleDateString()}</p>
+                        <h1 className="text-3xl font-bold text-white">Terms of Service</h1>
+                        <p className="text-white/50 mt-2">Last Updated: {new Date().toLocaleDateString()}</p>
                     </div>
                 </section>
                 <Section background="white">
-                    <div className="container-md prose prose-blue max-w-4xl mx-auto">
+                    <div className="container-md prose prose-invert prose-amber max-w-4xl mx-auto text-white/70">
                         <h3>1. Agreement to Terms</h3>
                         <p>
                             These Terms of Service constitute a legally binding agreement made between you, whether personally or on behalf of an entity (&quot;you&quot;) and KBD Credit Solutions (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;), concerning your access to and use of our website.

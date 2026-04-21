@@ -11,14 +11,14 @@ export default function DisclaimerPage() {
         <>
             <Navbar />
             <main className="pt-20">
-                <section className="bg-gray-50 py-12">
+                <section className="bg-white/5 py-12 border-b border-white/10">
                     <div className="container-md text-center">
-                        <h1 className="text-3xl font-bold text-gray-900">Disclaimer</h1>
-                        <p className="text-gray-600 mt-2">Important Disclosures</p>
+                        <h1 className="text-3xl font-bold text-white">Disclaimer</h1>
+                        <p className="text-white/50 mt-2">Important Disclosures</p>
                     </div>
                 </section>
                 <Section background="white">
-                    <div className="container-md prose prose-blue max-w-4xl mx-auto">
+                    <div className="container-md prose prose-invert prose-amber max-w-4xl mx-auto text-white/70">
                         <h3>1. General Disclaimer</h3>
                         <p>
                             The information provided on KBD Credit Solutions is for general informational purposes only. All information on the Site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the Site.

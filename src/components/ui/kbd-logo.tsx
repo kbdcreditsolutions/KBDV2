@@ -17,9 +17,9 @@ export const KBDLogo: React.FC<KBDLogoProps> = ({
     className = '',
     size = 'md',
 }) => {
-    const accentColor = '#FFC857';
-    const fillColor = theme === 'dark' ? '#1a2842' : '#FFFFFF';
-    const subtextColor = theme === 'dark' ? '#64748b' : 'rgba(255,255,255,0.6)';
+    const accentColor = 'var(--color-accent)';
+    const fillColor = theme === 'dark' ? 'var(--color-primary-dark)' : '#FFFFFF';
+    const subtextColor = theme === 'dark' ? 'var(--color-text-muted)' : 'rgba(255,255,255,0.6)';
 
     // Height mapping for the SVG mark
     const heightMap = { sm: 32, md: 40, lg: 56 };
@@ -59,7 +59,7 @@ export const KBDLogo: React.FC<KBDLogoProps> = ({
                 className={`font-extrabold tracking-[-0.04em] ${s.brand}`}
                 style={{ color: fillColor }}
             >
-                KBD<span style={{ color: accentColor }}> Credit</span>
+                KBD<span style={{ color: accentColor }}> Credit Solutions</span>
             </span>
             <span
                 className={`font-normal tracking-wider italic mt-0.5 ${s.tag}`}

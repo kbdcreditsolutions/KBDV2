@@ -11,14 +11,14 @@ export default function CookiePolicyPage() {
         <>
             <Navbar />
             <main className="pt-20">
-                <section className="bg-gray-50 py-12">
+                <section className="bg-white/5 py-12 border-b border-white/10">
                     <div className="container-md text-center">
-                        <h1 className="text-3xl font-bold text-gray-900">Cookie Policy</h1>
-                        <p className="text-gray-600 mt-2">Effective Date: {new Date().toLocaleDateString()}</p>
+                        <h1 className="text-3xl font-bold text-white">Cookie Policy</h1>
+                        <p className="text-white/50 mt-2">Effective Date: {new Date().toLocaleDateString()}</p>
                     </div>
                 </section>
                 <Section background="white">
-                    <div className="container-md prose prose-blue max-w-4xl mx-auto">
+                    <div className="container-md prose prose-invert prose-amber max-w-4xl mx-auto text-white/70">
                         <h3>1. What Are Cookies</h3>
                         <p>
                             Cookies are small text files that are placed on your computer or mobile device by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site.

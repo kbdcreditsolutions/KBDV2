@@ -54,10 +54,10 @@ export default function AssistancePage() {
                 {/* Hero */}
                 <section className="bg-primary/5 py-16">
                     <div className="container-md text-center">
-                        <h1 className="text-3xl font-bold text-gray-900 lg:text-4xl mb-4">
+                        <h1 className="text-3xl font-bold text-white lg:text-4xl mb-4">
                             Loan <span className="text-accent">Assistance Center</span>
                         </h1>
-                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                        <p className="text-lg text-white/70 max-w-2xl mx-auto">
                             Everything you need to know about the loan application process, documentation, and common queries.
                         </p>
                     </div>
@@ -69,10 +69,10 @@ export default function AssistancePage() {
                         {/* Process Timeline */}
                         <section>
                             <div className="flex items-center gap-2 mb-6">
-                                <Clock className="w-6 h-6 text-primary" />
-                                <h2 className="text-2xl font-bold text-gray-900">Application Timeline</h2>
+                                <Clock className="w-6 h-6 text-accent" />
+                                <h2 className="text-2xl font-bold text-white">Application Timeline</h2>
                             </div>
-                            <Card className="border-none shadow-md bg-white">
+                            <Card className="border-white/10 shadow-md bg-white/5 backdrop-blur-sm">
                                 <CardContent className="p-8">
                                     <Timeline>
                                         <TimelineItem
@@ -105,37 +105,37 @@ export default function AssistancePage() {
                         {/* Document Checklist */}
                         <section>
                             <div className="flex items-center gap-2 mb-6">
-                                <FileText className="w-6 h-6 text-primary" />
-                                <h2 className="text-2xl font-bold text-gray-900">Document Checklist</h2>
+                                <FileText className="w-6 h-6 text-accent" />
+                                <h2 className="text-2xl font-bold text-white">Document Checklist</h2>
                             </div>
-                            <Card className="border-none shadow-md bg-white">
+                            <Card className="border-white/10 shadow-md bg-white/5 backdrop-blur-sm">
                                 <CardContent className="p-8">
-                                    <p className="text-gray-500 mb-6">Keep these documents handy for a faster approval process.</p>
+                                    <p className="text-white/50 mb-6">Keep these documents handy for a faster approval process.</p>
                                     <div className="space-y-3">
                                         {requiredDocuments.map((doc) => (
                                             <div
                                                 key={doc.id}
                                                 className={`flex items-center p-3 rounded-lg border cursor-pointer transition-colors ${checkedDocs.includes(doc.id)
-                                                    ? 'bg-green-50 border-green-200'
-                                                    : 'hover:bg-gray-50 border-gray-100'
+                                                    ? 'bg-accent/10 border-accent/30'
+                                                    : 'hover:bg-white/5 border-white/10'
                                                     }`}
                                                 onClick={() => toggleDoc(doc.id)}
                                             >
                                                 <div className={`w-5 h-5 rounded border flex items-center justify-center mr-3 ${checkedDocs.includes(doc.id)
-                                                    ? 'bg-green-500 border-green-500'
-                                                    : 'border-gray-300 bg-white'
+                                                    ? 'bg-accent border-accent text-primary'
+                                                    : 'border-white/20 bg-white/5'
                                                     }`}>
-                                                    {checkedDocs.includes(doc.id) && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
+                                                    {checkedDocs.includes(doc.id) && <CheckCircle2 className="w-3.5 h-3.5" />}
                                                 </div>
-                                                <span className={checkedDocs.includes(doc.id) ? 'text-gray-900 font-medium' : 'text-gray-600'}>
+                                                <span className={checkedDocs.includes(doc.id) ? 'text-white font-medium' : 'text-white/60'}>
                                                     {doc.label}
                                                 </span>
                                             </div>
                                         ))}
                                     </div>
-                                    <div className="mt-6 flex justify-between items-center text-sm text-gray-500">
+                                    <div className="mt-6 flex justify-between items-center text-sm text-white/50">
                                         <span>{checkedDocs.length} of {requiredDocuments.length} collected</span>
-                                        <Button variant="ghost" size="sm" onClick={() => setCheckedDocs([])} className="text-red-500 hover:text-red-600 hover:bg-red-50">
+                                        <Button variant="ghost" size="sm" onClick={() => setCheckedDocs([])} className="text-red-400 hover:text-red-300 hover:bg-red-500/10">
                                             Reset
                                         </Button>
                                     </div>
@@ -149,10 +149,10 @@ export default function AssistancePage() {
                         {/* FAQ */}
                         <section>
                             <div className="flex items-center gap-2 mb-6">
-                                <HelpCircle className="w-6 h-6 text-primary" />
-                                <h2 className="text-2xl font-bold text-gray-900">Common Questions</h2>
+                                <HelpCircle className="w-6 h-6 text-accent" />
+                                <h2 className="text-2xl font-bold text-white">Common Questions</h2>
                             </div>
-                            <Card className="border-none shadow-md bg-white">
+                            <Card className="border-white/10 shadow-md bg-white/5 backdrop-blur-sm">
                                 <CardContent className="p-8">
                                     <Accordion type="single" defaultValue="q1">
                                         {faqs.map((faq) => (
@@ -171,7 +171,7 @@ export default function AssistancePage() {
 
                         {/* CTA Box */}
                         <section>
-                            <Card className="bg-primary text-white border-none shadow-lg overflow-hidden relative">
+                            <Card className="bg-gradient-hero text-white border-none shadow-lg overflow-hidden relative">
                                 {/* Abstract Pattern */}
                                 <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
@@ -188,7 +188,7 @@ export default function AssistancePage() {
                                     </p>
                                     <div className="flex bg-white/10 rounded-lg p-1">
                                         <Link href="/contact" className="flex-1">
-                                            <Button variant="ghost" className="w-full text-white hover:bg-white/20 hover:text-white justify-center">
+                                            <Button variant="gold" className="w-full justify-center">
                                                 Schedule Call
                                             </Button>
                                         </Link>

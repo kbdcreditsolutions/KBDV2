@@ -44,7 +44,7 @@ export const Navbar: React.FC = () => {
                 className={cn(
                     'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
                     showDarkBg
-                        ? 'bg-[#050A18]/95 backdrop-blur-md border-b border-white/5'
+                        ? 'bg-primary/95 backdrop-blur-md border-b border-white/5'
                         : 'bg-transparent'
                 )}
             >
@@ -65,7 +65,7 @@ export const Navbar: React.FC = () => {
                                         href={link.href}
                                         className={cn(
                                             "transition-colors",
-                                            isActive ? "text-[#FFC857]" : "hover:text-[#FFC857]"
+                                            isActive ? "text-accent" : "hover:text-accent"
                                         )}
                                     >
                                         {link.label}
@@ -75,7 +75,7 @@ export const Navbar: React.FC = () => {
                         </div>
 
                         {/* Desktop CTA */}
-                        <Link href="/partners/login" className="hidden lg:flex px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest text-white hover:border-[#FFC857] transition-all border border-white/10 backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)]">
+                        <Link href="/partners/login" className="hidden lg:flex px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest text-white hover:border-accent transition-all border border-white/10 backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)]">
                             Partner Login
                         </Link>
 
@@ -103,7 +103,7 @@ export const Navbar: React.FC = () => {
             {/* Mobile Menu */}
             <div
                 className={cn(
-                    'fixed top-0 right-0 z-50 h-full w-[300px] bg-[#050A18] border-l border-white/10 lg:hidden transition-transform duration-300',
+                    'fixed top-0 right-0 z-50 h-full w-[300px] bg-primary border-l border-white/10 lg:hidden transition-transform duration-300',
                     isOpen ? 'translate-x-0' : 'translate-x-full'
                 )}
             >
@@ -129,14 +129,14 @@ export const Navbar: React.FC = () => {
                                         className={cn(
                                             "flex items-center justify-between px-4 py-3 rounded-lg transition-colors",
                                             isActive 
-                                                ? "bg-white/10 text-[#FFC857]" 
-                                                : "text-slate-300 hover:bg-white/5 hover:text-[#FFC857]"
+                                                ? "bg-white/10 text-accent" 
+                                                : "text-slate-300 hover:bg-white/5 hover:text-accent"
                                         )}
                                     >
                                         {link.label}
                                         <ChevronRight className={cn(
                                             "h-4 w-4",
-                                            isActive ? "text-[#FFC857]/70" : "text-slate-600"
+                                            isActive ? "text-accent/70" : "text-slate-600"
                                         )} />
                                     </Link>
                                 </li>
@@ -150,7 +150,7 @@ export const Navbar: React.FC = () => {
                             </button>
                         </Link>
                         <Link href="/estimator" onClick={() => setIsOpen(false)}>
-                            <button className="w-full px-6 py-4 rounded-xl text-[#050A18] font-extrabold text-sm uppercase tracking-wider bg-[linear-gradient(180deg,rgba(255,255,255,0.3)_0%,rgba(255,255,255,0)_100%),#FFC857] shadow-[0_4px_15px_rgba(255,200,87,0.3)]">
+                            <button className="w-full px-6 py-4 rounded-xl text-primary font-extrabold text-sm uppercase tracking-wider bg-[linear-gradient(180deg,rgba(255,255,255,0.3)_0%,rgba(255,255,255,0)_100%),var(--color-accent)] shadow-[0_4px_15px_rgba(252,163,17,0.3)]">
                                 Launch Estimator
                             </button>
                         </Link>

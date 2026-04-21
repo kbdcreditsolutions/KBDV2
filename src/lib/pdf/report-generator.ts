@@ -20,7 +20,7 @@ export interface ReportData {
 export class ReportGenerator {
     static async generate(data: ReportData): Promise<Blob> {
         const doc = new jsPDF() as any;
-        const brandColor = '#FFC857'; // KBD Obsidian Gold
+        const brandColor = '#F2B544'; // KBD Premium Gold
         const darkColor = '#050A18';
 
         // --- HEADER ---

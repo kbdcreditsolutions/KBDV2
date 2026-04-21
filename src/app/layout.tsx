@@ -4,6 +4,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { WebVitals } from '@/components/analytics/web-vitals';
 import { CookieConsent } from '@/components/ui/cookie-consent';
 import { ChatWidget } from '@/components/chat/chat-widget';
+import { ThemeProvider } from '@/components/theme-provider';
 import '@/styles/globals.css';
 
 const inter = Inter({
@@ -113,7 +114,9 @@ export default function RootLayout({
                         }),
                     }}
                 />
-                {children}
+                <ThemeProvider>
+                    {children}
+                </ThemeProvider>
                 {/* TODO: Replace G-XYZ with your real Google Analytics 4 Measurement ID */}
                 {/* <GoogleAnalytics gaId="G-XXXXXXXXXX" /> */}
                 <WebVitals />
