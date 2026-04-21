@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { useChat } from '@ai-sdk/react';
-import { UIMessage } from 'ai';
+import { useState, useEffect, useRef } from 'react';
+import { useChat, Message } from '@ai-sdk/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Bot } from 'lucide-react';
 
@@ -15,35 +14,21 @@ const QUICK_REPLIES = [
 
 const SESSION_KEY = 'kbd-chat-messages';
 
-/** Extracts plain text from a UIMessage's parts array. */
-function getMessageText(msg: UIMessage): string {
-    return msg.parts
-        .filter((p): p is Extract<typeof p, { type: 'text' }> => p.type === 'text')
-        .map((p) => p.text)
-        .join('');
-}
-
-/** Converts a UIMessage to a minimal serializable form for session storage. */
-function toStorable(msg: UIMessage): object {
-    return { id: msg.id, role: msg.role, parts: msg.parts };
-}
-
-function loadStoredMessages(): UIMessage[] {
+function loadStoredMessages(): Message[] {
     if (typeof window === 'undefined') return [];
     try {
         const stored = sessionStorage.getItem(SESSION_KEY);
         if (!stored) return [];
         const parsed: unknown = JSON.parse(stored);
         if (!Array.isArray(parsed)) return [];
-        // Basic validation: each entry must have id, role, and parts
         return parsed.filter(
-            (v): v is UIMessage =>
+            (v): v is Message =>
                 v !== null &&
                 typeof v === 'object' &&
                 typeof (v as Record<string, unknown>).id === 'string' &&
+                typeof (v as Record<string, unknown>).content === 'string' &&
                 ((v as Record<string, unknown>).role === 'user' ||
-                    (v as Record<string, unknown>).role === 'assistant') &&
-                Array.isArray((v as Record<string, unknown>).parts),
+                    (v as Record<string, unknown>).role === 'assistant')
         );
     } catch {
         return [];
@@ -52,14 +37,11 @@ function loadStoredMessages(): UIMessage[] {
 
 export function ChatWidget() {
     const [isOpen, setIsOpen] = useState(false);
-    const [initialMessages] = useState<UIMessage[]>(loadStoredMessages);
-    const [input, setInput] = useState('');
+    const [initialMessages] = useState<Message[]>(loadStoredMessages);
 
-    const { messages, sendMessage, status, error } = useChat({
-        messages: initialMessages,
+    const { messages, input, setInput, append, handleSubmit, isLoading, error } = useChat({
+        initialMessages,
     });
-
-    const isLoading = status === 'submitted' || status === 'streaming';
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -67,7 +49,7 @@ export function ChatWidget() {
     useEffect(() => {
         const toStore = messages
             .filter((m) => m.role === 'user' || m.role === 'assistant')
-            .map(toStorable);
+            .map(m => ({ id: m.id, role: m.role, content: m.content }));
         sessionStorage.setItem(SESSION_KEY, JSON.stringify(toStore));
     }, [messages]);
 
@@ -76,23 +58,9 @@ export function ChatWidget() {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages, isLoading]);
 
-    const handleQuickReply = useCallback(
-        (text: string) => {
-            sendMessage({ text });
-        },
-        [sendMessage],
-    );
-
-    const handleSubmit = useCallback(
-        (e: React.FormEvent) => {
-            e.preventDefault();
-            const trimmed = input.trim();
-            if (!trimmed || isLoading) return;
-            sendMessage({ text: trimmed });
-            setInput('');
-        },
-        [input, isLoading, sendMessage],
-    );
+    const handleQuickReply = (text: string) => {
+        append({ role: 'user', content: text });
+    };
 
     const showQuickReplies = messages.length === 0 && !isLoading;
 
@@ -196,7 +164,7 @@ export function ChatWidget() {
                                                 : 'bg-white/10 text-white rounded-tl-sm'
                                         }`}
                                     >
-                                        {getMessageText(m)}
+                                        {m.content}
                                     </div>
                                 </div>
                             ))}
