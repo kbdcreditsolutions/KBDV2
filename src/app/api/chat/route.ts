@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
         const { messages } = await req.json();
 
-        const result = await streamText({
+        const result = streamText({
             model: google('gemini-2.0-flash'),
             system: chatbotKnowledge,
             messages,
