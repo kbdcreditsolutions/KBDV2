@@ -9,6 +9,16 @@ const google = createGoogleGenerativeAI({
 
 export async function POST(req: Request) {
     try {
+        if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
+            return new Response(JSON.stringify({ 
+                error: 'Configuration Error', 
+                details: 'GOOGLE_GENERATIVE_AI_API_KEY is missing. Please add it to your environment variables.' 
+            }), {
+                status: 401,
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
+
         const { messages }: { messages: UIMessage[] } = await req.json();
 
         const modelMessages = await convertToModelMessages(messages);

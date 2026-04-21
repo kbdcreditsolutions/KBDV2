@@ -180,11 +180,13 @@ export default function CheckScorePage() {
                                                 label="Date of Birth"
                                                 type="date"
                                                 required
+                                                placeholder="dd/mm/yyyy"
                                                 autoComplete="none"
                                                 value={formData.dob}
                                                 onChange={e => setFormData({ ...formData, dob: e.target.value })}
                                                 className="bg-slate-50 border-slate-200 text-slate-900 focus:bg-white focus:border-accent [color-scheme:light]"
                                                 labelClassName="text-slate-600 font-bold uppercase tracking-widest text-[10px]"
+                                                rightIcon={<Calendar className="w-4 h-4 text-slate-400" />}
                                             />
                                             <Input 
                                                 label="Mobile Number"
@@ -257,7 +259,7 @@ export default function CheckScorePage() {
                                             maxLength={6}
                                             value={formData.otp}
                                             onChange={e => setFormData({ ...formData, otp: e.target.value })}
-                                            className="bg-slate-50 border-slate-200 text-slate-900 text-center text-3xl font-bold tracking-[0.5em] focus:bg-white focus:border-accent"
+                                            className="bg-slate-50 border-slate-200 text-accent text-center text-3xl font-bold tracking-[0.5em] focus:bg-white focus:border-accent"
                                         />
 
                                         {error && (
@@ -352,7 +354,7 @@ export default function CheckScorePage() {
                                                     <motion.span 
                                                         initial={{ opacity: 0 }}
                                                         animate={{ opacity: 1 }}
-                                                        className="text-7xl font-black text-slate-900 block"
+                                                        className="text-7xl font-black text-accent block"
                                                     >
                                                         {report.score}
                                                     </motion.span>

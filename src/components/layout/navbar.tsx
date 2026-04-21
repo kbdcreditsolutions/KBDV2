@@ -56,7 +56,7 @@ export const Navbar: React.FC = () => {
                         </Link>
 
                         {/* Desktop Navigation */}
-                        <div className="hidden lg:flex items-center space-x-10 text-[13px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                        <div className="hidden lg:flex items-center space-x-10 text-[14px] font-bold uppercase tracking-[0.2em] text-slate-400">
                             {navLinks.slice(0, 6).map((link) => {
                                 const isActive = pathname === link.href;
                                 return (
