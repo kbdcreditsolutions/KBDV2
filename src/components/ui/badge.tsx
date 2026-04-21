@@ -20,6 +20,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
                         // Variants
                         'bg-primary/10 text-primary': variant === 'default',
                         'bg-accent/10 text-accent-600': variant === 'accent',
+                        'bg-accent/20 text-accent font-bold border border-accent/30': variant === 'gold',
                         'bg-green-100 text-green-700': variant === 'success',
                         'bg-yellow-100 text-yellow-700': variant === 'warning',
                         'bg-red-100 text-red-700': variant === 'error',

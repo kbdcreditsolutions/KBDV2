@@ -36,7 +36,7 @@ export const pdfService = {
             // --- Branding Config ---
             const BRAND = {
                 primary: [5, 10, 24] as [number, number, number], // #050A18
-                accent: [255, 200, 87] as [number, number, number], // #FFC857
+                accent: [242, 181, 68] as [number, number, number], // #F2B544
                 muted: [100, 116, 139] as [number, number, number], // Slate 400
                 bg: [248, 250, 252] as [number, number, number], // Slate 50
             };

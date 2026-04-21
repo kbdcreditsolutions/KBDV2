@@ -59,23 +59,23 @@ export default function ContactPage() {
                         <div className="lg:col-span-1 space-y-6">
                             <Card variant="default">
                                 <CardContent>
-                                    <h2 className="text-lg font-semibold text-gray-900 mb-6">
+                                    <h2 className="text-lg font-semibold text-white mb-6">
                                         Quick Contact
                                     </h2>
 
                                     <div className="space-y-4">
                                         <a
                                             href={`tel:${siteConfig.phone}`}
-                                            className="flex items-start gap-4 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                            className="flex items-start gap-4 p-3 rounded-lg hover:bg-white/5 transition-colors group"
                                         >
                                             <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
                                                 <Phone className="w-5 h-5 text-accent" />
                                             </div>
                                             <div>
-                                                <p className="font-medium text-gray-900 group-hover:text-accent transition-colors">
+                                                <p className="font-medium text-white group-hover:text-accent transition-colors">
                                                     Call Us
                                                 </p>
-                                                <p className="text-sm text-gray-500">{siteConfig.phone}</p>
+                                                <p className="text-sm text-white/50">{siteConfig.phone}</p>
                                             </div>
                                         </a>
 
@@ -83,41 +83,41 @@ export default function ContactPage() {
                                             href={`https://wa.me/${siteConfig.whatsapp.replace(/\D/g, '')}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-start gap-4 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                            className="flex items-start gap-4 p-3 rounded-lg hover:bg-white/5 transition-colors group"
                                         >
-                                            <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
-                                                <MessageCircle className="w-5 h-5 text-green-600" />
+                                            <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0">
+                                                <MessageCircle className="w-5 h-5 text-green-500" />
                                             </div>
                                             <div>
-                                                <p className="font-medium text-gray-900 group-hover:text-green-600 transition-colors">
+                                                <p className="font-medium text-white group-hover:text-green-500 transition-colors">
                                                     WhatsApp
                                                 </p>
-                                                <p className="text-sm text-gray-500">{siteConfig.whatsapp}</p>
+                                                <p className="text-sm text-white/50">{siteConfig.whatsapp}</p>
                                             </div>
                                         </a>
 
                                         <a
                                             href={`mailto:${siteConfig.email}`}
-                                            className="flex items-start gap-4 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                            className="flex items-start gap-4 p-3 rounded-lg hover:bg-white/5 transition-colors group"
                                         >
-                                            <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-                                                <Mail className="w-5 h-5 text-blue-600" />
+                                            <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                                                <Mail className="w-5 h-5 text-blue-400" />
                                             </div>
                                             <div>
-                                                <p className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                                                <p className="font-medium text-white group-hover:text-blue-400 transition-colors">
                                                     Email
                                                 </p>
-                                                <p className="text-sm text-gray-500">{siteConfig.email}</p>
+                                                <p className="text-sm text-white/50">{siteConfig.email}</p>
                                             </div>
                                         </a>
 
-                                        <div className="flex items-start gap-4 p-3">
-                                            <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
-                                                <MapPin className="w-5 h-5 text-gray-600" />
+                                        <div className="flex items-start gap-4 p-3 rounded-lg hover:bg-white/5 transition-colors">
+                                            <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 border border-white/10">
+                                                <MapPin className="w-5 h-5 text-white/60" />
                                             </div>
                                             <div>
-                                                <p className="font-medium text-gray-900">Office</p>
-                                                <p className="text-sm text-gray-500">{siteConfig.address}</p>
+                                                <p className="font-medium text-white">Office</p>
+                                                <p className="text-sm text-white/50">{siteConfig.address}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -128,15 +128,15 @@ export default function ContactPage() {
                                 <CardContent>
                                     <div className="flex items-center gap-3 mb-2">
                                         <Clock className="w-5 h-5 text-accent" />
-                                        <h3 className="font-semibold text-gray-900">Business Hours</h3>
+                                        <h3 className="font-semibold text-white">Business Hours</h3>
                                     </div>
-                                    <div className="text-sm text-gray-600 space-y-1">
+                                    <div className="text-sm text-white/70 space-y-1">
                                         <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
                                         <p>Saturday: 10:00 AM - 4:00 PM</p>
                                         <p>Sunday: Closed</p>
                                     </div>
-                                    <div className="mt-4 p-3 bg-accent/10 rounded-lg">
-                                        <p className="text-sm text-primary font-medium">
+                                    <div className="mt-4 p-3 bg-accent/10 rounded-lg border border-accent/20">
+                                        <p className="text-sm text-accent font-medium">
                                             ⚡ We typically respond within 1 business day
                                         </p>
                                     </div>
@@ -150,13 +150,13 @@ export default function ContactPage() {
                                 <CardContent className="p-8">
                                     {isSubmitted ? (
                                         <div className="text-center py-8">
-                                            <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                                                <CheckCircle className="w-8 h-8 text-green-600" />
+                                            <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4 border border-green-500/20">
+                                                <CheckCircle className="w-8 h-8 text-green-500" />
                                             </div>
-                                            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                                            <h2 className="text-2xl font-bold text-white mb-2">
                                                 Message Sent!
                                             </h2>
-                                            <p className="text-gray-600 mb-6">
+                                            <p className="text-white/60 mb-6">
                                                 Thank you for contacting us. Our team will get back to you within 24 hours.
                                             </p>
                                             <Button variant="secondary" onClick={() => setIsSubmitted(false)}>
@@ -165,7 +165,7 @@ export default function ContactPage() {
                                         </div>
                                     ) : (
                                         <>
-                                            <h2 className="text-xl font-semibold text-gray-900 mb-6">
+                                            <h2 className="text-xl font-semibold text-white mb-6">
                                                 Send us a Message
                                             </h2>
                                             <form onSubmit={handleSubmit} className="space-y-6">
@@ -200,18 +200,18 @@ export default function ContactPage() {
                                                     ]}
                                                 />
                                                 <div>
-                                                    <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                                                    <label className="mb-1.5 block text-sm font-medium text-white/70">
                                                         Your Message
                                                     </label>
                                                     <textarea
-                                                        className="flex min-h-[120px] w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm transition-colors placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent hover:border-gray-400"
+                                                        className="flex min-h-[120px] w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm transition-colors placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 hover:border-white/20 text-white"
                                                         placeholder="Tell us how we can help you..."
                                                         required
                                                     />
                                                 </div>
                                                 <Button
                                                     type="submit"
-                                                    variant="primary"
+                                                    variant="gold"
                                                     size="lg"
                                                     className="w-full md:w-auto"
                                                     isLoading={isLoading}

@@ -78,10 +78,10 @@ export const WhyKBD: React.FC = () => {
                                 </div>
                             </div>
                             <div>
-                                <h3 className="font-semibold text-gray-900 mb-1">
+                                <h3 className="font-semibold text-primary mb-1">
                                     {benefit.title}
                                 </h3>
-                                <p className="text-sm text-gray-600 leading-relaxed">
+                                <p className="text-sm text-primary/70 leading-relaxed">
                                     {benefit.description}
                                 </p>
                             </div>

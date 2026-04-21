@@ -20,12 +20,12 @@ export default function FeedbackPage() {
                 <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="mb-6 rounded-full bg-green-50 p-6"
+                    className="mb-6 rounded-full bg-green-500/10 p-6 border border-green-500/20"
                 >
-                    <BadgeCheck className="h-12 w-12 text-green-600" />
+                    <BadgeCheck className="h-12 w-12 text-green-500" />
                 </motion.div>
-                <h1 className="mb-2 text-2xl font-bold text-gray-900">Thank You!</h1>
-                <p className="mb-8 max-w-md text-gray-500">
+                <h1 className="mb-2 text-2xl font-bold text-white">Thank You!</h1>
+                <p className="mb-8 max-w-md text-white/60">
                     Your feedback helps us improve KBD Credit Solutions. We appreciate your input.
                 </p>
                 <Button onClick={() => setIsSubmitted(false)} variant="outline">
@@ -39,22 +39,22 @@ export default function FeedbackPage() {
         <div className="container-wide py-20 lg:py-28">
             <div className="mx-auto max-w-2xl">
                 <div className="mb-10 text-center">
-                    <h1 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+                    <h1 className="mb-4 text-3xl font-bold text-white md:text-4xl">
                         We Value Your Feedback
                     </h1>
-                    <p className="text-gray-500 text-lg">
+                    <p className="text-white/60 text-lg">
                         Help us make KBD Credit Solutions better for everyone.
                     </p>
                 </div>
 
-                <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xl shadow-gray-200/50 md:p-10">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-sm md:p-10">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid gap-6 md:grid-cols-3">
                             <label className="cursor-pointer">
                                 <input type="radio" name="type" className="peer sr-only" defaultChecked />
-                                <div className="flex flex-col items-center gap-3 rounded-xl border-2 border-gray-100 p-4 transition-all hover:border-blue-100 hover:bg-blue-50/50 peer-checked:border-primary peer-checked:bg-blue-50">
-                                    <Bug className="h-6 w-6 text-gray-400 peer-checked:text-primary" />
-                                    <span className="text-sm font-medium text-gray-600 peer-checked:text-primary">Report Bug</span>
+                                <div className="flex flex-col items-center gap-3 rounded-xl border-2 border-white/5 p-4 transition-all hover:border-accent/10 hover:bg-accent/5 peer-checked:border-accent peer-checked:bg-accent/10">
+                                    <Bug className="h-6 w-6 text-white/40 peer-checked:text-accent" />
+                                    <span className="text-sm font-medium text-white/60 peer-checked:text-accent">Report Bug</span>
                                 </div>
                             </label>
                             <label className="cursor-pointer">
@@ -101,7 +101,7 @@ export default function FeedbackPage() {
                             </p>
                         </div>
 
-                        <Button type="submit" size="lg" className="w-full" variant="primary">
+                        <Button type="submit" size="lg" className="w-full" variant="gold">
                             Send Feedback
                         </Button>
                     </form>

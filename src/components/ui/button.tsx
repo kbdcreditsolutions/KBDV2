@@ -20,6 +20,8 @@ const buttonVariants = cva(
                     'border-2 border-white text-white hover:bg-white hover:text-primary',
                 ghost:
                     'text-primary hover:bg-surface-200 active:bg-surface-300',
+                gold:
+                    'btn-gold',
                 link:
                     'text-accent underline-offset-4 hover:underline',
             },

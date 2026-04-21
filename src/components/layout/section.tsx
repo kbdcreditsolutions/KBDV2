@@ -37,10 +37,10 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
                         'py-16 md:py-24': size === 'md',
                         'py-20 md:py-32': size === 'lg',
                     },
-                    // Background
+                    // Background & Text Color Contrast
                     {
-                        'bg-white': background === 'white',
-                        'bg-surface-200': background === 'surface',
+                        'bg-white text-slate-900 [[.theme-premium]_&]:bg-white/5 [[.theme-premium]_&]:text-white': background === 'white',
+                        'bg-surface text-slate-900 [[.theme-premium]_&]:bg-[#0A1628]/40 [[.theme-premium]_&]:text-white': background === 'surface',
                         'bg-primary text-white': background === 'primary',
                         'bg-gradient-hero text-white': background === 'gradient',
                     },
@@ -77,6 +77,7 @@ interface SectionHeaderProps {
     subtitle?: string;
     align?: 'left' | 'center';
     className?: string;
+    variant?: 'light' | 'dark' | 'auto';
 }
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({
@@ -84,6 +85,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
     subtitle,
     align = 'center',
     className,
+    variant = 'auto',
 }) => {
     return (
         <div
@@ -96,9 +98,16 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
                 className
             )}
         >
-            <h2 className="text-3xl font-bold lg:text-4xl">{title}</h2>
+            <h2 className="text-3xl font-bold lg:text-4xl text-inherit">{title}</h2>
             {subtitle && (
-                <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                <p className={cn(
+                    "mt-4 text-lg max-w-2xl mx-auto",
+                    {
+                        'text-slate-600': variant === 'light',
+                        'text-white/60': variant === 'dark',
+                        'text-current opacity-70': variant === 'auto',
+                    }
+                )}>
                     {subtitle}
                 </p>
             )}

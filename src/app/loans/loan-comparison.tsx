@@ -97,7 +97,7 @@ export function LoanComparison() {
     return (
         <>
             {/* Filters */}
-            <section className="bg-white border-b sticky top-16 lg:top-20 z-30">
+            <section className="bg-white [[.theme-premium]_&]:bg-surface/90 [[.theme-premium]_&]:backdrop-blur-md [[.theme-premium]_&]:border-white/10 border-b sticky top-16 lg:top-20 z-30 transition-colors">
                 <div className="container-wide py-4">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                         <div className="flex flex-wrap items-center gap-4">
@@ -127,9 +127,12 @@ export function LoanComparison() {
                             </select>
                         </div>
 
-                        <div className="flex items-center gap-3 pl-4 border-l">
+                        <div className="flex items-center gap-3 pl-4 border-l [[.theme-premium]_&]:border-white/10">
                             <Switch checked={smartMatch} onCheckedChange={setSmartMatch} />
-                            <span className={`text-sm font-medium ${smartMatch ? 'text-accent' : 'text-gray-600'}`}>
+                            <span className={cn(
+                                "text-sm font-medium transition-colors",
+                                smartMatch ? 'text-accent' : 'text-gray-600 [[.theme-premium]_&]:text-white/60'
+                            )}>
                                 Smart Match
                             </span>
                         </div>
@@ -140,8 +143,8 @@ export function LoanComparison() {
             {/* Loan Cards */}
             <Section background="surface" size="md">
                 <div className="flex items-center justify-between mb-8">
-                    <p className="text-gray-600">
-                        Showing <span className="font-semibold text-gray-900">{paginatedOffers.length}</span> of {displayOffers.length} loan offers
+                    <p className="text-white/60">
+                        Showing <span className="font-semibold text-white">{paginatedOffers.length}</span> of {displayOffers.length} loan offers
                     </p>
                     <select className="px-4 py-2 border rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-accent">
                         <option value="rate-low">Interest Rate: Low to High</option>
@@ -156,34 +159,34 @@ export function LoanComparison() {
                             <CardContent className="p-0">
                                 <div className="grid md:grid-cols-[1fr,auto] lg:grid-cols-[200px,1fr,auto]">
                                     {/* Bank Info */}
-                                    <div className="p-6 bg-primary/5 flex flex-col justify-center items-center lg:items-start border-b md:border-b-0 md:border-r">
+                                    <div className="p-6 bg-white/5 flex flex-col justify-center items-center lg:items-start border-b md:border-b-0 md:border-r border-white/10">
                                         <div className="w-16 h-16 rounded-xl bg-white shadow-subtle flex items-center justify-center mb-3">
-                                            <Building2 className="w-8 h-8 text-primary" />
+                                            <Building2 className="w-8 h-8 text-primary-dark" />
                                         </div>
-                                        <h3 className="font-semibold text-gray-900">{offer.bank}</h3>
-                                        <p className="text-sm text-gray-500">{offer.loanType}</p>
+                                        <h3 className="font-semibold text-white">{offer.bank}</h3>
+                                        <p className="text-sm text-white/50">{offer.loanType}</p>
                                     </div>
 
                                     {/* Details */}
                                     <div className="p-6">
                                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                                             <div>
-                                                <div className="flex items-center gap-1 text-gray-500 text-xs mb-1">
+                                                <div className="flex items-center gap-1 text-white/50 text-xs mb-1">
                                                     <Percent className="h-3 w-3" />
                                                     Interest Rate
                                                 </div>
                                                 <p className="text-xl font-bold text-accent">{formatPercentage(offer.interestRate)}</p>
                                             </div>
                                             <div>
-                                                <p className="text-gray-500 text-xs mb-1">Max Amount</p>
+                                                <p className="text-white/50 text-xs mb-1">Max Amount</p>
                                                 <p className="text-lg font-semibold">{formatCurrency(offer.maxAmount)}</p>
                                             </div>
                                             <div>
-                                                <p className="text-gray-500 text-xs mb-1">Tenure</p>
+                                                <p className="text-white/50 text-xs mb-1">Tenure</p>
                                                 <p className="text-lg font-semibold">{offer.tenure}</p>
                                             </div>
                                             <div>
-                                                <div className="flex items-center gap-1 text-gray-500 text-xs mb-1">
+                                                <div className="flex items-center gap-1 text-white/50 text-xs mb-1">
                                                     <Clock className="h-3 w-3" />
                                                     Processing
                                                 </div>
@@ -201,9 +204,9 @@ export function LoanComparison() {
                                     </div>
 
                                     {/* CTA */}
-                                    <div className="p-6 flex items-center justify-center border-t md:border-t-0 md:border-l bg-gray-50">
+                                    <div className="p-6 flex items-center justify-center border-t md:border-t-0 md:border-l border-white/10 bg-white/5">
                                         <Link href={`/estimator?bank=${offer.bank.toLowerCase().replace(' ', '-')}`}>
-                                            <Button variant="primary" rightIcon={<ArrowRight className="h-4 w-4" />}>
+                                            <Button variant="gold" rightIcon={<ArrowRight className="h-4 w-4" />}>
                                                 Apply Now
                                             </Button>
                                         </Link>
@@ -218,7 +221,7 @@ export function LoanComparison() {
                 {totalPages > 1 && (
                     <div className="mt-8 flex justify-center gap-2">
                         <Button
-                            variant="outline"
+                            variant="outline-light"
                             size="icon"
                             disabled={currentPage === 1}
                             onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
@@ -228,7 +231,7 @@ export function LoanComparison() {
                         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                             <Button
                                 key={page}
-                                variant={currentPage === page ? "primary" : "outline"}
+                                variant={currentPage === page ? "gold" : "outline-light"}
                                 className="w-10 h-10 p-0"
                                 onClick={() => setCurrentPage(page)}
                             >
@@ -236,7 +239,7 @@ export function LoanComparison() {
                             </Button>
                         ))}
                         <Button
-                            variant="outline"
+                            variant="outline-light"
                             size="icon"
                             disabled={currentPage === totalPages}
                             onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}

@@ -49,10 +49,10 @@ export const HowItWorks: React.FC = () => {
                                     </span>
                                 </div>
 
-                                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                <h3 className="text-xl font-semibold text-primary mb-2">
                                     {step.title}
                                 </h3>
-                                <p className="text-gray-600 leading-relaxed max-w-xs">
+                                <p className="text-primary/70 leading-relaxed max-w-xs">
                                     {step.description}
                                 </p>
                             </div>
