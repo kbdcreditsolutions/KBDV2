@@ -1,11 +1,6 @@
-import { streamText, convertToModelMessages, createUIMessageStreamResponse, createUIMessageStream, UIMessage } from 'ai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { google } from '@ai-sdk/google';
+import { streamText } from 'ai';
 import { chatbotKnowledge } from '@/lib/chatbot-knowledge';
-
-// Create a Google Generative AI provider instance
-const google = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-});
 
 export async function POST(req: Request) {
     try {
@@ -19,29 +14,21 @@ export async function POST(req: Request) {
             });
         }
 
-        const { messages }: { messages: UIMessage[] } = await req.json();
+        const { messages } = await req.json();
 
-        const modelMessages = await convertToModelMessages(messages);
-
-        const result = streamText({
+        const result = await streamText({
             model: google('gemini-2.0-flash'),
             system: chatbotKnowledge,
-            messages: modelMessages,
+            messages,
         });
 
-        const stream = createUIMessageStream({
-            execute: async ({ writer }) => {
-                writer.merge(result.toUIMessageStream());
-            },
-        });
-
-        return createUIMessageStreamResponse({ stream });
+        return result.toDataStreamResponse();
     } catch (error) {
         console.error('Chat API error:', error);
-        if (error instanceof Error) {
-            console.error('Error stack:', error.stack);
-        }
-        return new Response(JSON.stringify({ error: 'Failed to process message', details: String(error) }), {
+        return new Response(JSON.stringify({ 
+            error: 'Failed to process message', 
+            details: String(error) 
+        }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' },
         });
