@@ -1,7 +1,8 @@
 # KBD Credit Solutions — Handoff Document
 
 > **Version:** 0.1.0  
-> **Date:** 16 February 2026  
+> **Date:** 21 April 2026 (Updated)  
+> **Index:** [Documentation Index](./README.md)  
 > **Domain:** https://kbdcredit.com  
 > **Stack:** Next.js 14 · React 18 · Tailwind CSS 3 · TypeScript 5
 

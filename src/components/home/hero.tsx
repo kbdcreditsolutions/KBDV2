@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
-import { Zap, Shield, TrendingUp, LineChart, CalendarClock, ShieldCheck, Download } from 'lucide-react';
+import { Zap, LineChart, CalendarClock, ShieldCheck, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Slider } from '@/components/ui/slider';
 import { Modal } from '@/components/ui/modal';
@@ -118,16 +118,6 @@ export const Hero: React.FC = () => {
                         transition={{ duration: 0.6 }}
                         className="lg:col-span-5 space-y-6 lg:space-y-8"
                     >
-                        {/* Status Badge */}
-                        <div className="inline-flex items-center space-x-3 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-                            <span className="flex h-2 w-2 rounded-full bg-[#FFC857] animate-pulse" />
-                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300">
-                                Verification Protocol Active
-                            </span>
-                            <span className="text-[10px] font-bold text-[#FFC857] font-mono">
-                                10,000+ USERS
-                            </span>
-                        </div>
 
                         {/* Headline */}
                         <div className="space-y-2">
@@ -167,30 +157,6 @@ export const Hero: React.FC = () => {
                             </Link>
                         </div>
 
-                        {/* Trust Indicators */}
-                        <div className="hidden sm:flex items-center space-x-6 pt-4">
-                            <div className="flex -space-x-3">
-                                {['R', 'P', 'A', 'S'].map((initial, i) => (
-                                    <div
-                                        key={i}
-                                        className="w-11 h-11 rounded-full border-4 border-[#050A18] bg-slate-800 flex items-center justify-center text-sm font-bold text-white"
-                                    >
-                                        {initial}
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="space-y-1">
-                                <div className="flex items-center gap-1 text-[#FFC857]">
-                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                    </svg>
-                                    <span className="text-lg font-bold text-white font-mono">4.9/5</span>
-                                </div>
-                                <p className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
-                                    Institutional Trust Score
-                                </p>
-                            </div>
-                        </div>
                     </motion.div>
 
                     {/* Right - Interactive Loan Estimator Widget */}
@@ -219,12 +185,6 @@ export const Hero: React.FC = () => {
                                 {/* Header */}
                                 <div className="flex justify-between items-start mb-10 mt-2">
                                     <div>
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <Shield className="w-4 h-4 text-[#FFC857]" />
-                                            <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFC857]">
-                                                RBI REGULATED TERMINAL
-                                            </span>
-                                        </div>
                                         <h2 className="text-xl lg:text-2xl font-bold text-white tracking-tight">
                                             Live Estimator
                                         </h2>
@@ -332,42 +292,16 @@ export const Hero: React.FC = () => {
                                 <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center hidden sm:flex">
-                                            <TrendingUp className="w-4 h-4 text-blue-400" />
                                         </div>
                                         <span className="text-[9px] font-mono text-slate-500 uppercase leading-tight">
                                             Calculations are estimates<br />Actual rates may vary
                                         </span>
                                     </div>
-                                    <div className="flex gap-1">
-                                        <div className="w-1.5 h-1.5 bg-slate-700 rounded-full" />
-                                        <div className="w-1.5 h-1.5 bg-slate-700 rounded-full" />
-                                        <div className="w-1.5 h-1.5 bg-[#FFC857] rounded-full" />
-                                    </div>
+                                    <div className="flex gap-1" />
                                 </div>
                             </div>
 
-                            {/* Floating Badge */}
-                            <motion.div
-                                initial={{ x: 20, opacity: 0 }}
-                                animate={{ x: 0, opacity: 1 }}
-                                transition={{ delay: 1, type: "spring" }}
-                                className="absolute -top-6 -right-6 lg:-top-8 lg:-right-8 z-20 px-4 py-3 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)] hidden md:block"
-                            >
-                                <div className="text-[9px] font-mono text-slate-400 mb-1 leading-none text-right">TRENDING</div>
-                                <div className="flex items-center gap-1 justify-end">
-                                    <div className="text-xl font-bold text-white font-mono">
-                                        {rate.toFixed(1)}%
-                                    </div>
-                                </div>
-                            </motion.div>
 
-                            {/* Floating Live Offers Badge */}
-                            <div className="absolute -bottom-4 -left-4 z-20 px-5 py-3 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)] hidden md:block">
-                                <div className="text-[9px] font-mono text-slate-400 mb-1">LIVE_OFFERS</div>
-                                <div className="text-2xl font-bold text-white">
-                                    06<span className="text-xs text-emerald-400 ml-1">↑</span>
-                                </div>
-                            </div>
                         </div>
                     </motion.div>
                 </div>

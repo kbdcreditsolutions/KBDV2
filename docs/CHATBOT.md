@@ -1,39 +1,41 @@
 # KBD Credit Solutions — AI Chatbot Documentation
 
 > **System:** KBD AI Assistant  
-> **Type:** RAG (Retrieval-Augmented Generation) Chatbot  
-> **Engine:** Google Gemini 1.5 Flash via Vercel AI SDK  
-> **Last Updated:** 18 February 2026
+> **Type:** Intelligent Financial Assistant  
+> **Engine:** Google Gemini 2.0 Flash via Vercel AI SDK  
+> **Last Updated:** 21 April 2026
 
 ---
 
 ## 1. Quick Start
 
-The chatbot uses Google Gemini (High Intelligence, Free Tier) to provide intelligent responses based on the company's knowledge base.
+The chatbot uses **Google Gemini 2.0 Flash** to provide high-speed, intelligent responses based on the company's curated knowledge base.
 
 ### Prerequisites
 
-1.  **Environment Variables:** Ensure `.env` contains your Google API key:
+1.  **Environment Variables:** Ensure `.env` contains your Google AI key:
     ```bash
     GOOGLE_GENERATIVE_AI_API_KEY=AIzaSy...
     ```
 2.  **Dependencies:**
-    ```bash
-    npm install ai @ai-sdk/google
+    ```json
+    "ai": "^6.0.86",
+    "@ai-sdk/google": "^3.0.29",
+    "@ai-sdk/react": "^3.0.88"
     ```
 
 ### Running Locally
 
 ```bash
 npm run dev
-# Chatbot widget appears as a floating button on all pages
+# Chatbot widget appears as a floating bubble on the bottom-right
 ```
 
 ---
 
 ## 2. Architecture
 
-The system uses [Vercel AI SDK](https://sdk.vercel.ai/docs) to stream responses from Google Gemini.
+The system utilizes the **Vercel AI SDK** for high-performance streaming and UI state management.
 
 ```
 ┌──────────────────────────────┐      ┌──────────────────────────────┐
@@ -41,97 +43,69 @@ The system uses [Vercel AI SDK](https://sdk.vercel.ai/docs) to stream responses 
 │                              │      │                              │
 │   ┌──────────────────────┐   │      │   ┌──────────────────────┐   │
 │   │    ChatWidget        │   │ POST │   │    API Route         │   │
-│   │ (useChat hook)       │ ──┼──────┼─► │ (api/chat/route.ts)  │   │
-│   │  • Manages state     │   │ Stream│   │  • Inject Context    │   │
-│   │  • Renders stream    │ ◄─┼──────┼── │  • Call Google       │   │
+│   │  (useChat hook)      │ ──┼──────┼─► │ (api/chat/route.ts)  │   │
+│   │  • Animates stream   │   │ Stream│   │  • Injects Context   │   │
+│   │  • Persists history  │ ◄─┼──────┼── │  • Calls Gemini 2.0  │   │
 │   └──────────────────────┘   │      │   └──────────┬───────────┘   │
 └──────────────────────────────┘      └──────────────│───────────────┘
                                                      ▼
                                           ┌──────────────────────┐
-                                          │      Google API      │
-                                          │  (Gemini 1.5 Flash)  │
+                                          │      Google AI       │
+                                          │  (Gemini 2.0 Flash)  │
                                           └──────────────────────┘
 ```
 
-### Key Files
+### Key Components
 
 | File | Purpose |
 |------|---------|
-| `src/components/chat/chat-widget.tsx` | Frontend widget using `useChat` hook for streaming UI. |
-| `src/app/api/chat/route.ts` | Edge-compatible API route that streams LLM responses. |
-| `src/lib/chatbot-knowledge.ts` | System prompt containing company data (rates, products, etc). |
+| `src/components/chat/chat-widget.tsx` | Main UI component. Features include quick replies, streaming indicators, and session persistence. |
+| `src/app/api/chat/route.ts` | Edge-runtime route handling model communication and UI stream formatting. |
+| `src/lib/chatbot-knowledge.ts` | Centralized repository for all loan products, bank partners, and institutional guidelines. |
 
 ---
 
-## 3. Knowledge Base
+## 3. Features & User Experience
+
+### 🚀 Real-time Streaming
+Powered by the AI SDK, responses appear character-by-character, drastically reducing perceived latency.
+
+### 💾 Session Persistence
+Conversations are saved to `sessionStorage` (`kbd-chat-messages`). This allows users to browse different loan products on the site without losing their chat history.
+
+### ⚡ Quick Replies
+Pre-configured "chips" (e.g., "Personal Loan rates") appear when the chat is empty, helping users start the conversation with one tap.
+
+### 🎨 Premium Design
+- **Glassmorphism**: Translucent dark backgrounds with subtle borders.
+- **Animations**: Fluid transitions using `framer-motion`.
+- **Typing Indicator**: Animated bounce indicators while the AI is thinking.
+
+---
+
+## 4. Knowledge Management
 
 **File:** `src/lib/chatbot-knowledge.ts`
 
-This file exports a constant string `chatbotKnowledge` which serves as the **System Prompt**.
-
-### Content Structure
-- **Company Info:** Contact details, address.
-- **Loan Products:** Personal, Home, Business, Vehicle loans (Rates, Tenure).
-- **Bank Partners:** HDFC, SBI, ICICI, etc.
-- **Workflow:** Application steps, document requirements.
-
-**To update the chatbot's knowledge:**
-1. Edit `src/lib/chatbot-knowledge.ts`.
-2. Save the file.
-3. The next request will immediately use the new prompt context.
+The chatbot's personality and domain expertise are defined in a single constant string. This includes:
+- **Product Ranges**: Accurate interest rates for Personal, Home, and Business loans.
+- **Bank Logic**: Specific recommendations (e.g., HDFC for speed, SBI for rates).
+- **Steering**: Instructions to always guide users back to the **Loan Estimator** for formal calculations.
 
 ---
 
-## 4. Frontend Widget
+## 5. Maintenance Guidelines
 
-**File:** `src/components/chat/chat-widget.tsx`
+### Updating Interest Rates
+Edit the `chatbotKnowledge` constant in `src/lib/chatbot-knowledge.ts`. The changes are applied instantly without code recompilation.
 
-We use the `useChat` hook from `@ai-sdk/react` to handle the streaming of messages, while managing the input state manually for better control.
-
+### Switching AI Models
+In `src/app/api/chat/route.ts`, you can update the model identifier:
 ```typescript
-import { useChat } from '@ai-sdk/react';
-
-// Inside component
-const { messages, append, isLoading } = useChat({
-  api: '/api/chat',
-  initialMessages: [ ... ],
+const result = streamText({
+    model: google('gemini-2.0-flash'), // Switch to 'gemini-2.0-pro' if needed
+    ...
 });
-
-// Manual Input Management
-const [input, setInput] = useState('');
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    await append({ role: 'user', content: input });
-    setInput('');
-};
-```
-
-- **Streaming:** Characters appear in real-time as they are generated.
-- **History:** `useChat` automatically maintains conversation history.
-- **Manual Input:** We explicitly control the input field and submission handler to ensure stability.
-
----
-
-## 5. API Reference
-
-### `POST /api/chat`
-
-Handles the chat completion request.
-
-**Request Body:**
-```json
-{
-  "messages": [
-    { "role": "user", "content": "What are your home loan rates?" }
-  ]
-}
-```
-
-**Response:**
-- Returns a raw text stream (Server-Sent Events style) compatible with `useChat`.
-
----
-
 ## 6. Error Handling
 
 | Scenario | Behavior |
