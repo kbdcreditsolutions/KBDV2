@@ -24,6 +24,7 @@ export const navLinks = [
     { href: '/services/home-loan', label: 'Home Loan' },
     { href: '/services/cibil-repair', label: 'CIBIL Repair' },
     { href: '/estimator', label: 'EMI Calculator' },
+    { href: '/careers', label: 'Careers' },
 ];
 
 // Loan types
