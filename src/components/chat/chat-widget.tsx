@@ -39,9 +39,15 @@ export function ChatWidget() {
     const [isOpen, setIsOpen] = useState(false);
     const [initialMessages] = useState<Message[]>(loadStoredMessages);
 
-    const { messages, input, setInput, append, handleSubmit, isLoading, error } = useChat({
-        initialMessages,
-    });
+    const {
+        messages = [],
+        input = '',
+        setInput = () => {},
+        append = undefined,
+        handleSubmit = () => {},
+        isLoading = false,
+        error,
+    } = useChat({ initialMessages }) ?? {};
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -59,7 +65,9 @@ export function ChatWidget() {
     }, [messages, isLoading]);
 
     const handleQuickReply = (text: string) => {
-        append({ role: 'user', content: text });
+        if (typeof append === 'function') {
+            append({ role: 'user', content: text });
+        }
     };
 
     const showQuickReplies = messages.length === 0 && !isLoading;
