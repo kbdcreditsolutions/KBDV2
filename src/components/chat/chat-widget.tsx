@@ -203,7 +203,7 @@ export function ChatWidget() {
                             className="flex gap-2 p-3 border-t border-white/10 flex-shrink-0"
                         >
                             <input
-                                value={input}
+                                value={input ?? ''}
                                 onChange={(e) => setInput(e.target.value)}
                                 placeholder="Ask about loans..."
                                 disabled={isLoading}
@@ -213,7 +213,7 @@ export function ChatWidget() {
                             />
                             <button
                                 type="submit"
-                                disabled={isLoading || !input.trim()}
+                                disabled={isLoading || !(input ?? '').trim()}
                                 className="w-9 h-9 rounded-xl bg-[#FFC857] flex items-center justify-center text-[#050A18] disabled:opacity-40 transition-opacity flex-shrink-0 hover:bg-[#f0b800]"
                                 aria-label="Send message"
                             >
