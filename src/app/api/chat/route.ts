@@ -22,7 +22,7 @@ export async function POST(req: Request) {
             messages,
         });
 
-        return result.toDataStreamResponse();
+        return result.toUIMessageStreamResponse();
     } catch (error) {
         console.error('Chat API error:', error);
         return new Response(JSON.stringify({ 
