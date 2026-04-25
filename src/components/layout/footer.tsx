@@ -22,6 +22,7 @@ const footerLinks = {
     ],
     company: [
         { href: '/about', label: 'About Us' },
+        { href: '/our-history', label: 'Our History' },
         { href: '/partners', label: 'Bank Partners' },
         { href: '/assistance', label: 'How It Works' },
         { href: '/contact', label: 'Contact Us' },
