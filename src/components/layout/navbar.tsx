@@ -34,17 +34,17 @@ export const Navbar: React.FC = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // On homepage: transparent at top, dark when scrolled
-    // On all other pages: always dark background so white logo/text stays visible
-    const showDarkBg = isScrolled || !isHomepage;
+    // The header background and color changes ONLY trigger during scrolling.
+    const showHeaderBg = isScrolled;
+    const headerContentColor = showHeaderBg ? "text-slate-600" : "text-white/80";
 
     return (
         <>
             <header
                 className={cn(
                     'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-                    showDarkBg
-                        ? 'bg-primary/95 backdrop-blur-md border-b border-white/5'
+                    showHeaderBg
+                        ? 'bg-white/95 backdrop-blur-md border-b border-black/5 shadow-sm'
                         : 'bg-transparent'
                 )}
             >
@@ -52,11 +52,11 @@ export const Navbar: React.FC = () => {
                     <div className="flex h-20 lg:h-24 items-center justify-between">
                         {/* Logo */}
                         <Link href="/" className="flex items-center">
-                            <KBDLogo variant="full" theme="light" size="md" />
+                            <KBDLogo variant="full" theme={showHeaderBg ? "dark" : "light"} size="md" />
                         </Link>
 
                         {/* Desktop Navigation */}
-                        <div className="hidden lg:flex items-center space-x-10 text-[14px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                        <div className="hidden lg:flex items-center space-x-10 text-[14px] font-bold uppercase tracking-[0.2em]">
                             {navLinks.slice(0, 6).map((link) => {
                                 const isActive = pathname === link.href;
                                 return (
@@ -65,7 +65,11 @@ export const Navbar: React.FC = () => {
                                         href={link.href}
                                         className={cn(
                                             "transition-colors",
-                                            isActive ? "text-accent" : "hover:text-accent"
+                                            isActive 
+                                                ? "text-accent font-extrabold" 
+                                                : showHeaderBg
+                                                    ? "text-slate-600 hover:text-accent"
+                                                    : "text-white/80 hover:text-white"
                                         )}
                                     >
                                         {link.label}
@@ -75,14 +79,25 @@ export const Navbar: React.FC = () => {
                         </div>
 
                         {/* Desktop CTA */}
-                        <Link href="/partners/login" className="hidden lg:flex px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest text-white hover:border-accent transition-all border border-white/10 backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)]">
+                        <Link 
+                            href="/partners/login" 
+                            className={cn(
+                                "hidden lg:flex px-8 py-3 rounded-full text-[14px] font-bold uppercase tracking-[0.2em] transition-all border",
+                                showHeaderBg
+                                    ? "bg-slate-900 text-white border-slate-900 hover:bg-slate-800"
+                                    : "text-white border-white/10 backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)] hover:border-accent"
+                            )}
+                        >
                             Partner Login
                         </Link>
 
                         {/* Mobile Menu Button */}
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="lg:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors"
+                            className={cn(
+                                "lg:hidden p-2 rounded-lg transition-colors",
+                                showHeaderBg ? "text-slate-900 hover:bg-black/5" : "text-white hover:bg-white/10"
+                            )}
                             aria-label={isOpen ? 'Close menu' : 'Open menu'}
                             aria-expanded={isOpen}
                         >
