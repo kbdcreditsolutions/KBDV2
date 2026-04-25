@@ -14,9 +14,10 @@ import { KBDLogo } from '@/components/ui/kbd-logo';
 
 const footerLinks = {
     services: [
-        { href: '/loans?type=personal', label: 'Personal Loans' },
-        { href: '/loans?type=home', label: 'Home Loans' },
-        { href: '/loans?type=business', label: 'Business Loans' },
+        { href: '/services/personal-loan', label: 'Personal Loan' },
+        { href: '/services/home-loan', label: 'Home Loan' },
+        { href: '/services/business-loan', label: 'Business Loan' },
+        { href: '/services/cibil-repair', label: 'CIBIL Repair' },
         { href: '/estimator', label: 'EMI Calculator' },
     ],
     company: [
@@ -24,6 +25,7 @@ const footerLinks = {
         { href: '/partners', label: 'Bank Partners' },
         { href: '/assistance', label: 'How It Works' },
         { href: '/contact', label: 'Contact Us' },
+        { href: '/careers', label: 'Careers' },
     ],
     legal: [
         { href: '/privacy', label: 'Privacy Policy' },
