@@ -158,15 +158,19 @@ export const Navbar: React.FC = () => {
                         })}
                     </ul>
                     <div className="mt-8 space-y-3 pt-6 border-t border-white/10">
-                        <Link href="/partners/login" onClick={() => setIsOpen(false)}>
-                            <button className="w-full px-6 py-4 rounded-xl text-white font-bold text-sm uppercase tracking-wider border border-white/10 bg-white/5 hover:bg-white/10 transition-colors">
-                                Partner Login
-                            </button>
+                        <Link 
+                            href="/partners/login" 
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center justify-center w-full px-6 py-4 rounded-xl text-white font-bold text-sm uppercase tracking-wider border border-white/10 bg-white/5 hover:bg-white/10 transition-colors"
+                        >
+                            Partner Login
                         </Link>
-                        <Link href="/estimator" onClick={() => setIsOpen(false)}>
-                            <button className="w-full px-6 py-4 rounded-xl text-primary font-extrabold text-sm uppercase tracking-wider bg-[linear-gradient(180deg,rgba(255,255,255,0.3)_0%,rgba(255,255,255,0)_100%),var(--color-accent)] shadow-[0_4px_15px_rgba(252,163,17,0.3)]">
-                                Launch Estimator
-                            </button>
+                        <Link 
+                            href="/estimator" 
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center justify-center w-full px-6 py-4 rounded-xl text-primary font-extrabold text-sm uppercase tracking-wider bg-[linear-gradient(180deg,rgba(255,255,255,0.3)_0%,rgba(255,255,255,0)_100%),var(--color-accent)] shadow-[0_4px_15px_rgba(252,163,17,0.3)]"
+                        >
+                            Launch Estimator
                         </Link>
                     </div>
                 </nav>
