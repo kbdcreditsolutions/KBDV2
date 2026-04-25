@@ -4,7 +4,7 @@ export const siteConfig = {
     tagline: 'Empowering Your Finances',
     description: 'Compare loans from 120+ Banking Partners, get instant EMI estimates. Home loans from 8.4%, business loans up to ₹5 Cr. Trusted in Bangalore.',
     url: 'https://kbdcreditsolutions.in',
-    email: 'contact@kbdcreditsolutions.in',
+    email: 'info@kbdcreditsolutions.com',
     phone: '+91 6360681493',
     whatsapp: '+916360681493',
     address: 'Bangalore, Karnataka, India',

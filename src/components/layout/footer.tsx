@@ -17,7 +17,7 @@ const footerLinks = {
         { href: '/loans?type=personal', label: 'Personal Loans' },
         { href: '/loans?type=home', label: 'Home Loans' },
         { href: '/loans?type=business', label: 'Business Loans' },
-        { href: '/estimator', label: 'Loan Estimator' },
+        { href: '/estimator', label: 'EMI Calculator' },
     ],
     company: [
         { href: '/about', label: 'About Us' },
