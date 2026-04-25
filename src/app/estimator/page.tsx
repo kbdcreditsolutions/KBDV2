@@ -5,7 +5,7 @@ import { Navbar, Footer } from '@/components/layout';
 import { Slider } from "@/components/ui/slider";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { Shield, TrendingUp, CalendarClock, Activity, Home, User, Calculator, Briefcase, Download } from "lucide-react";
+import { CalendarClock, Activity, Home, User, Calculator, Briefcase, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 import { pdfService } from "@/lib/services/pdf-service";
@@ -611,15 +611,7 @@ export default function LoanDashboard() {
                     </div>
                 </div>
 
-                {/* Secure Badge below widget */}
-                <div className="mt-12 flex justify-center w-full z-20">
-                    <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-3 rounded-sm backdrop-blur-md">
-                        <TrendingUp className="w-4 h-4 text-emerald-400" />
-                        <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">
-                            Real-time RBI Rates &middot; Secure Terminal
-                        </span>
-                    </div>
-                </div>
+
 
                 {/* Schedule Modal */}
                 <Modal 
