@@ -36,7 +36,6 @@ export const Navbar: React.FC = () => {
 
     // The header background and color changes ONLY trigger during scrolling.
     const showHeaderBg = isScrolled;
-    const headerContentColor = showHeaderBg ? "text-slate-600" : "text-white/80";
 
     return (
         <>
