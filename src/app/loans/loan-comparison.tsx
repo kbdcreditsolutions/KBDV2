@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Section } from '@/components/layout';
 import { Card, CardContent, Badge, Button, Switch } from '@/components/ui';
 import { bankPartners } from '@/lib/constants';
-import { formatCurrency, formatPercentage } from '@/lib/utils';
+import { formatCurrency, formatPercentage, cn } from '@/lib/utils';
 import { ArrowRight, Filter, Clock, Percent, Building2, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
