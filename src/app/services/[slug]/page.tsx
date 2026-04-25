@@ -346,7 +346,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                                 transition={{ duration: 0.4, delay: i * 0.15 }}
                                 className="text-center relative"
                             >
-                                <div className={`text-5xl font-extrabold ${isPremium ? 'text-accent' : service.accentColor} opacity-20 mb-4`}>{item.step}</div>
+                                <div className={`text-5xl font-extrabold ${isPremium ? 'text-accent' : service.accentColor} opacity-60 mb-4`}>{item.step}</div>
                                 <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
                                 <p className="text-sm text-white/50 leading-relaxed">{item.desc}</p>
                                 {i < 2 && (
