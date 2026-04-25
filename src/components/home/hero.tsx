@@ -118,6 +118,18 @@ export const Hero: React.FC = () => {
                         transition={{ duration: 0.6 }}
                         className="lg:col-span-5 space-y-6 lg:space-y-8"
                     >
+                        {/* Story Badge */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-[#FFC857]/20 backdrop-blur-sm"
+                        >
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#FFC857] animate-pulse" />
+                            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-400">
+                                Est. 2023 · Bangalore&apos;s Trusted Credit Partner
+                            </span>
+                        </motion.div>
 
                         {/* Headline */}
                         <div className="space-y-2">
@@ -157,7 +169,52 @@ export const Hero: React.FC = () => {
                             </Link>
                         </div>
 
+                        {/* KBD Origin Story Strip */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                            className="relative border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm rounded-2xl p-5 space-y-4"
+                        >
+                            {/* Gold left accent line */}
+                            <div className="absolute left-0 top-6 bottom-6 w-[2px] bg-gradient-to-b from-[#FFC857]/0 via-[#FFC857]/60 to-[#FFC857]/0 rounded-full" />
+
+                            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#FFC857]/70 pl-1">
+                                Our Story
+                            </p>
+
+                            <p className="text-sm text-slate-300 leading-relaxed pl-1">
+                                Before KBD was founded, our team watched people walk away from banks
+                                not because they weren&apos;t eligible — but because they had{' '}
+                                <span className="text-white font-semibold">no one to guide them</span>.
+                                Loan rejections weren&apos;t about capability. They were about misalignment:
+                                wrong bank, wrong documents, wrong timing.
+                            </p>
+
+                            <p className="text-sm text-slate-300 leading-relaxed pl-1">
+                                So in <span className="text-[#FFC857] font-semibold">2023</span>, we asked a simple question:{' '}
+                                <span className="text-white italic">&ldquo;What if we could help people become eligible instead?&rdquo;</span>{' '}
+                                That insight — fix before you apply — became the foundation of KBD Credit Solutions.
+                            </p>
+
+                            <div className="flex items-center gap-2 pt-1 pl-1">
+                                <div className="flex -space-x-1.5">
+                                    {['#FFC857', '#a78bfa', '#34d399'].map((color, i) => (
+                                        <div
+                                            key={i}
+                                            className="w-6 h-6 rounded-full border-2 border-[#050A18]"
+                                            style={{ backgroundColor: color + '33', borderColor: color + '55' }}
+                                        />
+                                    ))}
+                                </div>
+                                <p className="text-[11px] text-slate-500 font-mono">
+                                    100+ banking partners · Bangalore & beyond
+                                </p>
+                            </div>
+                        </motion.div>
+
                     </motion.div>
+
 
                     {/* Right - Interactive Loan Estimator Widget */}
                     <motion.div
