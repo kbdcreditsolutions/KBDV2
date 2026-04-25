@@ -47,6 +47,11 @@ const services = {
         ],
         longDescription: 'At KBD Credit Solutions, we compare personal loan offers from 120+ Banking Partners to find you the lowest rate. Our tech professionals in Bangalore especially benefit from pre-approved limits at top banks.',
         relatedBlog: 'instant-personal-loans-tech',
+        steps: [
+            { step: '01', title: 'Share Your Profile', desc: 'Tell us your income, employer, and loan amount. Takes 2 minutes via estimator or WhatsApp.' },
+            { step: '02', title: 'We Match & Negotiate', desc: 'We compare personal loan offers from 120+ banks and negotiate the lowest rate for your profile.' },
+            { step: '03', title: 'Funds in 48 Hours', desc: 'Our case manager handles KYC, eSign, and bank coordination. Money hits your account in 24-48 hrs.' },
+        ],
     },
     'business-loan': {
         title: 'Business Loan',
@@ -83,6 +88,11 @@ const services = {
         ],
         longDescription: 'We\'ve processed 200+ MSME loans across Bangalore. From Mudra Shishu to CGTMSE-backed ₹5 Cr facilities, our team handles the entire bank negotiation process.',
         relatedBlog: 'msme-loans-growth',
+        steps: [
+            { step: '01', title: 'Share Business Details', desc: 'Tell us your turnover, GST registration, and loan purpose. We assess the best scheme — Mudra, CGTMSE, or GST-based.' },
+            { step: '02', title: 'We Structure the File', desc: 'Our team prepares your application for maximum approval chances across NBFCs and banks — simultaneously.' },
+            { step: '03', title: 'Sanctioned in 7 Days', desc: 'Once documents are ready, we coordinate with the lender\'s credit team and get your loan sanctioned fast.' },
+        ],
     },
     'home-loan': {
         title: 'Home Loan',
@@ -119,6 +129,11 @@ const services = {
         ],
         longDescription: 'A home loan is the biggest financial decision you\'ll make. We ensure you don\'t overpay by comparing across every major bank and HFC — and negotiating on your behalf.',
         relatedBlog: 'home-loan-prepayment-hack',
+        steps: [
+            { step: '01', title: 'Share Property & Income Details', desc: 'Tell us the property value, your income, and whether it\'s a new purchase, construction, or balance transfer.' },
+            { step: '02', title: 'We Compare All Banks & HFCs', desc: 'We get you competing offers from SBI, HDFC, LIC Housing, PNB Housing and negotiate the final rate down.' },
+            { step: '03', title: 'Legal Check to Disbursal', desc: 'We manage legal vetting, technical valuation, and bank coordination — you just sign the final documents.' },
+        ],
     },
     'cibil-repair': {
         title: 'CIBIL Repair',
@@ -155,7 +170,12 @@ const services = {
         ],
         longDescription: 'A low CIBIL score isn\'t a permanent stain. Our credit repair experts provide a data-driven roadmap to clear disputes, settle old debts, and build a profile that banks respect.',
         relatedBlog: 'home-loan-low-cibil',
-        cta: { label: 'Check Bureau Score', href: '/check-score' }
+        cta: { label: 'Check Bureau Score', href: '/check-score' },
+        steps: [
+            { step: '01', title: 'Full Credit Report Audit', desc: 'We pull your CIBIL, Experian & CRIF reports and identify every error, default, and dispute opportunity.' },
+            { step: '02', title: 'Custom 90-Day Action Plan', desc: 'We give you a week-by-week roadmap — disputes to file, dues to clear, and credit habits to build.' },
+            { step: '03', title: 'Score Rises. Loans Open Up.', desc: 'Bi-weekly monitoring tracks your progress. Most clients hit 750+ within 90 days — ready for any loan.' },
+        ],
     }
 };
 
@@ -319,11 +339,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                         <h2 className="text-3xl font-bold text-white mb-4">3 Steps to Your {service.title}</h2>
                     </div>
                     <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                        {[
-                            { step: '01', title: 'Tell Us Your Need', desc: 'Use our estimator or WhatsApp us your requirement. Takes 2 minutes.' },
-                            { step: '02', title: 'We Find the Best Offer', desc: 'We compare across 120+ Banking Partners and negotiate the lowest rate for your profile.' },
-                            { step: '03', title: 'Get Your Funds', desc: 'Dedicated case manager handles all paperwork. You just sign and receive.' },
-                        ].map((item, i) => (
+                        {service.steps.map((item, i) => (
                             <motion.div
                                 key={i}
                                 {...fadeIn}
