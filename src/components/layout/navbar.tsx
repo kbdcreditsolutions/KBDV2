@@ -43,7 +43,7 @@ export const Navbar: React.FC = () => {
                 className={cn(
                     'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
                     showHeaderBg
-                        ? 'bg-white/95 backdrop-blur-md border-b border-black/5 shadow-sm'
+                        ? 'bg-[#050A18]/95 backdrop-blur-md border-b border-white/10 shadow-lg'
                         : 'bg-transparent'
                 )}
             >
@@ -51,7 +51,7 @@ export const Navbar: React.FC = () => {
                     <div className="flex h-20 lg:h-24 items-center justify-between">
                         {/* Logo */}
                         <Link href="/" className="flex items-center">
-                            <KBDLogo variant="full" theme={showHeaderBg ? "dark" : "light"} size="md" />
+                            <KBDLogo variant="full" theme="light" size="md" />
                         </Link>
 
                         {/* Desktop Navigation */}
@@ -66,9 +66,7 @@ export const Navbar: React.FC = () => {
                                             "transition-colors",
                                             isActive 
                                                 ? "text-accent font-extrabold" 
-                                                : showHeaderBg
-                                                    ? "text-slate-600 hover:text-accent"
-                                                    : "text-white/80 hover:text-white"
+                                                : "text-white/80 hover:text-white"
                                         )}
                                     >
                                         {link.label}
@@ -81,10 +79,7 @@ export const Navbar: React.FC = () => {
                         <Link 
                             href="/partners/login" 
                             className={cn(
-                                "hidden lg:flex px-8 py-3 rounded-full text-[14px] font-bold uppercase tracking-[0.2em] transition-all border",
-                                showHeaderBg
-                                    ? "bg-slate-900 text-white border-slate-900 hover:bg-slate-800"
-                                    : "text-white border-white/10 backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)] hover:border-accent"
+                                "hidden lg:flex px-8 py-3 rounded-full text-[14px] font-bold uppercase tracking-[0.2em] transition-all border text-white border-white/10 backdrop-blur-md bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_100%),rgba(255,255,255,0.05)] hover:border-accent"
                             )}
                         >
                             Partner Login
@@ -94,8 +89,7 @@ export const Navbar: React.FC = () => {
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className={cn(
-                                "lg:hidden p-2 rounded-lg transition-colors",
-                                showHeaderBg ? "text-slate-900 hover:bg-black/5" : "text-white hover:bg-white/10"
+                                "lg:hidden p-2 rounded-lg transition-colors text-white hover:bg-white/10"
                             )}
                             aria-label={isOpen ? 'Close menu' : 'Open menu'}
                             aria-expanded={isOpen}
