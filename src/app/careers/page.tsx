@@ -67,7 +67,7 @@ export default function CareersPage() {
                                 transition={{ delay: 0.2 }}
                                 className="text-lg lg:text-xl text-slate-400 leading-relaxed mb-10 max-w-2xl"
                             >
-                                KBD Credit Solutions is scaling its next-generation hub. We're looking for operational rockstars to join our founding team and redefine finance for millions.
+                                KBD Credit Solutions is scaling its next-generation hub. We&apos;re looking for operational rockstars to join our founding team and redefine finance for millions.
                             </motion.p>
                         </div>
                     </div>
