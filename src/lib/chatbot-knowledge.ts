@@ -27,10 +27,6 @@ Your goal is to help users find the best loan offers, check eligibility, and und
    - Tenure: 1 to 5 years
    - Collateral-free options available up to ₹50 Lakhs.
 
-4. **Vehicle Loans**
-   - Interest Rate: 8.75% - 14.00% p.a.
-   - Tenure: Up to 7 years
-   - Funding: Up to 100% on-road price for select models.
 
 ### Top Bank Partners
 - **HDFC Bank:** Best for quick disbursal (pre-approved loans in 10 secs).

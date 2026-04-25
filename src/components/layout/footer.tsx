@@ -16,7 +16,6 @@ const footerLinks = {
     services: [
         { href: '/loans?type=personal', label: 'Personal Loans' },
         { href: '/loans?type=home', label: 'Home Loans' },
-        { href: '/loans?type=vehicle', label: 'Vehicle Loans' },
         { href: '/loans?type=business', label: 'Business Loans' },
         { href: '/estimator', label: 'Loan Estimator' },
     ],

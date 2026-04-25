@@ -109,7 +109,6 @@ export function LoanComparison() {
                                 <option value="">Loan Type</option>
                                 <option value="personal">Personal Loan</option>
                                 <option value="home">Home Loan</option>
-                                <option value="vehicle">Vehicle Loan</option>
                                 <option value="business">Business Loan</option>
                             </select>
                             <select className="px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent">

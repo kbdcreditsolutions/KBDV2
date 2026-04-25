@@ -655,7 +655,6 @@ export const blogPosts: BlogPost[] = [
                 <li><strong>Real Estate Agents:</strong> Every property sale needs a home loan — why send clients elsewhere?</li>
                 <li><strong>Insurance Agents:</strong> Your clients trust you with their financial planning. Add lending to your portfolio.</li>
                 <li><strong>Tax Consultants:</strong> ITR filing season is the perfect time to identify loan-eligible clients</li>
-                <li><strong>Auto Dealers:</strong> Vehicle financing is a natural add-on to every sale</li>
             </ul>
 
             <h2>What Sets KBD Apart from Other DSA Programs?</h2>

@@ -4,7 +4,7 @@ import { LoanComparison } from './loan-comparison';
 
 export const metadata: Metadata = {
     title: 'Compare Loans',
-    description: 'Compare personal, home, vehicle, and business loans from top Indian banks. Find the best interest rates and terms.',
+    description: 'Compare personal, home, and business loans from top Indian banks. Find the best interest rates and terms.',
 };
 
 export default function LoansPage() {

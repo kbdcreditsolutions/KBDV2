@@ -5,18 +5,17 @@ import { Navbar, Footer } from '@/components/layout';
 import { Slider } from "@/components/ui/slider";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { Shield, TrendingUp, CalendarClock, Activity, Home, User, Car, Calculator, Briefcase, Download } from "lucide-react";
+import { Shield, TrendingUp, CalendarClock, Activity, Home, User, Calculator, Briefcase, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 import { pdfService } from "@/lib/services/pdf-service";
 
-type LoanType = 'home' | 'personal' | 'vehicle' | 'business';
+type LoanType = 'home' | 'personal' | 'business';
 type TenureType = 'yr' | 'mo';
 
 const LOAN_CONSTRAINTS = {
     home:     { minAmt: 100000,  maxAmt: 100000000, stepAmt: 100000, minRate: 5,  maxRate: 20, minTenureYr: 1, maxTenureYr: 30, minTenureMo: 12, maxTenureMo: 360 },
     personal: { minAmt: 50000,   maxAmt: 5000000,   stepAmt: 10000,  minRate: 8,  maxRate: 24, minTenureYr: 1, maxTenureYr: 7,  minTenureMo: 12, maxTenureMo: 84  },
-    vehicle:  { minAmt: 100000,  maxAmt: 10000000,  stepAmt: 10000,  minRate: 7,  maxRate: 20, minTenureYr: 1, maxTenureYr: 8,  minTenureMo: 12, maxTenureMo: 96  },
     business: { minAmt: 100000,  maxAmt: 20000000,  stepAmt: 50000,  minRate: 12, maxRate: 22, minTenureYr: 1, maxTenureYr: 10, minTenureMo: 12, maxTenureMo: 120 },
 };
 
@@ -45,11 +44,6 @@ export default function LoanDashboard() {
         } else if (type === 'personal') {
             setAmount(500000);
             setRate(10.5);
-            setTenure(5);
-            setTenureType('yr');
-        } else if (type === 'vehicle') {
-            setAmount(800000);
-            setRate(9.5);
             setTenure(5);
             setTenureType('yr');
         } else if (type === 'business') {
@@ -225,7 +219,7 @@ export default function LoanDashboard() {
                         Estimate <span className="text-accent">Calculations</span>
                     </h1>
                     <p className="text-lg text-slate-400 max-w-2xl px-4">
-                        Adjust desired amounts, rates, and terms across Home, Personal, and Vehicle loans to project precise monthly commitments.
+                        Adjust desired amounts, rates, and terms across Home, Personal, and Business loans to project precise monthly commitments.
                     </p>
                 </motion.div>
 
@@ -253,13 +247,6 @@ export default function LoanDashboard() {
                                     Personal Loan
                                 </button>
                                 <button
-                                    onClick={() => handleLoanTypeChange('vehicle')}
-                                    className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'vehicle' ? 'bg-accent text-primary-dark' : 'text-slate-400 hover:text-white'}`}
-                                >
-                                    <Car className="w-4 h-4" />
-                                    Car Loan
-                                </button>
-                                <button
                                     onClick={() => handleLoanTypeChange('business')}
                                     className={`flex-1 py-2.5 text-xs font-bold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 rounded-lg ${loanType === 'business' ? 'bg-accent text-primary-dark' : 'text-slate-400 hover:text-white'}`}
                                 >
@@ -274,7 +261,7 @@ export default function LoanDashboard() {
                                 <div className="space-y-4">
                                     <div className="flex flex-col gap-3">
                                         <label className="text-xs font-mono uppercase tracking-widest text-slate-400">
-                                        {loanType === 'home' ? 'Home' : loanType === 'personal' ? 'Personal' : loanType === 'vehicle' ? 'Car' : 'Business'} Loan Amount
+                                        {loanType === 'home' ? 'Home' : loanType === 'personal' ? 'Personal' : 'Business'} Loan Amount
                                         </label>
                                         <div className="relative w-full sm:w-auto self-start">
                                             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 font-mono text-lg font-bold">₹</span>
