@@ -174,7 +174,7 @@ export const Hero: React.FC = () => {
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
-                            className="relative border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm rounded-2xl p-5 space-y-4 max-h-[320px] overflow-y-auto custom-scrollbar"
+                            className="relative border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm rounded-2xl px-5 pb-5 pt-0 space-y-4 max-h-[320px] overflow-y-auto custom-scrollbar"
                             style={{
                                 scrollbarWidth: 'thin',
                                 scrollbarColor: 'rgba(255, 200, 87, 0.3) transparent'
@@ -183,7 +183,7 @@ export const Hero: React.FC = () => {
                             {/* Gold left accent line */}
                             <div className="absolute left-0 top-6 bottom-6 w-[2px] bg-gradient-to-b from-[#FFC857]/0 via-[#FFC857]/60 to-[#FFC857]/0 rounded-full" />
 
-                            <div className="sticky top-0 bg-[#050A18]/80 backdrop-blur-md py-2 z-10 -mt-2 -mx-1 px-1 border-b border-white/5 mb-4">
+                            <div className="sticky top-0 bg-[#050A18]/95 backdrop-blur-md pt-5 pb-3 z-10 -mx-1 px-1 border-b border-white/5 mb-4">
                                 <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-[#FFC857] flex items-center gap-2">
                                     <span className="w-2 h-2 rounded-full bg-[#FFC857] animate-pulse"></span>
                                     Our Story
